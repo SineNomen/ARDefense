@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/GoogleARCore/Examples/AugmentedFaces/Scenes/AugmentedFaces.unity
     guid: 7d2be221c0e8f4e259a08279fab0da42
   - enabled: 1
-    path: Assets/GoogleARCore/Examples/ObjectManipulation/Scenes/ObjectManipulation.unity
+    path: Assets/GoogleARCore/Scenes/ObjectManipulation.unity
     guid: 9dba7e74f4d2b410f90b920f80528d44
   m_configObjects: {}
