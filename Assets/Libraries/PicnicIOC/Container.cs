@@ -396,6 +396,16 @@ namespace Sojourn.PicnicIOC {
 		}
 
 		/// <summary>
+		/// Registers an object to resolve the specified interface
+		/// </summary>
+		/// <typeparam name="T">Interface to register</typeparam>
+		/// <param name="object">Object of interface type</param>
+		/// <returns>IRegisteredType object</returns>
+		public static Container.IRegisteredType Register<T>(T obj) {
+			return Instance.Register(typeof(T), () => { return obj; });
+		}
+
+		/// <summary>
 		/// Registers a factory function which will be called to resolve the specified interface
 		/// </summary>
 		/// <typeparam name="T">Interface to register</typeparam>
