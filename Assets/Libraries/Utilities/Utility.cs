@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Sojourn.Utility {
-	public static class Utility {
+	public static class Utilities {
 		public static IPromise PromiseGroup(params IPromise[] promises) {
 			return new Promise().All(promises);
 		}

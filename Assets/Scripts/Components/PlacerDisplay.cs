@@ -1,3 +1,5 @@
+using Sojourn.ARDefense.Interfaces;
+using Sojourn.ARDefense.Components;
 using Sojourn.Extensions;
 using UnityEngine;
 using UnityEngine.UI;
