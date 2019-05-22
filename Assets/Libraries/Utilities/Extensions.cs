@@ -4,12 +4,19 @@ using DG.Tweening;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 
-namespace Extensions {
+namespace Sojourn.Extensions {
 	public static class TweenExtensions {
 		public static IPromise ToPromise(this Tween tween) {
 			Promise p = new Promise();
 			tween.OnComplete(p.Resolve);
 			return p;
+		}
+	}
+
+	public static class TransformExtensions {
+		public static void SetPose(this Transform tr, Pose pose) {
+			tr.position = pose.position;
+			tr.rotation = pose.rotation;
 		}
 	}
 
@@ -32,13 +39,8 @@ namespace Extensions {
 
 		public static IPromise Show(this CanvasGroup cg, float time) { return cg.ShowTween(time).ToPromise(); }
 		public static IPromise Hide(this CanvasGroup cg, float time) { return cg.HideTween(time).ToPromise(); }
-	}
 
-	public static class FloatExtensions {
-
-		public static Tween CountTo(this float f, float time) {
-			// return cg.DOFade(1.0f, time);
-			return null;
-		}
+		public static void ShowInstant(this CanvasGroup cg) { cg.SetBlocking(true); cg.alpha = 1.0f; }
+		public static void HideInstant(this CanvasGroup cg) { cg.SetBlocking(false); cg.alpha = 0.0f; }
 	}
 }

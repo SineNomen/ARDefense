@@ -1,5 +1,6 @@
 ﻿using Sojourn.PicnicIOC;
-using Extensions;
+using Sojourn.Extensions;
+using Sojourn.Utility;
 using UnityEngine;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
@@ -10,37 +11,66 @@ using GoogleARCore.Examples.Common;
 using TMPro;
 
 public class GameManager : MonoBehaviour, IGameManager {
+	[SerializeField]
+	private GameObject[] _debugObjects = null;
+	[SerializeField]
+	private ARCoreSession _arSession = null;
+	[SerializeField]
+	private Camera _deviceCamera = null;
 	[Tooltip("How big the ground plane must be for us to use it")]
 	[SerializeField]
 	private float _groundAreaThreshold = 3.0f;
 	[SerializeField]
 	private GameObject DetectedPlanePrefab = null;
 	[SerializeField]
-	private Reticule _reticule = null;
+	private GameObject BasePrefab = null;
 	[SerializeField]
 	private CanvasGroup _groundSetupUI = null;
 
-	public float MinGroundArea { get { return _groundAreaThreshold; } }
+	[AutoInject]
+	private IDisplayManager _displayManager = null;
+	[AutoInject]
+	private IObjectPlacer _objectPlacer = null;
+
+	public float MinGroundArea { get => _groundAreaThreshold; }
 	public DetectedPlane GroundPlane { get; private set; }
 	public DetectedPlaneVisualizer GroundPlaneVisualizer { get; private set; }
 
-	private void Start() {
-		Container.Register<IGameManager>(this);
-		StartNewGame().Then(() => { Debug.LogErrorFormat("Found the ground, area: {0}", GroundPlane.Area); });
+	public ARCoreSession ArSession { get => _arSession; }
+	public Camera DeviceCamera { get => _deviceCamera; }
+	private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
+
+	private void Awake() {
+		Container.Register<IGameManager>(this).AsSingleton();
 	}
 
+	private void Start() {
+		Container.AutoInject(this);
+		//`Mat hack for now
+		StartNewGame();
+	}
 
 	//grab the new ones and put them in a hashset
-
 	public IPromise StartNewGame() {
-		return SetupGround()
-		.Chain(PlaceBase);
+		return _displayManager.PushDefault()
+		.Chain(SetupGround)
+		.Then(() => {
+			foreach (GameObject go in _debugObjects) {
+				go.SetActive(false);
+			}
+		})
+		.Chain(PlaceBase)
+		.Then(delegate (GameObject obj) { Debug.LogErrorFormat("Base Placed: {0}", obj.transform.position); })
+		.Then(() => { Debug.LogError("Setup complete!"); });
 	}
 
-	public IPromise PlaceBase() {
-		Promise p = new Promise();
-		//just put it in the middle for now
-		return p;
+	public IPromise<GameObject> PlaceBase() {
+		Debug.LogError("Place Base");
+		return _objectPlacer.PlaceObjectOnGround(BasePrefab);
+		// Promise p = new Promise();
+		// //just put it in the middle for now, later, use a Placer class, same as for turrets
+		// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);
+		// return p;
 	}
 
 	public IPromise SetupGround() {
@@ -53,7 +83,7 @@ public class GameManager : MonoBehaviour, IGameManager {
 		List<DetectedPlane> planes = new List<DetectedPlane>();
 		HashSet<DetectedPlane> planeSet = new HashSet<DetectedPlane>();
 		_groundSetupUI.Show(0.25f);
-		_reticule.SetReload(0.0f);
+		Reticule.SetReload(0.0f);
 		while (GroundPlane == null || GroundPlane.Area < _groundAreaThreshold) {
 			Session.GetTrackables<DetectedPlane>(planes, TrackableQueryFilter.New);
 			foreach (DetectedPlane p in planes) { planeSet.Add(p); }
@@ -74,13 +104,19 @@ public class GameManager : MonoBehaviour, IGameManager {
 				}
 
 				float percent = GroundPlane.Area / _groundAreaThreshold;
-				_reticule.SetReload(percent);
+				Reticule.SetReload(percent);
 			}
 
 			yield return null;
+			if (GroundPlane != null) {
+				Debug.LogFormat("Plane Area: {0}", GroundPlane.Area);
+			}
 		}
-		// Debug.LogErrorFormat("Found Ground, area: {0}", GroundPlane.Area);
-		_groundSetupUI.Hide(0.25f)
+		Debug.LogErrorFormat("Found Ground, area: {0}", GroundPlane.Area);
+		Utility.PromiseGroup(
+			_groundSetupUI.Hide(0.25f),
+			Reticule.StartReload()
+		)
 		.Then(promise.Resolve);
 	}
 }

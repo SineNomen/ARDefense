@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Extensions;
+using Sojourn.PicnicIOC;
+using Sojourn.Extensions;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections;
@@ -24,10 +25,24 @@ public class Reticule : MonoBehaviour {
 	[Tooltip("How many seconds after firing until reoad starts (0 for never)")]
 	private float _reloadDelay = 0.0f;
 
+	[AutoInject]
+	private IGameManager _gameManager = null;
+
+	private RectTransform _rect;
 	private CanvasGroup _group;
+	public Vector2 ScreenPosition {
+		get {
+			return RectTransformUtility.WorldToScreenPoint(_gameManager.DeviceCamera, this.transform.position); ;
+		}
+	}
 
 	private void Awake() {
 		_group = GetComponent<CanvasGroup>();
+		_rect = GetComponent<RectTransform>();
+	}
+
+	private void Start() {
+		Container.Inject(this);
 	}
 
 	public void OnFire() {

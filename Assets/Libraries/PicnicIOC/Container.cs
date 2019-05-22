@@ -102,7 +102,13 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		/// <param name="type">Type as registered with the container</param>
 		/// <returns>Instance of the registered type</returns>
-		public object GetService(Type type) => _registeredTypes[type](_lifetime);
+		public object GetService(Type type) {
+			Func<ILifetime, object> val = null;
+			if (_registeredTypes.TryGetValue(type, out val)) {
+				return _registeredTypes[type](_lifetime);
+			}
+			return null;
+		}
 
 		/// <summary>
 		/// Creates a new scope
@@ -225,7 +231,7 @@ namespace Sojourn.PicnicIOC {
 		#endregion
 
 		/// <summary>
-		/// Registers and object to have it's properties auto-injected henever register is called
+		/// Registers and object to have it's properties auto-injected whenever register is called
 		/// </summary>
 		/// <param name="obj">Object to inject</param>
 		/// <summary>
@@ -322,7 +328,7 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		/// <param name="obj">Object to inject</param>
 		public void InjectObject(Object obj) {
-			UnityEngine.Debug.LogWarningFormat("Inject: {0}", obj);
+			UnityEngine.Debug.LogFormat("Inject: {0}", obj);
 			System.Type type = obj.GetType();
 			TypeData data = Instance.GetTypeData(obj.GetType());
 
@@ -346,6 +352,7 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		/// <param name="obj">Object to inject</param>
 		public void AutoInjectObject(Object obj) {
+			UnityEngine.Debug.LogFormat("AutoInject: {0}", obj);
 			System.Type type = obj.GetType();
 			TypeData data = Instance.GetAutoTypeData(obj.GetType());
 
@@ -367,11 +374,13 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		public static void Inject(Object obj) {
 			Instance.InjectObject(obj);
+			Instance.AutoInjectObject(obj);
 		}
 		/// <summary>
-		/// Static version ofn Inject
+		/// Static version of Inject
 		/// </summary>
 		public static void AutoInject(Object obj) {
+			// Instance.InjectObject(obj);
 			Instance.AutoInjectObject(obj);
 		}
 
