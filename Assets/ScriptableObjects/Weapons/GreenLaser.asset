@@ -23,5 +23,5 @@ MonoBehaviour:
   _delayBetweenProjectiles: 0
   _projectileOffsets: []
   _maxAmmo: -1
-  _speed: 150
+  _speed: 300
   _projectileLifetime: 10
