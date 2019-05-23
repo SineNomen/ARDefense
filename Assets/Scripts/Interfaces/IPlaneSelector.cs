@@ -6,10 +6,8 @@ using GoogleARCore.Examples.Common;
 using Sojourn.ARDefense.Components;
 
 namespace Sojourn.ARDefense.Interfaces {
-	public interface IGameManager {
-		DetectedPlane GroundPlane { get; }
-		ARCoreSession ArSession { get; }
-		Camera DeviceCamera { get; }
-		IPromise StartNewGame();
+	public interface IPlaneSelector {
+		float MinGroundArea { get; }
+		IPromise<DetectedPlane> SelectPlane();
 	}
 }

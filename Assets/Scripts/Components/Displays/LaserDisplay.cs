@@ -15,12 +15,10 @@ public class LaserDisplay : SimpleDisplay, IDisplay {
 	[SerializeField]
 	private Button _fireButton = null;
 
-	public Button PlaceButton { get => _fireButton; }
-
 	[AutoInject]
-	private IPlayer _player1;
+	private IPlayer _player1 = null;
 
-	private void Start() {
+	protected override void Start() {
 		base.Start();
 		_fireButton.onClick.AddListener(FireCannon);
 	}

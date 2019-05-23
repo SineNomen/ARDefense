@@ -12,10 +12,10 @@ namespace Sojourn.ARDefense.ScriptableObjects {
 	public class Weapon : ScriptableObject {
 		[SerializeField]
 		[Tooltip("The projectile that is fire")]
-		private GameObject projectilePrefab;
+		private GameObject projectilePrefab = null;
 		[SerializeField]
 		[Tooltip("The display used for this weapon")]
-		private GameObject displayPrefab;
+		private GameObject displayPrefab = null;
 
 		[SerializeField]
 		[Tooltip("How much damage each projectile deals")]

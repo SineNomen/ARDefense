@@ -73,6 +73,5 @@ namespace Sojourn.ARDefense.Components {
 			yield return StartCoroutine(co);
 			p.Resolve();
 		}
-
 	}
 }

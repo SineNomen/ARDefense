@@ -15,7 +15,7 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IGameManager _gameManager;
 		[AutoInject]
-		private IPlayer _player;
+		private IPlayer _player = null;
 
 		private eKillableTeam _team = eKillableTeam.Player1;
 		[SerializeField]

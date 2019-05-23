@@ -32,7 +32,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void Start() {
-			Container.Inject(this);
+			Container.AutoInject(this);
 		}
 
 		public IPromise<GameObject> PlaceObjectOnGround(GameObject prefab) {

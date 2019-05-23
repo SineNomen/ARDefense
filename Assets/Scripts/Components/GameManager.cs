@@ -10,7 +10,6 @@ using System.Collections;
 using System.Collections.Generic;
 using GoogleARCore;
 using GoogleARCore.Examples.Common;
-using TMPro;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {
@@ -20,17 +19,12 @@ namespace Sojourn.ARDefense.Components {
 		private ARCoreSession _arSession = null;
 		[SerializeField]
 		private Camera _deviceCamera = null;
-		[Tooltip("How big the ground plane must be for us to use it")]
 		[SerializeField]
-		private float _groundAreaThreshold = 3.0f;
-		[SerializeField]
-		private GameObject DetectedPlanePrefab = null;
-		[SerializeField]
-		private GameObject BasePrefab = null;
-		[SerializeField]
-		private CanvasGroup _groundSetupUI = null;
+		private GameObject _basePrefab = null;
 		[SerializeField]
 		private Weapon[] _testWeapons = null;
+		[SerializeField]
+		private GameObject _weaponObject = null;
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
@@ -38,32 +32,38 @@ namespace Sojourn.ARDefense.Components {
 		private IObjectPlacer _objectPlacer = null;
 		[AutoInject]
 		private IPlayer _player1 = null;
-
-		public float MinGroundArea { get => _groundAreaThreshold; }
-		public DetectedPlane GroundPlane { get; private set; }
-		public DetectedPlaneVisualizer GroundPlaneVisualizer { get; private set; }
+		[AutoInject]
+		private IPlaneSelector _planeSelector = null;
 
 		public ARCoreSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
 		private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
+
+		public DetectedPlane GroundPlane { get; private set; }
 
 		private void Awake() {
 			Container.Register<IGameManager>(this).AsSingleton();
 		}
 
 		private void Start() {
+			_weaponObject.SetActive(false);
 			Container.AutoInject(this);
 			//`Mat hack for now
 			StartNewGame()
 			.Then(() => {
+				_weaponObject.SetActive(true);
 				DEBUG_SetWeapon(0);
 			});
 		}
 
 		//grab the new ones and put them in a hashset
 		public IPromise StartNewGame() {
-			return _displayManager.PushDefault()
-			.Chain(SetupGround)
+			return _planeSelector.SelectPlane()
+			.Then((DetectedPlane plane) => {
+				Debug.LogErrorFormat("Plane Selected: {0}", plane);
+				GroundPlane = plane;
+			}
+			)
 			.Then(() => {
 				foreach (GameObject go in _debugObjects) {
 					go.SetActive(false);
@@ -84,58 +84,11 @@ namespace Sojourn.ARDefense.Components {
 
 		public IPromise<GameObject> PlaceBase() {
 			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObjectOnGround(BasePrefab);
+			return _objectPlacer.PlaceObjectOnGround(_basePrefab);
 			// Promise p = new Promise();
 			// //just put it in the middle for now, later, use a Placer class, same as for turrets
 			// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);
 			// return p;
-		}
-
-		public IPromise SetupGround() {
-			Promise p = new Promise();
-			StartCoroutine(FindGround(p));
-			return p;
-		}
-
-		private IEnumerator FindGround(IPromise promise) {
-			List<DetectedPlane> planes = new List<DetectedPlane>();
-			HashSet<DetectedPlane> planeSet = new HashSet<DetectedPlane>();
-			_groundSetupUI.Show(0.25f);
-			Reticule.SetReload(0.0f);
-			while (GroundPlane == null || GroundPlane.Area < _groundAreaThreshold) {
-				Session.GetTrackables<DetectedPlane>(planes, TrackableQueryFilter.New);
-				foreach (DetectedPlane p in planes) { planeSet.Add(p); }
-
-				foreach (DetectedPlane plane in planeSet) {
-					if (GroundPlane == null || GroundPlane.Area < plane.Area) {
-						Debug.LogFormat("Switching to new Plane with Area {0}", plane.Area);
-						if (GroundPlaneVisualizer != null) {
-							Destroy(GroundPlaneVisualizer.gameObject);
-						}
-						GroundPlane = plane;
-
-						GameObject planeObject = Instantiate(DetectedPlanePrefab, Vector3.zero, Quaternion.identity, transform);
-						GroundPlaneVisualizer = planeObject.GetComponent<DetectedPlaneVisualizer>();
-						GroundPlaneVisualizer.Initialize(plane);
-					} else {
-						//after some time, tell the user to move more so as to geta bigger plane
-					}
-
-					float percent = GroundPlane.Area / _groundAreaThreshold;
-					Reticule.SetReload(percent);
-				}
-
-				yield return null;
-				if (GroundPlane != null) {
-					Debug.LogFormat("Plane Area: {0}", GroundPlane.Area);
-				}
-			}
-			Debug.LogErrorFormat("Found Ground, area: {0}", GroundPlane.Area);
-			Utilities.PromiseGroup(
-				_groundSetupUI.Hide(0.25f),
-				Reticule.Reload()
-			)
-			.Then(promise.Resolve);
 		}
 	}
 }

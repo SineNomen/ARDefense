@@ -21,9 +21,9 @@ has a team
 namespace Sojourn.ARDefense.Components {
 	public class SimpleProjectile : MonoBehaviour, IProjectile {
 		[SerializeField]
-		private Collider _collider;
+		private Collider _collider = null;
 		[SerializeField]
-		private Rigidbody _body;
+		private Rigidbody _body = null;
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;
 

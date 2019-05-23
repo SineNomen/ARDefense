@@ -17,6 +17,7 @@
 //
 // </copyright>
 //-----------------------------------------------------------------------
+using GoogleARCore.Examples.Common;
 
 namespace GoogleARCore {
 	using System;
@@ -44,6 +45,8 @@ namespace GoogleARCore {
 		/// Gets a reference to the plane subsuming this plane, if any. If not null, only the
 		/// subsuming plane should be considered valid for rendering.
 		/// </summary>
+		public DetectedPlaneVisualizer Visualizer { get; set; }
+
 		public DetectedPlane SubsumedBy {
 			get {
 				if (_IsSessionDestroyed()) {

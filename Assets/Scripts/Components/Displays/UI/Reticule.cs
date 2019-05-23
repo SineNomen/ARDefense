@@ -17,6 +17,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private Image _reloadMeter = null;
 		[SerializeField]
+		private CanvasGroup _highlightGroup = null;
+		[SerializeField]
 		private TMP_Text _reloadPercentage = null;
 		// [SerializeField]
 		// private Image _reloadFill = null;
@@ -62,6 +64,9 @@ namespace Sojourn.ARDefense.Components {
 			_reloadMeter.fillAmount = 0.0f;
 			Reload();
 		}
+
+		public IPromise ShowHighlight(float time = 0.1f) { return _highlightGroup.Show(time); }
+		public IPromise HideHighlight(float time = 0.1f) { return _highlightGroup.Hide(time); }
 
 		public IPromise Unload() {
 			float time = 0.1f;

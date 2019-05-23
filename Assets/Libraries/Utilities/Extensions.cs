@@ -3,8 +3,38 @@ using UnityEngine.UI;
 using DG.Tweening;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Sojourn.Extensions {
+	public static class MonoBehaviourExtensions {
+		public static IPromise StartCoroutineAsPromise(this MonoBehaviour mb, IEnumerator co) {
+			Promise p = new Promise();
+			mb.StartCoroutine(mb.Runner(co, p));
+			return p;
+		}
+
+		public static IEnumerator Runner(this MonoBehaviour mb, IEnumerator co, IPromise p) {
+			yield return mb.StartCoroutine(co);
+			p.Resolve();
+		}
+
+		public static IPromise<T> StartCoroutineAsPromise<T>(this MonoBehaviour mb, IEnumerator co) {
+			Promise<T> p = new Promise<T>();
+			mb.StartCoroutine(mb.Runner<T>(co, p));
+			return p;
+		}
+
+		public static IEnumerator Runner<T>(this MonoBehaviour mb, IEnumerator co, IPromise<T> p) {
+			T ret = default(T);
+			while (co.MoveNext()) {
+				ret = (T)co.Current;
+				yield return default(T);
+			}
+			p.Resolve(ret);
+		}
+	}
+
 	public static class TweenExtensions {
 		public static IPromise ToPromise(this Tween tween) {
 			Promise p = new Promise();
