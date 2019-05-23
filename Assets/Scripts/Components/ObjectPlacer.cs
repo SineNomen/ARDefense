@@ -25,7 +25,6 @@ namespace Sojourn.ARDefense.Components {
 		private GameObject _placeObject = null;
 		private IPromise<GameObject> _placePromise = null;
 		private Coroutine _placeCoroutine = null;
-		private Anchor _lastAnchor = null;
 
 		private void Awake() {
 			Container.Register<IObjectPlacer>(this).AsSingleton();

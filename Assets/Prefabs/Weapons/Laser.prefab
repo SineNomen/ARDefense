@@ -52,6 +52,8 @@ MonoBehaviour:
   _collider: {fileID: 9006872713617240349}
   _body: {fileID: 8360886589632314988}
   _team: 0
+  _maxHealth: 1
+  _collisionDamageGiven: 1
 --- !u!65 &9006872713617240349
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +82,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!23 &2356442
 MeshRenderer:
   m_ObjectHideFlags: 0

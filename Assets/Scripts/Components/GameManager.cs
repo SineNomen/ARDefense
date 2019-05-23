@@ -74,6 +74,10 @@ namespace Sojourn.ARDefense.Components {
 			.Then(() => { Debug.LogError("Setup complete!"); });
 		}
 
+		public void OnPlayerKilled() {
+			Debug.LogError("Game Over!");
+		}
+
 		public void DEBUG_SetWeapon(int index) {
 			Weapon weapon = _testWeapons[index];
 			_player1.CurrentWeapon = _testWeapons[index];

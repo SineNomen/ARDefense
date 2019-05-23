@@ -11,5 +11,6 @@ namespace Sojourn.ARDefense.Interfaces {
 		ARCoreSession ArSession { get; }
 		Camera DeviceCamera { get; }
 		IPromise StartNewGame();
+		void OnPlayerKilled();
 	}
 }
