@@ -147,7 +147,7 @@ namespace Sojourn.ARDefense.Components {
 			_setupUI.Hide(0.25f);
 			plane.Visualizer.SetColor(Color.gray);
 			foreach (DetectedPlane p in _planes) {
-				if (p != plane) {
+				if (p != plane && p.Visualizer != null) {
 					Destroy(p.Visualizer.gameObject);
 				}
 			}

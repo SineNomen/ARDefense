@@ -105,11 +105,20 @@ namespace GoogleARCore {
 		}
 
 		/// <summary>
-		/// Gets the extent of the plane in the Z dimension, centered on the plane position.
+		/// Gets the extent area of the planecentered on the plane position.
 		/// </summary>
 		public float Area {
 			get {
 				return ExtentZ * ExtentX;
+			}
+		}
+
+		/// <summary>
+		/// Gets a Unity Plane
+		/// </summary>
+		public Plane Plane {
+			get {
+				return new Plane(CenterPose.up, CenterPose.position);
 			}
 		}
 

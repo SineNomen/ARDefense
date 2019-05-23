@@ -84,7 +84,7 @@ namespace Sojourn.ARDefense.Components {
 
 		public IPromise<GameObject> PlaceBase() {
 			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObjectOnGround(_basePrefab);
+			return _objectPlacer.PlaceObjectOnPlane(_basePrefab, GroundPlane);
 			// Promise p = new Promise();
 			// //just put it in the middle for now, later, use a Placer class, same as for turrets
 			// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);
