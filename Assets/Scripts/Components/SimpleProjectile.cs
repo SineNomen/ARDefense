@@ -17,35 +17,28 @@ Is damagable
 has a team
 
 */
-
 namespace Sojourn.ARDefense.Components {
-	public class SimpleProjectile : MonoBehaviour, IProjectile, IKillable {
-		[SerializeField]
-		private Collider _collider = null;
+	[RequireComponent(typeof(SimpleKillable))]
+	public class SimpleProjectile : MonoBehaviour, IProjectile {
 		[SerializeField]
 		private Rigidbody _body = null;
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;
-		[SerializeField]
-		private int _maxHealth = 1;
-		private int _currentHealth;
-		[SerializeField]
-		private int _collisionDamageGiven = 1;
+		private SimpleKillable _killable = null;
+
 
 		public eKillableTeam Team { get => _team; set => _team = value; }
-		public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
-		public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
-		public int CollisionDamageGiven { get => _collisionDamageGiven; set => _collisionDamageGiven = value; }
 
-		public GameObject GameObject { get => this.gameObject; }
 		public Transform Transform { get => this.transform; }
 		public Weapon Weapon { get; set; }
 		public Rigidbody Body { get => _body; }
-		public Collider Collider { get => _collider; set => _collider = value; }
 
-		private void Start() {
-			_currentHealth = _maxHealth;
+		private void Awake() {
+			_killable = GetComponent<SimpleKillable>();
 		}
+
+		// private void Start() {
+		// }
 
 		public void OnFire() {
 			Invoke("Destroy", Weapon.ProjectileLifetime);
@@ -58,24 +51,9 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
-		private void OnCollisionEnter(Collision collision) {
-			Debug.LogFormat("{0} Collided with {0}", this.gameObject, collision.gameObject);
-			OnHit(collision.gameObject);
+		public void OnKilled(IKillable us) {
+			Destroy(this.gameObject);
 		}
-
-		private void OnTriggerEnter(Collider collider) {
-			Debug.LogFormat("{0} Hit {0}", this.gameObject, collider.gameObject);
-			OnHit(collider.gameObject);
-		}
-
-		public void OnHit(GameObject go) {
-			IKillable killable = go.gameObject.GetComponent<IKillable>();
-			if (killable != null && killable.Team != Team) {
-				_currentHealth -= killable.CollisionDamageGiven;
-				if (_currentHealth <= 0) {
-					Destroy(this.GameObject);
-				}
-			}
-		}
+		public void OnDamaged(IKillable us) { }
 	}
 }

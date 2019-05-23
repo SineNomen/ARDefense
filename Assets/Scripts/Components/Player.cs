@@ -17,30 +17,15 @@ Is damagable
 has a team
 
 */
-
 namespace Sojourn.ARDefense.Components {
-	public class Player : MonoBehaviour, IPlayer, IKillable {
+	[RequireComponent(typeof(SimpleKillable))]
+	public class Player : MonoBehaviour, IPlayer {
 		[SerializeField]
 		private Cannon _cannon = null;
-
-		[SerializeField]
-		private eKillableTeam _team = eKillableTeam.Player1;
-		[SerializeField]
-		private int _maxHealth = 100;
-		private int _currentHealth;
-		[SerializeField]
-		private int _collisionDamageGiven = 100;
-
-		public eKillableTeam Team { get => _team; set => _team = value; }
-		public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }
-		public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
-		public int CollisionDamageGiven { get => _collisionDamageGiven; set => _collisionDamageGiven = value; }
 		public Weapon CurrentWeapon { get; set; }
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
-
-		private Collider _collider;
 
 		private void Awake() {
 			Container.Register<IPlayer>(this).AsSingleton();
@@ -48,51 +33,22 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
-			_currentHealth = _maxHealth;
-			_collider = GetComponent<Collider>();
 		}
-
-		// private void OnCollisionEnter(Collision collision) {
-		// 	Debug.LogFormat("Collider Enter: {0}", collision.gameObject);
-		// }
-
 
 		public IPromise RequestFireCannon() {
 			if (_cannon.ReadyToFire) {
-				return StartCoroutineAsPromise(_cannon.Fire());
+				return this.StartCoroutineAsPromise(_cannon.Fire());
 			}
 			return null;
 		}
 
-		private IPromise StartCoroutineAsPromise(IEnumerator co) {
-			Promise p = new Promise();
-			StartCoroutine(Runner(co, p));
-			return p;
+		public void OnKilled(IKillable us) {
+			_gameManager.OnPlayerKilled();
+			Destroy(this.gameObject);
 		}
 
-		private IEnumerator Runner(IEnumerator co, IPromise p) {
-			yield return StartCoroutine(co);
-			p.Resolve();
-		}
-
-		private void OnCollisionEnter(Collision collision) {
-			Debug.LogFormat("{0} Collided with {0}", this.gameObject, collision.gameObject);
-			OnHit(collision.gameObject);
-		}
-
-		private void OnTriggerEnter(Collider collider) {
-			Debug.LogFormat("{0} Hit {0}", this.gameObject, collider.gameObject);
-			OnHit(collider.gameObject);
-		}
-
-		public void OnHit(GameObject go) {
-			IKillable killable = go.gameObject.GetComponent<IKillable>();
-			if (killable != null && killable.Team != Team) {
-				_currentHealth -= killable.CollisionDamageGiven;
-				if (_currentHealth <= 0) {
-					_gameManager.OnPlayerKilled();
-				}
-			}
+		public void OnDamaged(IKillable us) {
+			//flash red or something
 		}
 	}
 }

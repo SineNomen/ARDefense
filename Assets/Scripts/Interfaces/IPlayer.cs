@@ -4,9 +4,7 @@ using Sojourn.ARDefense.Interfaces;
 
 namespace Sojourn.ARDefense.Interfaces {
 	interface IPlayer {
-		eKillableTeam Team { get; }
-		int MaxHealth { get; }
-		int CurrentHealth { get; }
+		// eKillableTeam Team { get; }
 		Weapon CurrentWeapon { get; set; }
 		IPromise RequestFireCannon();
 	}

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace Sojourn.ARDefense.Interfaces {
 	interface IProjectile {
-		GameObject GameObject { get; }
 		Transform Transform { get; }
 		eKillableTeam Team { get; set; }
 		Weapon Weapon { get; set; }
