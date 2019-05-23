@@ -128,7 +128,9 @@ namespace Sojourn.ARDefense.Components {
 						yield break;
 					} else {
 						//show that we need a bigger plane
-						_tooSmallUI.Show(0.25f);
+						_tooSmallUI.Show(0.25f)
+						.Chain<float>(this.Wait, 5.0f)
+						.Chain<float>(_tooSmallUI.Hide, 0.25f);
 					}
 				}
 				_chooseButtonPressed = false;

@@ -33,6 +33,17 @@ namespace Sojourn.Extensions {
 			}
 			p.Resolve(ret);
 		}
+
+		public static IPromise Wait(this MonoBehaviour mb, float time) {
+			Promise p = new Promise();
+			mb.StartCoroutine(mb.WaitCoroutine(time, p));
+			return p;
+		}
+
+		public static IEnumerator WaitCoroutine(this MonoBehaviour mb, float time, IPromise p) {
+			yield return new WaitForSeconds(time);
+			p.Resolve();
+		}
 	}
 
 	public static class TweenExtensions {
