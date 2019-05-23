@@ -2,6 +2,7 @@
 using Sojourn.Extensions;
 using Sojourn.Utility;
 using Sojourn.ARDefense.Interfaces;
+using Sojourn.ARDefense.ScriptableObjects;
 using UnityEngine;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
@@ -28,11 +29,15 @@ namespace Sojourn.ARDefense.Components {
 		private GameObject BasePrefab = null;
 		[SerializeField]
 		private CanvasGroup _groundSetupUI = null;
+		[SerializeField]
+		private Weapon[] _testWeapons = null;
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
 		[AutoInject]
 		private IObjectPlacer _objectPlacer = null;
+		[AutoInject]
+		private IPlayer _player1 = null;
 
 		public float MinGroundArea { get => _groundAreaThreshold; }
 		public DetectedPlane GroundPlane { get; private set; }
@@ -49,7 +54,10 @@ namespace Sojourn.ARDefense.Components {
 		private void Start() {
 			Container.AutoInject(this);
 			//`Mat hack for now
-			StartNewGame();
+			StartNewGame()
+			.Then(() => {
+				DEBUG_SetWeapon(0);
+			});
 		}
 
 		//grab the new ones and put them in a hashset
@@ -65,6 +73,14 @@ namespace Sojourn.ARDefense.Components {
 			.Then(delegate (GameObject obj) { Debug.LogErrorFormat("Base Placed: {0}", obj.transform.position); })
 			.Then(() => { Debug.LogError("Setup complete!"); });
 		}
+
+		public void DEBUG_SetWeapon(int index) {
+			Weapon weapon = _testWeapons[index];
+			_player1.CurrentWeapon = _testWeapons[index];
+			IDisplay display = Instantiate(weapon.DisplayPrefab).GetComponent<IDisplay>();
+			_displayManager.PushDisplay(display);
+		}
+
 
 		public IPromise<GameObject> PlaceBase() {
 			Debug.LogError("Place Base");
@@ -117,7 +133,7 @@ namespace Sojourn.ARDefense.Components {
 			Debug.LogErrorFormat("Found Ground, area: {0}", GroundPlane.Area);
 			Utilities.PromiseGroup(
 				_groundSetupUI.Hide(0.25f),
-				Reticule.StartReload()
+				Reticule.Reload()
 			)
 			.Then(promise.Resolve);
 		}
