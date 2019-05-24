@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GoogleARCore;
 using GoogleARCore.Examples.Common;
+using System;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {
@@ -25,6 +26,9 @@ namespace Sojourn.ARDefense.Components {
 		private Weapon[] _testWeapons = null;
 		[SerializeField]
 		private GameObject _weaponObject = null;
+		[SerializeField]
+		private GameObject _testSpawner = null;
+		// private GameObject[] _testSpawners = null;
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
@@ -51,18 +55,28 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 			//`Mat hack for now
 #if UNITY_EDITOR
-			//nly do test in the editor
-			CreateTestGame()
-			// StartNewGame()
+			//Only do test in the editor
+			// CreateTestGame()
+			StartNewGame()
 #else// UNITY_EDITOR
-			CreateTestGame()
+			StartNewGame()
 #endif// UNITY_EDITOR
 			// StartNewGame()
 			.Then(() => {
 				_weaponObject.SetActive(true);
 				DEBUG_SetWeapon(0);
+				_testSpawner.transform.SetParent(Player1Base.Transform);
+				_testSpawner.transform.localPosition = Vector3.zero;
+				_testSpawner.SetActive(true);
+				// SetupSpawners();
 			});
 		}
+
+		// private void SetupSpawners() {
+		// 	foreach (Spawner sp in _testSpawners) {
+		// 		Instantiate (Spawner)
+		// 	}
+		// }
 
 		private IPromise CreateTestGame() {
 			GroundPlane = null;

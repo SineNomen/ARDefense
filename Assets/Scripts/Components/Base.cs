@@ -21,7 +21,7 @@ namespace Sojourn.ARDefense.Components {
 		public eKillableTeam Team { get => _team; set => _team = value; }
 		public Rigidbody Body { get; private set; }
 		public Transform Transform { get => this.transform; }
-		public Vector3 CenterPosition { get => this.transform.position + Vector3.up * 1.5f; }
+		public Vector3 CenterPosition { get => this.transform.position + Vector3.up * 0.5f; }
 
 		private void Start() {
 			Container.AutoInject(this);
