@@ -38,6 +38,7 @@ namespace Sojourn.ARDefense.Components {
 		public ARCoreSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
 		private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
+		public Base Player1Base { get; private set; }
 
 		public DetectedPlane GroundPlane { get; private set; }
 
@@ -49,11 +50,24 @@ namespace Sojourn.ARDefense.Components {
 			_weaponObject.SetActive(false);
 			Container.AutoInject(this);
 			//`Mat hack for now
-			StartNewGame()
+#if UNITY_EDITOR
+			//nly do test in the editor
+			CreateTestGame()
+			// StartNewGame()
+#else// UNITY_EDITOR
+			CreateTestGame()
+#endif// UNITY_EDITOR
+			// StartNewGame()
 			.Then(() => {
 				_weaponObject.SetActive(true);
 				DEBUG_SetWeapon(0);
 			});
+		}
+
+		private IPromise CreateTestGame() {
+			GroundPlane = null;
+			Player1Base = Instantiate(_basePrefab, new Vector3(0.0f, -2.0f, 15.0f), Quaternion.identity).GetComponent<Base>();
+			return Promise.Resolved();
 		}
 
 		//grab the new ones and put them in a hashset
@@ -70,7 +84,10 @@ namespace Sojourn.ARDefense.Components {
 				}
 			})
 			.Chain(PlaceBase)
-			.Then(delegate (GameObject obj) { Debug.LogErrorFormat("Base Placed: {0}", obj.transform.position); })
+			.Then(delegate (Base b) {
+				Player1Base = b;
+				Debug.LogErrorFormat("Base Placed: {0}", b.Transform.position);
+			})
 			.Then(() => { Debug.LogError("Setup complete!"); });
 		}
 
@@ -86,9 +103,9 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 
-		public IPromise<GameObject> PlaceBase() {
+		public IPromise<Base> PlaceBase() {
 			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObjectOnPlane(_basePrefab, GroundPlane);
+			return _objectPlacer.PlaceObjectOnPlane<Base>(_basePrefab, GroundPlane);
 			// Promise p = new Promise();
 			// //just put it in the middle for now, later, use a Placer class, same as for turrets
 			// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);

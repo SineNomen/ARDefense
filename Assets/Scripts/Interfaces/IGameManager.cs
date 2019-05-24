@@ -10,6 +10,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		DetectedPlane GroundPlane { get; }
 		ARCoreSession ArSession { get; }
 		Camera DeviceCamera { get; }
+		Base Player1Base { get; }
 		IPromise StartNewGame();
 		void OnPlayerKilled();
 	}

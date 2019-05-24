@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4433942057210488}
   - component: {fileID: 5393906968206470205}
   - component: {fileID: 8569976520399369494}
+  - component: {fileID: 1529180971811951008}
   - component: {fileID: 9199812234832270693}
   - component: {fileID: 8537054347246404823}
   - component: {fileID: 33144904916599870}
@@ -29,9 +30,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510364872509504}
-  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -65,6 +66,20 @@ MonoBehaviour:
   _team: 1
   _maxHealth: 5
   _collisionDamageGiven: 5
+--- !u!114 &1529180971811951008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510364872509504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5062392b6b32d44eaab9495af0ca2039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 10
+  _startOnCreate: 1
 --- !u!65 &9199812234832270693
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -73,7 +88,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510364872509504}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 13.638825, y: 3.256053, z: 10.850526}
@@ -86,7 +101,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510364872509504}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0

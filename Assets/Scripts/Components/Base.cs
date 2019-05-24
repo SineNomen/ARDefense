@@ -10,21 +10,10 @@ using AOFL.Promises.V1.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
-Has a list of weapons
-	a current weapon
-Is damagable
-has a team
-
-*/
-
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(SimpleKillable))]
 	[RequireComponent(typeof(Rigidbody))]
-	public class Fighter : MonoBehaviour {
-		[SerializeField]
-		private Cannon[] _cannons = null;
-
+	public class Base : MonoBehaviour {
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;
 		[SerializeField]
@@ -32,33 +21,11 @@ namespace Sojourn.ARDefense.Components {
 		public eKillableTeam Team { get => _team; set => _team = value; }
 		public Rigidbody Body { get; private set; }
 		public Transform Transform { get => this.transform; }
-		// public Weapon CurrentWeapon { get; set; }
-
-		private void Awake() {
-			Body = GetComponent<Rigidbody>();
-		}
+		public Vector3 CenterPosition { get => this.transform.position + Vector3.up * 1.5f; }
 
 		private void Start() {
 			Container.AutoInject(this);
+			Body = GetComponent<Rigidbody>();
 		}
-
-		// private void OnCollisionEnter(Collision collision) {
-		// 	Debug.LogFormat("Collider Enter: {0}", collision.gameObject);
-		// }
-
-		public IPromise FireCannons() {
-			List<IPromise> list = new List<IPromise>();
-			foreach (Cannon c in _cannons) {
-				if (c.ReadyToFire) {
-					list.Add(this.StartCoroutineAsPromise(c.Fire()));
-				}
-			}
-			return new Promise().All(list);
-		}
-
-		public void OnKilled(IKillable us) {
-			Destroy(this.gameObject);
-		}
-		public void OnDamaged(IKillable us) { }
 	}
 }
