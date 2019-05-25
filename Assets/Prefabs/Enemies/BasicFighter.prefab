@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8537054347246404823}
   - component: {fileID: 33144904916599870}
   - component: {fileID: 23649099192709106}
+  - component: {fileID: 1211830969}
   m_Layer: 0
   m_Name: BasicFighter
   m_TagString: Untagged
@@ -73,7 +74,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510364872509504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5062392b6b32d44eaab9495af0ca2039, type: 3}
   m_Name: 
@@ -154,3 +155,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &1211830969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510364872509504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98b7d783a2bc4440e944efebe9a8e3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _flashColor: {r: 1, g: 0, b: 0, a: 1}
+  _transitionTime: 0.3
+  _flashCount: 3
