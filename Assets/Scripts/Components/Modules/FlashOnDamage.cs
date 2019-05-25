@@ -18,7 +18,7 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private Color _flashColor = Color.red;
 		[SerializeField]
-		private float _transitionTime = 0.1f;
+		private float _transitionTime = 0.3f;
 		[SerializeField]
 		private int _flashCount = 3;
 

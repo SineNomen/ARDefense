@@ -258,7 +258,7 @@ MonoBehaviour:
   _indicatorParent: {fileID: 1351633915908623333}
   _testPlaneTransform: {fileID: 8352366803519236168}
   _angle: 0
-  _deadZone: 2.75
+  _deadZone: 0.3
 --- !u!225 &6639948569314268091
 CanvasGroup:
   m_ObjectHideFlags: 0

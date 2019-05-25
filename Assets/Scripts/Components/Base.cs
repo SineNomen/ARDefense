@@ -27,5 +27,15 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 			Body = GetComponent<Rigidbody>();
 		}
+
+		private void OnEnable() {
+			Debug.LogError("++Base Enabled");
+		}
+		private void OnDisable() {
+			Debug.LogError("--Base Disabled");
+		}
+		private void OnDestroy() {
+			Debug.LogError("<< Base Destroyed >>");
+		}
 	}
 }

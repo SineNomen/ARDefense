@@ -21,7 +21,6 @@ namespace Sojourn.ARDefense.Components {
 		private bool _preload = false;
 		private GameObject _preloadedObject = null;
 
-
 		private void Awake() {
 			if (_preload) {
 				_preloadedObject = Instantiate(_prefab, null);

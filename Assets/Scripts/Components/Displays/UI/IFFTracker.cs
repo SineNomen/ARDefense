@@ -28,9 +28,6 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		[Tooltip("Objects within the deadzone do not show and indicator")]
 		private float _deadZone = 0.0f;
-		// [SerializeField]
-		// [Tooltip("Whether closer objects should have a larger indicator")]
-		// private bool _scaleForDistance = false;
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
@@ -58,7 +55,10 @@ namespace Sojourn.ARDefense.Components {
 
 		private void OnPreShow() {
 			if (_gameManager == null) { return; }
-			TrackObject(_gameManager.Player1Base.gameObject, eIFFCategory.Friend);
+			Debug.LogErrorFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _gameManager.Player1Base);
+			if (_gameManager.Player1Base != null) {
+				TrackObject(_gameManager.Player1Base.gameObject, eIFFCategory.Friend);
+			}
 			foreach (GameObject obj in _gameManager.EnemyList) {
 				if (!_objectMap.ContainsKey(obj)) {
 					TrackObject(obj, eIFFCategory.Enemy);
@@ -90,21 +90,19 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Update() {
 			foreach (KeyValuePair<GameObject, IFFIndicator> pair in _objectMap) {
-				if (pair.Key != null) {
+				if (pair.Key != null && pair.Value != null) {
 					UpdateObject(pair.Key, pair.Value);
 				}
 			}
 		}
 
+		//generator is alwyas in the deadzone for some reason
+
 		//set the new position, if it is in the reticule, hide the indicator
 		private void UpdateObject(GameObject go, IFFIndicator indicator) {
 			Transform viewport = _gameManager.DeviceCamera.transform;
-			Vector3 projectedPos = Vector3.ProjectOnPlane(go.transform.position, viewport.forward);
+			Vector2 projectedPos = Vector3.ProjectOnPlane(go.transform.position, viewport.forward);
 			float magnitude = projectedPos.magnitude;
-			projectedPos.Normalize();
-			// if (_scaleForDistance) {
-			// indicator.SetScale()
-			// }
 
 			if (magnitude < _deadZone) {
 				indicator.Hide();
@@ -118,7 +116,7 @@ namespace Sojourn.ARDefense.Components {
 			indicator.Rect.anchoredPosition = trig * _ringRadius;
 			indicator.Rect.localEulerAngles = Vector3.forward * angleRad * Mathf.Rad2Deg;
 			// Debug.LogFormat("Plane: {0}, ProjectedPos: {1}, Angle: {2}", plane, projectedPos, angleDeg);
-			Debug.LogFormat("Magnitude: {0}", magnitude);
+			Debug.LogFormat("{0}[{1}] Magnitude: {2}", go.name, projectedPos, magnitude);
 		}
 	}
 }

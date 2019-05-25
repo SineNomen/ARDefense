@@ -36,9 +36,12 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
+		private static int _fighterCount = 0;
 
 		private void Awake() {
 			Body = GetComponent<Rigidbody>();
+			gameObject.name = string.Format("Fighter #{0}", _fighterCount);
+			_fighterCount++;
 		}
 
 		private void Start() {

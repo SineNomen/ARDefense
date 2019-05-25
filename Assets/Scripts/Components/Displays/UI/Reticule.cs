@@ -13,6 +13,7 @@ using DG.Tweening;
 using TMPro;
 
 namespace Sojourn.ARDefense.Components {
+	//`Mat raycast things inside the reticule
 	public class Reticule : MonoBehaviour {
 		[SerializeField]
 		private Image _reloadMeter = null;
