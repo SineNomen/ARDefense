@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 33144904916599870}
   - component: {fileID: 23649099192709106}
   - component: {fileID: 1211830969}
+  - component: {fileID: 5907086351173643625}
   m_Layer: 0
   m_Name: BasicFighter
   m_TagString: Untagged
@@ -74,7 +75,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1510364872509504}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5062392b6b32d44eaab9495af0ca2039, type: 3}
   m_Name: 
@@ -170,3 +171,17 @@ MonoBehaviour:
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _transitionTime: 0.3
   _flashCount: 3
+--- !u!114 &5907086351173643625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510364872509504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd62aaf6fe7994d0a80c55dd2cf913c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _prefab: {fileID: 100006, guid: 4575df893a6e3f64a8283dee38413a34, type: 3}
+  _preload: 0
