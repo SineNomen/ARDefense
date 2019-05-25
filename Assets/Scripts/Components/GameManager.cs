@@ -56,8 +56,8 @@ namespace Sojourn.ARDefense.Components {
 			//`Mat hack for now
 #if UNITY_EDITOR
 			//Only do test in the editor
-			// CreateTestGame()
-			StartNewGame()
+			CreateTestGame()
+			// StartNewGame()
 #else// UNITY_EDITOR
 			StartNewGame()
 #endif// UNITY_EDITOR
@@ -65,9 +65,10 @@ namespace Sojourn.ARDefense.Components {
 			.Then(() => {
 				_weaponObject.SetActive(true);
 				DEBUG_SetWeapon(0);
-				_testSpawner.transform.SetParent(Player1Base.Transform);
-				_testSpawner.transform.localPosition = Vector3.zero;
-				_testSpawner.SetActive(true);
+				// _testSpawner.transform.SetParent(Player1Base.Transform);
+				// _testSpawner.transform.localPosition = Vector3.zero;
+				// _testSpawner.SetActive(true);
+				_displayManager.CurrentDisplay.Tracker.TrackObject(Player1Base.gameObject, eIFFCategory.Friend);
 				// SetupSpawners();
 			});
 		}

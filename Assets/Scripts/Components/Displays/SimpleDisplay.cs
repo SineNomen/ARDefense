@@ -13,10 +13,13 @@ namespace Sojourn.ARDefense.Components {
 	public class SimpleDisplay : MonoBehaviour, IDisplay {
 		[SerializeField]
 		protected Reticule _reticule = null;
+		[SerializeField]
+		private IFFTracker tracker = null;
 
 		public Transform Transform { get => transform; }
 		public CanvasGroup Group { get; private set; }
 		public Reticule Reticule { get => _reticule; }
+		public IFFTracker Tracker { get => tracker; }
 
 		protected virtual void Awake() {
 			Group = GetComponent<CanvasGroup>();

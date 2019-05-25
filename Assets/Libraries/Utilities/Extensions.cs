@@ -56,8 +56,7 @@ namespace Sojourn.Extensions {
 
 	public static class TransformExtensions {
 		public static void SetPose(this Transform tr, Pose pose) {
-			tr.position = pose.position;
-			tr.rotation = pose.rotation;
+			tr.SetPositionAndRotation(pose.position, pose.rotation);
 		}
 	}
 

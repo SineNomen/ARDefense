@@ -27,7 +27,7 @@ namespace Sojourn.ARDefense.Components {
 		private bool _startOnCreate = true;
 
 		[AutoInject]
-		private IGameManager _gameManager;
+		private IGameManager _gameManager = null;
 
 		private Fighter _fighter;
 

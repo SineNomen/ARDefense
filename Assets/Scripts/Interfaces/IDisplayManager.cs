@@ -17,6 +17,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		Transform Transform { get; }
 		CanvasGroup Group { get; }
 		Reticule Reticule { get; }
+		IFFTracker Tracker { get; }
 		void OnPreShow();
 		void OnPreHide();
 
