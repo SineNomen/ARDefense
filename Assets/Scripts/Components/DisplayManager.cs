@@ -23,8 +23,11 @@ namespace Sojourn.ARDefense.Components {
 		public Stack<IDisplay> _displayStack = new Stack<IDisplay>();
 
 		private void Awake() {
-			PushDefault();
 			Container.Register<IDisplayManager>(this).AsSingleton();
+		}
+
+		private void Start() {
+			PushDefault();
 		}
 
 		//always show and immediately end the curent one
@@ -40,12 +43,18 @@ namespace Sojourn.ARDefense.Components {
 			//`Mat this assumes it is set to stretch to the corners
 			rect.sizeDelta = Vector2.zero;
 			//neep a set of promise
-			display.OnPreShow();
-			previous?.OnPreHide();
+			display.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
+			// display.OnPreShow();
+			previous?.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
+			// previous?.OnPreHide();
 			return Utilities.PromiseGroupSafe(
 				display.Show(),
 				previous?.Hide()
-			);
+			)
+			.Then(() => {
+				previous.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				// previous.Transform.gameObject.SetActive(false);
+			});
 		}
 
 		//Kill the current one and show the previous one, mostly used for hard reset
@@ -54,19 +63,23 @@ namespace Sojourn.ARDefense.Components {
 				return PushDefault();
 			}
 			IDisplay old = _displayStack.Pop();
-			CurrentDisplay.OnPreShow();
-			old.OnPreHide();
+			CurrentDisplay.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
+			// CurrentDisplay.OnPreShow();
 			return Utilities.PromiseGroupSafe(
 				old.Hide(),
 				CurrentDisplay.Show()
-			);
+			)
+			.Then(() => {
+				// old.OnPreHide();
+				old.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+			});
 		}
 
 		//Kill the current one and show the default, mostly used for hard reset. This will reset the stack
 		public IPromise ClearAll() {
 			List<IPromise> list = new List<IPromise>();
 			foreach (IDisplay display in _displayStack) {
-				display.OnPreHide();
+				display.OnHide();
 				list.Add(display.Hide());
 			}
 			_displayStack.Clear();

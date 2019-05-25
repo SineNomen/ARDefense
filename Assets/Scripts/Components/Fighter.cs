@@ -32,7 +32,10 @@ namespace Sojourn.ARDefense.Components {
 		public eKillableTeam Team { get => _team; set => _team = value; }
 		public Rigidbody Body { get; private set; }
 		public Transform Transform { get => this.transform; }
-		// public Weapon CurrentWeapon { get; set; }
+
+
+		[AutoInject]
+		private IGameManager _gameManager = null;
 
 		private void Awake() {
 			Body = GetComponent<Rigidbody>();
@@ -40,6 +43,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
+			_gameManager.RegisterEnemy(this.gameObject);
 		}
 
 		// private void OnCollisionEnter(Collision collision) {
@@ -57,6 +61,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnKilled(IKillable us) {
+			_gameManager.UnregisterEnemy(this.gameObject);
 			Destroy(this.gameObject);
 		}
 		public void OnDamaged(IKillable us) { }

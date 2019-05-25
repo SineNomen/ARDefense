@@ -29,6 +29,7 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private GameObject _testSpawner = null;
 		// private GameObject[] _testSpawners = null;
+		private List<GameObject> _enemyList = new List<GameObject>();
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
@@ -45,6 +46,10 @@ namespace Sojourn.ARDefense.Components {
 		public Base Player1Base { get; private set; }
 
 		public DetectedPlane GroundPlane { get; private set; }
+		public List<GameObject> EnemyList { get => _enemyList; }
+
+		public GameObjectEvent OnEnemyCreated { get; set; }
+		public GameObjectEvent OnEnemyKilled { get; set; }
 
 		private void Awake() {
 			Container.Register<IGameManager>(this).AsSingleton();
@@ -68,7 +73,6 @@ namespace Sojourn.ARDefense.Components {
 				// _testSpawner.transform.SetParent(Player1Base.Transform);
 				// _testSpawner.transform.localPosition = Vector3.zero;
 				// _testSpawner.SetActive(true);
-				_displayManager.CurrentDisplay.Tracker.TrackObject(Player1Base.gameObject, eIFFCategory.Friend);
 				// SetupSpawners();
 			});
 		}
@@ -117,7 +121,6 @@ namespace Sojourn.ARDefense.Components {
 			_displayManager.PushDisplay(display);
 		}
 
-
 		public IPromise<Base> PlaceBase() {
 			Debug.LogError("Place Base");
 			return _objectPlacer.PlaceObjectOnPlane<Base>(_basePrefab, GroundPlane);
@@ -125,6 +128,19 @@ namespace Sojourn.ARDefense.Components {
 			// //just put it in the middle for now, later, use a Placer class, same as for turrets
 			// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);
 			// return p;
+		}
+
+		public void RegisterEnemy(GameObject go) {
+			_enemyList.Add(go);
+			if (OnEnemyCreated != null) {
+				OnEnemyCreated(go);
+			}
+		}
+		public void UnregisterEnemy(GameObject go) {
+			_enemyList.Remove(go);
+			if (OnEnemyKilled != null) {
+				OnEnemyKilled(go);
+			}
 		}
 	}
 }

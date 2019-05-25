@@ -19,7 +19,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		Reticule Reticule { get; }
 		IFFTracker Tracker { get; }
 		void OnPreShow();
-		void OnPreHide();
+		void OnHide();
 
 		IPromise Show();
 		IPromise Hide();

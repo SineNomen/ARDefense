@@ -30,7 +30,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnPreShow() { }
-		public void OnPreHide() { }
+		public void OnHide() { }
 
 		public IPromise Show() { return Group.Show(0.25f); }
 		public IPromise Hide() { return Group.Hide(0.25f); }

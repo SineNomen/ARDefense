@@ -44,6 +44,9 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
+			_gameManager.OnEnemyCreated += OnEnemyCreated;
+			_gameManager.OnEnemyKilled += OnEnemyKilled;
+			OnPreShow();
 		}
 
 		public IPromise TrackObject(GameObject go, eIFFCategory cat) {
@@ -53,9 +56,43 @@ namespace Sojourn.ARDefense.Components {
 			return indicator.Show();
 		}
 
+		private void OnPreShow() {
+			if (_gameManager == null) { return; }
+			TrackObject(_gameManager.Player1Base.gameObject, eIFFCategory.Friend);
+			foreach (GameObject obj in _gameManager.EnemyList) {
+				if (!_objectMap.ContainsKey(obj)) {
+					TrackObject(obj, eIFFCategory.Enemy);
+				}
+			}
+		}
+
+		private void OnHide() {
+			//delete everything
+			foreach (IFFIndicator indicator in _objectMap.Values) {
+				Destroy(indicator.gameObject);
+			}
+			_objectMap.Clear();
+		}
+
+		private void OnEnemyCreated(GameObject enemy) {
+			if (!_objectMap.ContainsKey(enemy)) {
+				TrackObject(enemy, eIFFCategory.Enemy);
+			}
+		}
+
+		private void OnEnemyKilled(GameObject enemy) {
+			IFFIndicator indicator = null;
+			if (_objectMap.TryGetValue(enemy, out indicator)) {
+				indicator.Hide()
+				.Then(() => { Destroy(indicator.gameObject); });
+			}
+		}
+
 		private void Update() {
 			foreach (KeyValuePair<GameObject, IFFIndicator> pair in _objectMap) {
-				UpdateObject(pair.Key, pair.Value);
+				if (pair.Key != null) {
+					UpdateObject(pair.Key, pair.Value);
+				}
 			}
 		}
 
