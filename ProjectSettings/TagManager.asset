@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - ManipulationSystem
+  - CanDestroy
+  - Robot
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -18,7 +21,7 @@ TagManager:
   - Projectiles
   - Buildings
   - Ships
-  - 
+  - Player
   - 
   - 
   - 

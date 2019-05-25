@@ -11,6 +11,7 @@ using GoogleARCore;
 using GoogleARCore.Examples.Common;
 using DG.Tweening;
 using TMPro;
+using System.Linq;
 
 namespace Sojourn.ARDefense.Components {
 	//`Mat raycast things inside the reticule
@@ -29,9 +30,14 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		[Tooltip("How many seconds after firing until reoad starts (0 for never)")]
 		private float _reloadDelay = 0.0f;
+		[SerializeField]
+		[Tooltip("Radius of the SphereCast used to determine what is in the reticule")]
+		private float _radius = 0.2f;
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
+
+		private List<GameObject> _targetedObjects = new List<GameObject>();
 
 		private RectTransform _rect;
 		private CanvasGroup _group;
@@ -64,6 +70,32 @@ namespace Sojourn.ARDefense.Components {
 		private void ResetReload() {
 			_reloadMeter.fillAmount = 0.0f;
 			Reload();
+		}
+
+		private void Update() {
+			List<GameObject> newObjects = new List<GameObject>();
+			Ray ray = _gameManager.DeviceCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+			//everything BUT the player
+			int mask = ~LayerMask.GetMask("Player");
+			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, Mathf.Infinity, mask);
+			if (hits.Length > 0) {
+				foreach (RaycastHit hit in hits) {
+					// Debug.LogErrorFormat("Looking at: {0}", hit.transform.name);
+					newObjects.Add(hit.transform.gameObject);
+				}
+			}
+
+			//Object that were targeted, but not anymore
+			foreach (GameObject obj in _targetedObjects.Except(newObjects)) {
+				//`Mat Broadcast message
+				obj.BroadcastMessage("OnUntargeted", SendMessageOptions.DontRequireReceiver);
+			}
+			//The newly targeted obejcts
+			foreach (GameObject obj in newObjects.Except(_targetedObjects)) {
+				//`Mat Broadcast message
+				obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
+			}
+			_targetedObjects = newObjects;
 		}
 
 		public IPromise ShowHighlight(float time = 0.1f) { return _highlightGroup.Show(time); }

@@ -21,8 +21,6 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private RectTransform _indicatorParent = null;
 		[SerializeField]
-		private Transform _testPlaneTransform = null;
-		[SerializeField]
 		[Range(0.0f, 360.0f)]
 		private float _angle = 0.0f;
 		[SerializeField]
@@ -116,7 +114,7 @@ namespace Sojourn.ARDefense.Components {
 			indicator.Rect.anchoredPosition = trig * _ringRadius;
 			indicator.Rect.localEulerAngles = Vector3.forward * angleRad * Mathf.Rad2Deg;
 			// Debug.LogFormat("Plane: {0}, ProjectedPos: {1}, Angle: {2}", plane, projectedPos, angleDeg);
-			Debug.LogFormat("{0}[{1}] Magnitude: {2}", go.name, projectedPos, magnitude);
+			// Debug.LogFormat("{0}[{1}] Magnitude: {2}", go.name, projectedPos, magnitude);
 		}
 	}
 }

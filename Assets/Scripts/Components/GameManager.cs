@@ -60,8 +60,8 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 #if UNITY_EDITOR
 			//Only do test in the editor
-			// CreateTestGame()
-			StartNewGame()
+			CreateTestGame()
+			// StartNewGame()
 #else// UNITY_EDITOR
 			StartNewGame()
 #endif// UNITY_EDITOR
@@ -71,7 +71,7 @@ namespace Sojourn.ARDefense.Components {
 				DEBUG_SetWeapon(0);
 				_testSpawner.transform.SetParent(Player1Base.Transform);
 				_testSpawner.transform.localPosition = Vector3.zero;
-				// _testSpawner.SetActive(true);
+				_testSpawner.SetActive(true);
 				// SetupSpawners();
 			});
 		}

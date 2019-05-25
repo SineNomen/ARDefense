@@ -43,8 +43,9 @@ namespace Sojourn.ARDefense.Components {
 			//`Mat this assumes it is set to stretch to the corners
 			rect.sizeDelta = Vector2.zero;
 			//neep a set of promise
+			//`Mat Broadcast message
 			display.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
-			// display.OnPreShow();
+			//`Mat Broadcast message
 			previous?.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
 			// previous?.OnPreHide();
 			return Utilities.PromiseGroupSafe(
@@ -52,8 +53,8 @@ namespace Sojourn.ARDefense.Components {
 				previous?.Hide()
 			)
 			.Then(() => {
+				//`Mat Broadcast message
 				previous.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
-				// previous.Transform.gameObject.SetActive(false);
 			});
 		}
 
@@ -63,14 +64,14 @@ namespace Sojourn.ARDefense.Components {
 				return PushDefault();
 			}
 			IDisplay old = _displayStack.Pop();
+			//`Mat Broadcast message
 			CurrentDisplay.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
-			// CurrentDisplay.OnPreShow();
 			return Utilities.PromiseGroupSafe(
 				old.Hide(),
 				CurrentDisplay.Show()
 			)
 			.Then(() => {
-				// old.OnPreHide();
+				//`Mat Broadcast message
 				old.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
 			});
 		}

@@ -284,6 +284,7 @@ MonoBehaviour:
   _reloadPercentage: {fileID: 7682791250146616954}
   _reloadSpeed: 3
   _reloadDelay: 0
+  _radius: 1.5
 --- !u!225 &7682791249773847403
 CanvasGroup:
   m_ObjectHideFlags: 0

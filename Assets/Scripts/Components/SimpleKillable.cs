@@ -52,8 +52,10 @@ namespace Sojourn.ARDefense.Components {
 			if (killable != null && killable.Team != Team) {
 				_currentHealth -= killable.CollisionDamageGiven;
 				if (_currentHealth <= 0) {
+					//`Mat Broadcast message
 					BroadcastMessage("OnKilled", this, SendMessageOptions.RequireReceiver);
 				} else {
+					//`Mat Broadcast message
 					BroadcastMessage("OnDamaged", this, SendMessageOptions.RequireReceiver);
 				}
 			}

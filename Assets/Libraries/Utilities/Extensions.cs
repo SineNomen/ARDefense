@@ -42,7 +42,7 @@ namespace Sojourn.Extensions {
 
 		public static IEnumerator WaitCoroutine(this MonoBehaviour mb, float time, IPromise p) {
 			yield return new WaitForSeconds(time);
-			p.Resolve();
+			if (p.State == PromiseState.Pending) { p.Resolve(); }
 		}
 	}
 
