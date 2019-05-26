@@ -33,8 +33,10 @@ namespace Sojourn.ARDefense.Components {
 		public void OnKilled(IKillable us) {
 			GameObject obj = (_preload ? _preloadedObject : Instantiate(_prefab, null));
 			obj.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
-			Debug.LogFormat("This: {0}, prefab: {1}", this.transform.position, obj.transform.position);
+			// Debug.LogFormat("This: {0}, prefab: {1}", this.transform.position, obj.transform.position);
 			obj.SetActive(true);
+			ParticleSystem ps = obj.GetComponent<ParticleSystem>();
+			if (ps != null) { ps.Play(); }
 		}
 	}
 }

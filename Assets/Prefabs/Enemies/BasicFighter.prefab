@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 100006, guid: 4575df893a6e3f64a8283dee38413a34, type: 3}
-  _preload: 0
+  _preload: 1
 --- !u!114 &7037117498737102008
 MonoBehaviour:
   m_ObjectHideFlags: 0

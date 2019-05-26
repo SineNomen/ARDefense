@@ -16,12 +16,12 @@ MonoBehaviour:
     type: 3}
   displayPrefab: {fileID: 4769718293779695992, guid: ccb03be48502f4de48f6069ced46089d,
     type: 3}
-  _damage: 1
-  _reloadTime: 0.25
+  _damage: 3
+  _reloadTime: 0.5
   _shotPerLoad: 1
   _projectilesPerShot: 1
   _delayBetweenProjectiles: 0
   _projectileOffsets: []
   _maxAmmo: -1
-  _speed: 1
+  _speed: 300
   _projectileLifetime: 30
