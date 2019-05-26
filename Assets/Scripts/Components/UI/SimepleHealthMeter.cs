@@ -40,6 +40,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
+			SetValue(1.0f);
 		}
 
 		// private IPromise UpdateValue(float percent) {
@@ -67,6 +68,6 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnKilled(IKillable us) { Destroy(this.gameObject); }
-		public void OnDamaged(IKillable us) { SetValue(us.CurrentHealth / us.MaxHealth); }
+		public void OnDamaged(IKillable us) { SetValue((float)us.CurrentHealth / (float)us.MaxHealth); }
 	}
 }

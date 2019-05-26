@@ -51,10 +51,10 @@ namespace Sojourn.ARDefense.Components {
 
 		public void Update() {
 			transform.LookAt(_gameManager.Player1Base.CenterPosition);
+			_fighter.Body.velocity = transform.forward * _speed;
 		}
 
 		public void StartPattern() {
-			_fighter.Body.velocity = transform.forward * _speed;
 		}
 	}
 }
