@@ -182,7 +182,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08f217d023e7f4f42bd339716419cd5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _healthPrefab: {fileID: 0}
+  _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
+    type: 3}
+  _meterOffset: {x: 0, y: 7, z: 0}
   _showOnDamage: 0
   _showOnTargeted: 0
   _showAlways: 1
+  _hideDelay: 2

@@ -11,11 +11,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: YellowLaser
       objectReference: {fileID: 0}
-    - target: {fileID: 6577207391066437917, guid: f577c42acc59a418c9707c974caa0e8d,
-        type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: e7d76bd86d8e24dee9f626b7b7474009, type: 3}
     - target: {fileID: 499656, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -60,13 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2356442, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
+    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_lineColor.g
+      value: 0.8489028
       objectReference: {fileID: 0}
-    - target: {fileID: 3370324, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_Mesh
-      value: 
+    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_lineColor.b
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 10825254, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_Color.g
@@ -76,13 +71,18 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_lineColor.g
-      value: 0.8489028
+    - target: {fileID: 2356442, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_lineColor.b
-      value: 0
+    - target: {fileID: 3370324, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6577207391066437917, guid: f577c42acc59a418c9707c974caa0e8d,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: e7d76bd86d8e24dee9f626b7b7474009, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
