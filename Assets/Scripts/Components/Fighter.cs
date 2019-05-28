@@ -66,12 +66,12 @@ namespace Sojourn.ARDefense.Components {
 		public void OnKilled(IKillable us) {
 			_gameManager.UnregisterEnemy(this.gameObject);
 			//let any other components run their course, we are gone as far as the game is concerned
+			Destroy(Body);
 			Invoke("Kill", 5.0f);
 		}
+		private void Kill() { Destroy(this.gameObject); }
+
 		public void OnDamaged(IKillable us) { }
 
-		private void Kill() {
-			Destroy(this.gameObject);
-		}
 	}
 }

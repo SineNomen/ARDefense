@@ -67,8 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
-  _maxHealth: 5
-  _collisionDamageGiven: 5
+  _maxHealth: 3
+  _collisionDamageGiven: 3
 --- !u!114 &1529180971811951008
 MonoBehaviour:
   m_ObjectHideFlags: 0
