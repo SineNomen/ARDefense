@@ -19,6 +19,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private float _groundAreaThreshold = 3.0f;
 		[SerializeField]
+		private bool _autoPick = false;
+		[SerializeField]
 		private GameObject _detectedPlanePrefab = null;
 		[SerializeField]
 		private GameObject _displayPrefab = null;
@@ -48,6 +50,9 @@ namespace Sojourn.ARDefense.Components {
 
 		public IPromise<DetectedPlane> SelectPlane() {
 			PlaneSelectorDisplay display = Instantiate(_displayPrefab).GetComponent<PlaneSelectorDisplay>();
+			if (_autoPick) {
+				display.ChooseButton.gameObject.SetActive(false);
+			}
 			display.OnChooseButton += OnChoose;
 			display.OnCancelButton += OnCancel;
 			_displayManager.PushDisplay(display);
@@ -68,6 +73,7 @@ namespace Sojourn.ARDefense.Components {
 				if (Session.Status != SessionStatus.Tracking) {
 					yield return null;
 				}
+				bool allGood = false;
 
 				// Iterate over planes found in this frame and instantiate corresponding GameObjects to
 				// visualize them.
@@ -113,6 +119,8 @@ namespace Sojourn.ARDefense.Components {
 				if (visualizer != null) {
 					if (selectedPlane.Area > _groundAreaThreshold) {
 						_displayManager.CurrentDisplay.Reticule.ShowHighlight();
+						allGood = true;
+						// Debug.LogErrorFormat("Good plane: {0}", selectedPlane);
 					}
 					_displayManager.CurrentDisplay.Reticule.SetReload(selectedPlane.Area / _groundAreaThreshold);
 					visualizer.SetColor(Color.green);
@@ -132,6 +140,12 @@ namespace Sojourn.ARDefense.Components {
 						.Chain<float>(this.Wait, 5.0f)
 						.Chain<float>(_tooSmallUI.Hide, 0.25f);
 					}
+				}
+				if (_autoPick && allGood) {
+					// Debug.LogErrorFormat("selectedPlane: {0}", selectedPlane);
+					yield return selectedPlane;
+					EndPicking(selectedPlane);
+					yield break;
 				}
 				_chooseButtonPressed = false;
 				yield return null;

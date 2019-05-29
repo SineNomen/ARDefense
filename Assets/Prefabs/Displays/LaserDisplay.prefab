@@ -520,8 +520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd95ef838700449fe99f91b2ebc75a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _team: 0
   _ammo: -1
+  _barrelTransform: {fileID: 0}
 --- !u!1 &7682791248963691909
 GameObject:
   m_ObjectHideFlags: 0

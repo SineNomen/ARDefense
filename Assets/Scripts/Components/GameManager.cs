@@ -23,6 +23,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private GameObject _basePrefab = null;
 		[SerializeField]
+		private GameObject _dropShipPrefab = null;
+		[SerializeField]
 		private Weapon[] _testWeapons = null;
 		[SerializeField]
 		private GameObject _weaponObject = null;
@@ -65,20 +67,26 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 #if UNITY_EDITOR
 			//Only do test in the editor
-			CreateTestGame()
-			// StartNewGame()
+			// CreateTestGame()
+			StartNewGame()
 #else// UNITY_EDITOR
 			StartNewGame()
 #endif// UNITY_EDITOR
 			// StartNewGame()
-			.Then(() => {
-				_weaponObject.SetActive(true);
-				DEBUG_SetWeapon(0);
-				_testSpawner.transform.SetParent(Player1Base.Transform);
-				_testSpawner.transform.localPosition = Vector3.zero;
-				// _testSpawner.SetActive(true);
-				// SetupSpawners();
-			});
+			.Then(SpawnDropShip);
+		}
+
+		private void SpawnDropShip() {
+			List<Vector3> polygons = new List<Vector3>();
+			//pick a random one and put the dropship there
+			GroundPlane.GetBoundaryPolygon(polygons);
+			Vector3 point = polygons[UnityEngine.Random.Range(0, polygons.Count)];
+			Pose p = new Pose(point, Quaternion.identity);
+			Anchor anchor = GroundPlane.CreateAnchor(p);
+			DropShip ship = Instantiate(_dropShipPrefab).GetComponent<DropShip>();
+			ship.transform.SetPose(p);
+			ship.transform.parent = anchor.transform;
+			ship.transform.localPosition = Vector3.up * 1.0f;
 		}
 
 		// private void SetupSpawners() {
@@ -126,6 +134,15 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public IPromise<Base> PlaceBase() {
+			Debug.LogError("Place Base");
+			Base b = Instantiate(_basePrefab, Vector3.zero, Quaternion.identity).GetComponent<Base>();
+
+			b.transform.SetPose(GroundPlane.CenterPose);
+			Anchor anchor = GroundPlane.CreateAnchor(GroundPlane.CenterPose);
+			b.transform.parent = anchor.transform;
+			return Promise<Base>.Resolved(b);
+		}
+		public IPromise<Base> ChoosePlaceBase() {
 			Debug.LogError("Place Base");
 			return _objectPlacer.PlaceObjectOnPlane<Base>(_basePrefab, GroundPlane);
 			// Promise p = new Promise();

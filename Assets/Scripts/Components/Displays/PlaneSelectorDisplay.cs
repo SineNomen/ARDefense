@@ -23,6 +23,7 @@ namespace Sojourn.ARDefense.Components {
 
 		public PlaneSelectorCallback OnChooseButton { get; set; }
 		public PlaneSelectorCallback OnCancelButton { get; set; }
+		public Button ChooseButton { get => _chooseButton; }
 
 		protected override void Start() {
 			base.Start();

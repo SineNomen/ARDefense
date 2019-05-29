@@ -328,7 +328,7 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		/// <param name="obj">Object to inject</param>
 		public void InjectObject(Object obj) {
-			UnityEngine.Debug.LogFormat("Inject: {0}", obj);
+			// UnityEngine.Debug.LogFormat("Inject: {0}", obj);
 			System.Type type = obj.GetType();
 			TypeData data = Instance.GetTypeData(obj.GetType());
 
@@ -352,7 +352,7 @@ namespace Sojourn.PicnicIOC {
 		/// </summary>
 		/// <param name="obj">Object to inject</param>
 		public void AutoInjectObject(Object obj) {
-			UnityEngine.Debug.LogFormat("AutoInject: {0}", obj);
+			// UnityEngine.Debug.LogFormat("AutoInject: {0}", obj);
 			System.Type type = obj.GetType();
 			TypeData data = Instance.GetAutoTypeData(obj.GetType());
 

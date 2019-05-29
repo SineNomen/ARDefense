@@ -31,6 +31,9 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Awake() {
 			_renderer = GetComponent<Renderer>();
+			if (_renderer == null) {
+				_renderer = GetComponentInChildren<Renderer>();
+			}
 			_startColor = _renderer.material.color;
 		}
 

@@ -16,9 +16,9 @@ namespace Sojourn.ARDefense.Components {
 	// [[RequireComponent (typeof (MeshRenderer))]]
 	public class ShowHealth : MonoBehaviour {
 		[SerializeField]
-		private GameObject _healthPrefab;
+		private GameObject _healthPrefab = null;
 		[SerializeField]
-		private Vector3 _meterOffset;
+		private Vector3 _meterOffset = Vector3.zero;
 		[SerializeField]
 		private bool _showOnDamage = true;
 		[SerializeField]

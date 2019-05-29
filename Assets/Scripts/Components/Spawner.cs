@@ -28,6 +28,8 @@ namespace Sojourn.ARDefense.Components {
 
 		[SerializeField]
 		private bool _spawnOnStart = true;
+		[SerializeField]
+		private bool _spawnOnGround = true;
 
 
 		// private List<GameObject> _spawnedObjects = new List<GameObject>();
