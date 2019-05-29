@@ -36,7 +36,8 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public IPromise RequestFireCannon() {
-			if (_cannon.ReadyToFire) {
+			_cannon.Weapon = CurrentWeapon;
+			if (_cannon.IsReadyToFire) {
 				return this.StartCoroutineAsPromise(_cannon.Fire());
 			}
 			return null;

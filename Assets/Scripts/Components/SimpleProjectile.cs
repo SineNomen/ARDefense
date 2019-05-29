@@ -22,12 +22,7 @@ namespace Sojourn.ARDefense.Components {
 	public class SimpleProjectile : MonoBehaviour, IProjectile {
 		[SerializeField]
 		private Rigidbody _body = null;
-		[SerializeField]
-		private eKillableTeam _team = eKillableTeam.Player1;
 		private SimpleKillable _killable = null;
-
-
-		public eKillableTeam Team { get => _team; set => _team = value; }
 
 		public Transform Transform { get => this.transform; }
 		public Weapon Weapon { get; set; }

@@ -52,6 +52,11 @@ namespace Sojourn.ARDefense.Components {
 		public GameObjectEvent OnEnemyKilled { get; set; }
 
 		private void Awake() {
+			Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.ScriptOnly);
+			Application.SetStackTraceLogType(LogType.Warning, StackTraceLogType.ScriptOnly);
+			Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.ScriptOnly);
+			Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.ScriptOnly);
+			Application.SetStackTraceLogType(LogType.Assert, StackTraceLogType.ScriptOnly);
 			Container.Register<IGameManager>(this).AsSingleton();
 		}
 
@@ -71,7 +76,7 @@ namespace Sojourn.ARDefense.Components {
 				DEBUG_SetWeapon(0);
 				_testSpawner.transform.SetParent(Player1Base.Transform);
 				_testSpawner.transform.localPosition = Vector3.zero;
-				_testSpawner.SetActive(true);
+				// _testSpawner.SetActive(true);
 				// SetupSpawners();
 			});
 		}

@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4433942057210488}
-  - component: {fileID: 5393906968206470205}
   - component: {fileID: 8569976520399369494}
+  - component: {fileID: 5393906968206470205}
   - component: {fileID: 1529180971811951008}
   - component: {fileID: 8537054347246404823}
   - component: {fileID: 1411803559136767190}
@@ -40,20 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5393906968206470205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510364872509504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41f69adb174c44ebe89b2511234d6aea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _cannons: []
-  _team: 0
 --- !u!114 &8569976520399369494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +55,18 @@ MonoBehaviour:
   _team: 1
   _maxHealth: 3
   _collisionDamageGiven: 3
+--- !u!114 &5393906968206470205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510364872509504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f69adb174c44ebe89b2511234d6aea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1529180971811951008
 MonoBehaviour:
   m_ObjectHideFlags: 0

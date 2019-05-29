@@ -33,7 +33,7 @@ namespace Sojourn.PicnicIOC {
 		private Dictionary<Type, TypeData> _injectTable = new Dictionary<Type, TypeData>();
 		private Dictionary<Type, TypeData> _autoInjectTable = new Dictionary<Type, TypeData>();
 		//needs to map to a type
-		private Dictionary<Type, HashSet<Object>> _autoInjecMap = new Dictionary<Type, HashSet<Object>>();
+		private Dictionary<Type, HashSet<Object>> _autoInjectMap = new Dictionary<Type, HashSet<Object>>();
 		public static Container Instance { get; set; } = new Container();
 		#endregion
 
@@ -301,7 +301,7 @@ namespace Sojourn.PicnicIOC {
 		/// <param name="type">Type of object to autoinject</param>
 		public void AutoInjectAll(Type type) {
 			HashSet<Object> objects = null;
-			if (_autoInjecMap.TryGetValue(type, out objects)) {
+			if (_autoInjectMap.TryGetValue(type, out objects)) {
 				foreach (Object obj in objects) {
 					AutoInjectObject(obj);
 				}
@@ -316,9 +316,9 @@ namespace Sojourn.PicnicIOC {
 
 		public void AddAutoInjectObject(Type type, Object obj) {
 			HashSet<Object> objects = null;
-			if (!_autoInjecMap.TryGetValue(type, out objects)) {
-				_autoInjecMap[type] = new HashSet<Object>();
-				objects = _autoInjecMap[type];
+			if (!_autoInjectMap.TryGetValue(type, out objects)) {
+				_autoInjectMap[type] = new HashSet<Object>();
+				objects = _autoInjectMap[type];
 			}
 			objects.Add(obj);
 		}

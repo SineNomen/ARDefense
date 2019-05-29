@@ -3,12 +3,13 @@ namespace Sojourn.ARDefense.Interfaces {
 	public enum eKillableTeam {
 		Player1,
 		BadGuys,
-		Switzerland,
+		// Switzerland,
 	}
 
 	//each killable is resonsible for taking the damage the other guy gives
 	public interface IKillable {
 		eKillableTeam Team { get; set; }
+		bool TeamDamage { get; }
 		int CurrentHealth { get; }
 		int MaxHealth { get; }
 		int CollisionDamageGiven { get; }
