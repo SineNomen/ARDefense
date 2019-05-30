@@ -20,33 +20,29 @@ namespace Sojourn.ARDefense.Components {
 		public Rigidbody Body { get; private set; }
 		public Transform Transform { get => this.transform; }
 
-
 		[AutoInject]
 		private IGameManager _gameManager = null;
 		private IKillable _killable = null;
 		private static int _enemyCount = 0;
 
-		private void Awake() {
+		protected virtual void Awake() {
 			Body = GetComponent<Rigidbody>();
 			_killable = GetComponent<IKillable>();
 			gameObject.name = string.Format("Enemy #{0}", _enemyCount);
 			_enemyCount++;
 		}
 
-		private void Start() {
+		protected virtual void Start() {
 			Container.AutoInject(this);
 			_gameManager.RegisterEnemy(this.gameObject);
 		}
 
 		// public void OnDamaged(IKillable us) { }
 		//`Mat need to only kill once
-		public void OnKilled(IKillable us) {
+		public void OnKill(IKillable us) {
+			Debug.LogFormat("Enemy {0} has been killed", this.gameObject.name);
 			_gameManager.UnregisterEnemy(this.gameObject);
-			this.gameObject.name += "- Killed";
-			//let any other components run their course, we are gone as far as the game is concerned
-			Destroy(Body);
-			Invoke("Kill", 5.0f);
+			Destroy(this.gameObject);
 		}
-		private void Kill() { Destroy(this.gameObject); }
 	}
 }

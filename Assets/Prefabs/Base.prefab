@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7293610623249698635}
   - component: {fileID: 4650988257500539688}
   - component: {fileID: 4299043603314507592}
+  - component: {fileID: 5491764799633234947}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -129,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
     type: 3}
-  _meterOffset: {x: 0, y: 7, z: 0}
+  _meterOffset: {x: 0, y: 2, z: 0}
   _showOnDamage: 0
   _showOnTargeted: 0
   _showAlways: 1
@@ -161,6 +162,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.43804938, y: 0.84202266, z: 0.43317762}
   m_Center: {x: -0.003725797, y: 0.42101157, z: 0.005968407}
+--- !u!114 &5491764799633234947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9145851907619672964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd537fbeb0547faa36bc2ff88876a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 25d1740b3d65a400697622ee85eb3f79, type: 3}
+  _preload: 1
 --- !u!1001 &350559254243419632
 PrefabInstance:
   m_ObjectHideFlags: 0

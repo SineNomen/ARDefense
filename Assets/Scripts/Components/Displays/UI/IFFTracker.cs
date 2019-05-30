@@ -1,16 +1,8 @@
 using UnityEngine;
-using UnityEngine.UI;
 using Sojourn.PicnicIOC;
-using Sojourn.Extensions;
 using Sojourn.ARDefense.Interfaces;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-
-
-using DG.Tweening;
-using TMPro;
 
 namespace Sojourn.ARDefense.Components {
 	public class IFFTracker : MonoBehaviour {
@@ -53,7 +45,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void OnPreShow() {
 			if (_gameManager == null) { return; }
-			Debug.LogErrorFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _gameManager.Player1Base);
+			// Debug.LogFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _gameManager.Player1Base);
 			if (_gameManager.Player1Base != null) {
 				TrackObject(_gameManager.Player1Base.gameObject, eIFFCategory.Friend);
 			}

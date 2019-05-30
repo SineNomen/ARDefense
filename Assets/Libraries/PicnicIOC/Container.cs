@@ -330,17 +330,20 @@ namespace Sojourn.PicnicIOC {
 		public void InjectObject(Object obj) {
 			// UnityEngine.Debug.LogFormat("Inject: {0}", obj);
 			System.Type type = obj.GetType();
-			TypeData data = Instance.GetTypeData(obj.GetType());
+			while (type != null) {
+				TypeData data = Instance.GetAutoTypeData(type);
 
-			foreach (FieldInfo field in data.fields) {
-				Type fieldType = field.FieldType;
-				Object val = Instance.GetService(fieldType);
-				field.SetValue(obj, val);
-			}
-			foreach (PropertyInfo prop in data.properties) {
-				Type propType = prop.PropertyType;
-				Object val = Instance.GetService(propType);
-				prop.SetValue(obj, val);
+				foreach (FieldInfo field in data.fields) {
+					Type fieldType = field.FieldType;
+					Object val = Instance.GetService(fieldType);
+					field.SetValue(obj, val);
+				}
+				foreach (PropertyInfo prop in data.properties) {
+					Type propType = prop.PropertyType;
+					Object val = Instance.GetService(propType);
+					prop.SetValue(obj, val);
+				}
+				type = type.BaseType;
 			}
 
 			//`Mat also do the [AutoInject]ed ones
@@ -354,19 +357,22 @@ namespace Sojourn.PicnicIOC {
 		public void AutoInjectObject(Object obj) {
 			// UnityEngine.Debug.LogFormat("AutoInject: {0}", obj);
 			System.Type type = obj.GetType();
-			TypeData data = Instance.GetAutoTypeData(obj.GetType());
+			while (type != null) {
+				TypeData data = Instance.GetAutoTypeData(type);
 
-			foreach (FieldInfo field in data.fields) {
-				Type fieldType = field.FieldType;
-				Object val = Instance.GetService(fieldType);
-				AddAutoInjectObject(fieldType, obj);
-				field.SetValue(obj, val);
-			}
-			foreach (PropertyInfo prop in data.properties) {
-				Type propType = prop.PropertyType;
-				Object val = Instance.GetService(propType);
-				AddAutoInjectObject(propType, obj);
-				prop.SetValue(obj, val);
+				foreach (FieldInfo field in data.fields) {
+					Type fieldType = field.FieldType;
+					Object val = Instance.GetService(fieldType);
+					AddAutoInjectObject(fieldType, obj);
+					field.SetValue(obj, val);
+				}
+				foreach (PropertyInfo prop in data.properties) {
+					Type propType = prop.PropertyType;
+					Object val = Instance.GetService(propType);
+					AddAutoInjectObject(propType, obj);
+					prop.SetValue(obj, val);
+				}
+				type = type.BaseType;
 			}
 		}
 		/// <summary>

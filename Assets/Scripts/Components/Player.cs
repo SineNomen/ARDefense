@@ -38,7 +38,7 @@ namespace Sojourn.ARDefense.Components {
 			return null;
 		}
 
-		public void OnKilled(IKillable us) {
+		public void OnKill(IKillable us) {
 			_gameManager.OnPlayerKilled();
 			Destroy(this.gameObject);
 		}

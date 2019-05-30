@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5472533715934913755}
   - component: {fileID: 5790243498548648731}
   - component: {fileID: 4323207352825254865}
+  - component: {fileID: 7757716817123352351}
   m_Layer: 0
   m_Name: DropShip
   m_TagString: Untagged
@@ -53,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _line: {fileID: 384780138789291681}
   _prefab: {fileID: 5809382421045864646, guid: 4ba23341507a944a0bd4a41cc72c5874, type: 3}
-  _count: 5
+  _count: 0
   _startDelay: 5
   _delay: 10
   _spawnOnStart: 1
@@ -146,11 +147,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
     type: 3}
-  _meterOffset: {x: 0, y: 2.5, z: 0}
+  _meterOffset: {x: 0, y: 1.5, z: 0}
   _showOnDamage: 1
   _showOnTargeted: 1
   _showAlways: 0
   _hideDelay: 2
+--- !u!114 &7757716817123352351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6159432158975644194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd537fbeb0547faa36bc2ff88876a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 25d1740b3d65a400697622ee85eb3f79, type: 3}
+  _preload: 1
 --- !u!1 &6452269876876717674
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_endPos.z
-      value: 5.47
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_lineWidth

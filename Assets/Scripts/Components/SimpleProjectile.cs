@@ -47,9 +47,8 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnDamaged(IKillable us) { }
-		public void OnKilled(IKillable us) {
-			Invoke("Kill", 5.0f);
+		public void OnKill(IKillable us) {
+			Destroy(this.gameObject);
 		}
-		private void Kill() { Destroy(this.gameObject); }
 	}
 }

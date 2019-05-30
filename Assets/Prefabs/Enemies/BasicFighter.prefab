@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 1211830969}
   - component: {fileID: 5907086351173643625}
   - component: {fileID: 7037117498737102008}
+  - component: {fileID: 1510364872509505}
   m_Layer: 0
   m_Name: BasicFighter
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _team: 1
+  _teamDamage: 0
   _maxHealth: 3
   _collisionDamageGiven: 3
 --- !u!114 &5393906968206470205
@@ -203,3 +205,17 @@ MonoBehaviour:
   _showOnTargeted: 1
   _showAlways: 0
   _hideDelay: 2
+--- !u!114 &1510364872509505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510364872509504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44cd537fbeb0547faa36bc2ff88876a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _clip: {fileID: 8300000, guid: 25d1740b3d65a400697622ee85eb3f79, type: 3}
+  _preload: 1

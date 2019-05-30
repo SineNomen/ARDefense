@@ -75,12 +75,14 @@ namespace Sojourn.ARDefense.Components {
 				projectile.Weapon = Weapon;
 				killable.Team = Killable.Team;
 
-				projectile.OnFire();
+				// projectile.OnFire();
+				//`Mat Broadcast message
+				projectile.Transform.gameObject.BroadcastMessage("OnFire", SendMessageOptions.RequireReceiver);
 				_ammo--;
+				projectile.Body.velocity = projectile.Transform.forward * Weapon.Speed;
 				if (Weapon.DelayBetweenProjectiles > 0.0f) {
 					yield return new WaitForSeconds(Weapon.DelayBetweenProjectiles);
 				}
-				projectile.Body.velocity = projectile.Transform.forward * Weapon.Speed;
 			}
 			_lastFireTime = Time.time;
 			yield return null;

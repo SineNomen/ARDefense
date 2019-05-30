@@ -24,6 +24,9 @@ namespace Sojourn.ARDefense.Components {
 			if (_renderer == null) {
 				_renderer = GetComponentInChildren<Renderer>();
 			}
+			if (_renderer == null) {
+				Debug.LogErrorFormat("{0} has no renderer for FlashOnDamage", gameObject.name);
+			}
 			_startColor = _renderer.material.color;
 		}
 

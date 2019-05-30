@@ -37,12 +37,13 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _spawnOnGround = true;
 
-		private void Awake() {
+		protected void Awake() {
+			base.Awake();
 		}
 
-		private void Start() {
-			Container.AutoInject(this);
-			if (_spawnOnStart) {
+		protected void Start() {
+			base.Start();
+			if (_spawnOnStart && _count > 0) {
 				Spawn();
 			}
 		}

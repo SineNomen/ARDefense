@@ -1,6 +1,7 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
+using Sojourn.Extensions;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using AOFL.Promises.V1.Core;
@@ -87,8 +88,9 @@ namespace Sojourn.ARDefense.Components {
 		}
 		private void SpawnDropShip() {
 #if UNITY_EDITOR
-			Vector3 point = Random.insideUnitCircle * 3.0f;
-			point.z = 2.0f;
+			// Vector3 point = Random.insideUnitCircle * 3.0f;
+			// point.z = 2.0f;
+			Vector3 point = new Vector3(-5.0f, 2.0f, 15.0f);
 			DropShip ship = Instantiate(_dropShipPrefab).GetComponent<DropShip>();
 			ship.transform.position = point;
 #else
