@@ -5,6 +5,7 @@ using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections.Generic;
 using UnityEngine.XR.ARFoundation;
+using System;
 
 namespace Sojourn.ARDefense.Components {
 	public class PlaneSelector : MonoBehaviour, IPlaneSelector {
@@ -52,11 +53,22 @@ namespace Sojourn.ARDefense.Components {
 			_chooseButtonPressed = false;
 			_cancelButtonPressed = false;
 
+			_gameManager.PlaneManager.enabled = true;
 			_gameManager.PlaneManager.planesChanged += OnPlanesChanged;
 
 			return this.StartCoroutineAsPromise<ARPlane>(PickPlane()).Then((ARPlane p) => {
+				TurnOffPlanes(p);
 				_gameManager.PlaneManager.planesChanged -= OnPlanesChanged;
+				_gameManager.PlaneManager.enabled = false;
 			});
+		}
+
+		private void TurnOffPlanes(ARPlane chosen) {
+			foreach (ARPlane p in _planes) {
+				if (p.trackableId != chosen.trackableId) {
+					p.gameObject.SetActive(false);
+				}
+			}
 		}
 
 		private void OnPlanesChanged(ARPlanesChangedEventArgs args) {

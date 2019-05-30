@@ -30,11 +30,11 @@ namespace Sojourn.ARDefense.Components {
 		private Cannon _cannon = null;
 		[SerializeField]
 		private Weapon _weapon = null;
-		[SerializeField]
-		private bool _shootAtBase = false;
-		[SerializeField]
-		private bool _shootAtPlayer = false;
-		[SerializeField]
+		// [SerializeField]
+		// private bool _shootAtBase = false;
+		// [SerializeField]
+		// private bool _shootAtPlayer = false;
+		// [SerializeField]
 		private float _speed = 2.0f;
 		[SerializeField]
 		[Tooltip("How close to point at the target we need to be before trying to fire")]
@@ -53,18 +53,30 @@ namespace Sojourn.ARDefense.Components {
 			_killable = GetComponent<IKillable>();
 			_cannon.Killable = _killable;
 			_cannon.Weapon = _weapon;
+			StartCoroutine(CheckForTarget());
 		}
 
-		private void OnTriggerEnter(Collider collider) {
-			IPlayer player = collider.gameObject.GetComponent<IPlayer>();
-			Base theirBase = collider.gameObject.GetComponent<Base>();
-			if (_shootAtBase && theirBase != null && theirBase.Team != _killable.Team) {
-				//target acquired
-				SetTarget(collider.transform);
-			} else if (_shootAtPlayer && player != null) {
-				SetTarget(collider.transform);
+		private IEnumerator CheckForTarget() {
+			while (true) {
+				if (Vector3.Distance(_gameManager.Player1Base.Transform.position, this.transform.position) <= _fireThreshold) {
+					SetTarget(_gameManager.Player1Base.Transform);
+				} else {
+					SetTarget(null);
+				}
+				yield return null;
 			}
 		}
+
+		// private void OnTriggerEnter(Collider collider) {
+		// 	IPlayer player = collider.gameObject.GetComponent<IPlayer>();
+		// 	Base theirBase = collider.gameObject.GetComponent<Base>();
+		// 	if (_shootAtBase && theirBase != null && theirBase.Team != _killable.Team) {
+		// 		//target acquired
+		// 		SetTarget(collider.transform);
+		// 	} else if (_shootAtPlayer && player != null) {
+		// 		SetTarget(collider.transform);
+		// 	}
+		// }
 
 		private void SetTarget(Transform tr) {
 			Debug.LogFormat("{0}, new target: {1}", this.name, tr);
