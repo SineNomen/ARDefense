@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _line: {fileID: 384780138789291681}
   _prefab: {fileID: 5809382421045864646, guid: 4ba23341507a944a0bd4a41cc72c5874, type: 3}
-  _count: 0
+  _count: 5
   _startDelay: 5
   _delay: 10
   _spawnOnStart: 1
@@ -644,18 +644,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DropEffect
       objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_doNotOverwriteTemplateMaterialProperties
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_endPos.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_lineWidth
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0009536743
@@ -699,10 +687,6 @@ PrefabInstance:
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.33177015
       objectReference: {fileID: 0}
     - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Materials.Array.data[0]

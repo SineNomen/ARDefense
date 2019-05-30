@@ -56,7 +56,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private IPromise DoSpawnAnimation() {
-			float height = -this.transform.localPosition.z;
+			float height = this.transform.localPosition.y;
 			return DOVirtual.Float(0.0f, height, 3.0f, (val) => {
 				Vector3 pos = _line.EndPos;
 				pos.z = val;

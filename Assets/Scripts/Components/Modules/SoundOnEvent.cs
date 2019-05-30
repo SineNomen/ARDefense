@@ -23,7 +23,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private AudioSource CreateObject() {
-			//`MAt inject here because we may be getting called the same frame we get the OnFire and Start is not called yet
+			//`Mat inject here because we may be getting called the same frame we get the OnFire and Start is not called yet
 			Container.AutoInject(this);
 
 			GameObject obj = new GameObject(string.Format("{0} {1}Sound", this.gameObject.name, Tag));
@@ -44,9 +44,10 @@ namespace Sojourn.ARDefense.Components {
 			_source.transform.SetParent(null);
 			_source.Play();
 			if (DestroyAfter) {
-				Invoke("Kill", _clip.length);
+				DestroyAfterTime killer = _source.gameObject.AddComponent<DestroyAfterTime>();
+				killer.Delay = _clip.length;
+				killer.TriggerDestroy();
 			}
 		}
-		private void Kill() { Destroy(_source.gameObject); }
 	}
 }

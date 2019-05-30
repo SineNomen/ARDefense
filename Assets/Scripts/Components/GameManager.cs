@@ -114,7 +114,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private IPromise CreateTestGame() {
 			// GroundPlane = Instantiate(_planeManager.planePrefab, Vector3.zero, Quaternion.identity).GetComponent<ARPlane>();
-			Player1Base = Instantiate(_basePrefab, new Vector3(0.0f, -2.0f, 15.0f), Quaternion.identity).GetComponent<Base>();
+			Player1Base = Instantiate(_basePrefab, Vector3.zero, Quaternion.identity).GetComponent<Base>();
 			return Promise.Resolved();
 		}
 
