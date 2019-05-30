@@ -55,17 +55,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_lineColor.r
-      value: 0.027411906
+    - target: {fileID: 2356442, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_lineColor.g
-      value: 0.8301887
-      objectReference: {fileID: 0}
-    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_lineColor.b
-      value: 0.08999946
+    - target: {fileID: 3370324, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 10825254, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_Color.g
@@ -79,13 +75,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.027411906
       objectReference: {fileID: 0}
-    - target: {fileID: 2356442, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
+    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_lineColor.r
+      value: 0.027411906
       objectReference: {fileID: 0}
-    - target: {fileID: 3370324, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_Mesh
-      value: 
+    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_lineColor.g
+      value: 0.8301887
+      objectReference: {fileID: 0}
+    - target: {fileID: 11489952, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_lineColor.b
+      value: 0.08999946
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}

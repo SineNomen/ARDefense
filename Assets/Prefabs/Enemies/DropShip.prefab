@@ -605,6 +605,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1071123748790960091}
     m_Modifications:
+    - target: {fileID: 136330, guid: c07c8697a750e4f4aa46512888536724, type: 3}
+      propertyPath: m_Name
+      value: DropEffect
+      objectReference: {fileID: 0}
     - target: {fileID: 11489952, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_doNotOverwriteTemplateMaterialProperties
       value: 0
@@ -664,10 +668,6 @@ PrefabInstance:
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.33177015
-      objectReference: {fileID: 0}
-    - target: {fileID: 136330, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_Name
-      value: DropEffect
       objectReference: {fileID: 0}
     - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Materials.Array.data[0]

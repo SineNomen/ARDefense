@@ -88,12 +88,16 @@ namespace Sojourn.ARDefense.Components {
 			//Object that were targeted, but not anymore
 			foreach (GameObject obj in _targetedObjects.Except(newObjects)) {
 				//`Mat Broadcast message
-				obj.BroadcastMessage("OnUntargeted", SendMessageOptions.DontRequireReceiver);
+				if (obj != null) {
+					obj.BroadcastMessage("OnUntargeted", SendMessageOptions.DontRequireReceiver);
+				}
 			}
 			//The newly targeted obejcts
 			foreach (GameObject obj in newObjects.Except(_targetedObjects)) {
 				//`Mat Broadcast message
-				obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
+				if (obj != null) {
+					obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
+				}
 			}
 			_targetedObjects = newObjects;
 		}

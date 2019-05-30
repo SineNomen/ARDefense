@@ -72,13 +72,14 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 #if UNITY_EDITOR
 			//Only do test in the editor
-			// CreateTestGame()
-			StartNewGame()
+			CreateTestGame()
+			// StartNewGame()
 #else// UNITY_EDITOR
 			StartNewGame()
 #endif// UNITY_EDITOR
 			// StartNewGame()
-			.Then(SpawnDropShip);
+			.Then(SpawnDropShip)
+			.Then(() => { DEBUG_SetWeapon(0); });
 		}
 
 		private void SpawnDropShip() {
