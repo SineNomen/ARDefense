@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4412732824278160697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.081, z: -0.1057}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalPosition: {x: 0, y: 0.324, z: -0.4228}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 0.12}
   m_Children:
   - {fileID: 162889850602631843}
   m_Father: {fileID: 3222640332277485053}
@@ -117,9 +117,6 @@ MonoBehaviour:
   _cannonTransform: {fileID: 2073141824314320699}
   _cannon: {fileID: 4587480351936183975}
   _weapon: {fileID: 11400000, guid: 8693a7304990e423f920428bc86c641a, type: 2}
-  _shootAtBase: 1
-  _shootAtPlayer: 0
-  _speed: 2
   _fireThreshold: 10
 --- !u!114 &4587480351936183975
 MonoBehaviour:
@@ -224,8 +221,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.3, z: 1}
-  m_Center: {x: 0, y: 0.05, z: 0}
+  m_Size: {x: 2.0330396, y: 0.6832299, z: 1.8240061}
+  m_Center: {x: 0.021000147, y: 0.09608567, z: 0.15778139}
 --- !u!114 &6598248526431007627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,15 +449,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 486654, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.2
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 486654, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 486654, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
