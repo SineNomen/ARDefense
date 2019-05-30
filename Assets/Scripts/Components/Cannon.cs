@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace Sojourn.ARDefense.Components {
+	//`Mat cannon should be placed on the Killable object, ot on the transform that will fire (barrelTransform)
 	public class Cannon : MonoBehaviour {
 		[SerializeField]
 		private int _ammo = 100;
@@ -41,8 +42,9 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
+			Killable = GetComponent<IKillable>();
 			if (Killable == null) {
-				Killable = GetComponent<IKillable>();
+				Debug.LogErrorFormat("Cannon {0} is not on a Killable object", gameObject.name);
 			}
 		}
 

@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 7523345006087944589, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Name
-      value: PurpleLaserDisplay
+      value: BlueLaserDisplay
       objectReference: {fileID: 0}
     - target: {fileID: 2449696910619429679, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
@@ -146,22 +146,22 @@ PrefabInstance:
     - target: {fileID: 682020345789479289, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.8396226
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 682020345789479289, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.30588236
+      value: 0.7328501
       objectReference: {fileID: 0}
     - target: {fileID: 7682791249965075380, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.8396226
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7682791249965075380, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.30588236
+      value: 0.7328501
       objectReference: {fileID: 0}
     - target: {fileID: 7682791249965075380, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}

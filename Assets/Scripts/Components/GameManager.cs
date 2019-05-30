@@ -79,10 +79,20 @@ namespace Sojourn.ARDefense.Components {
 #endif// UNITY_EDITOR
 			// StartNewGame()
 			.Then(SpawnDropShip)
-			.Then(() => { DEBUG_SetWeapon(0); });
+			.Then(OnGameStart);
 		}
 
+		private void OnGameStart() {
+			_weaponObject.SetActive(true);
+			DEBUG_SetWeapon(0);
+		}
 		private void SpawnDropShip() {
+#if UNITY_EDITOR
+			Vector3 point = Random.insideUnitCircle * 3.0f;
+			point.z = 2.0f;
+			DropShip ship = Instantiate(_dropShipPrefab).GetComponent<DropShip>();
+			ship.transform.position = point;
+#else
 			//pick a random one and put the dropship there
 			Vector2 offset = GroundPlane.boundary[UnityEngine.Random.Range(0, GroundPlane.boundary.Length)];
 			Vector3 point = GroundPlane.center + new Vector3(offset.x, offset.y, 0.0f);
@@ -92,6 +102,7 @@ namespace Sojourn.ARDefense.Components {
 			ship.transform.SetPose(p);
 			ship.transform.parent = anchor.transform;
 			ship.transform.localPosition = Vector3.up * 1.0f;
+#endif// UNITY_EDITOR
 		}
 
 		// private void SetupSpawners() {
@@ -101,7 +112,7 @@ namespace Sojourn.ARDefense.Components {
 		// }
 
 		private IPromise CreateTestGame() {
-			GroundPlane = null;
+			// GroundPlane = Instantiate(_planeManager.planePrefab, Vector3.zero, Quaternion.identity).GetComponent<ARPlane>();
 			Player1Base = Instantiate(_basePrefab, new Vector3(0.0f, -2.0f, 15.0f), Quaternion.identity).GetComponent<Base>();
 			return Promise.Resolved();
 		}
