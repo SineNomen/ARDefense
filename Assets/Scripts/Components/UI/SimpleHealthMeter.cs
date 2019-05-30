@@ -16,7 +16,7 @@ using TMPro;
 
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(CanvasGroup))]
-	public class SimepleHealthMeter : MonoBehaviour {
+	public class SimpleHealthMeter : MonoBehaviour {
 		[SerializeField]
 		private Image _meterFill = null;
 		[SerializeField]

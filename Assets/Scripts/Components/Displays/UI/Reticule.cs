@@ -3,12 +3,8 @@ using UnityEngine.UI;
 using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using Sojourn.ARDefense.Interfaces;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-
-
 using DG.Tweening;
 using TMPro;
 using System.Linq;
@@ -87,6 +83,9 @@ namespace Sojourn.ARDefense.Components {
 
 			//Object that were targeted, but not anymore
 			foreach (GameObject obj in _targetedObjects.Except(newObjects)) {
+				if (obj.GetComponent<DropShip>()) {
+					Debug.LogError("--Untargetting dropship");
+				}
 				//`Mat Broadcast message
 				if (obj != null) {
 					obj.BroadcastMessage("OnUntargeted", SendMessageOptions.DontRequireReceiver);
@@ -95,6 +94,9 @@ namespace Sojourn.ARDefense.Components {
 			//The newly targeted obejcts
 			foreach (GameObject obj in newObjects.Except(_targetedObjects)) {
 				//`Mat Broadcast message
+				if (obj.GetComponent<DropShip>()) {
+					Debug.LogError("Targetting dropship++");
+				}
 				if (obj != null) {
 					obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
 				}

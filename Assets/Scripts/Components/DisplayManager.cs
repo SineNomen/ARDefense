@@ -5,7 +5,6 @@ using Sojourn.ARDefense.Interfaces;
 using UnityEngine;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Components {

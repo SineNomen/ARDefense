@@ -1,5 +1,4 @@
 ﻿using Sojourn.PicnicIOC;
-using Sojourn.Extensions;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
 using UnityEngine;

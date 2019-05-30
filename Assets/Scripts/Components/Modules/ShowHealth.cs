@@ -1,19 +1,11 @@
-using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.Components;
-using Sojourn.PicnicIOC;
-using Sojourn.Extensions;
-using Sojourn.Utility;
 using UnityEngine;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using DG.Tweening;
 
 namespace Sojourn.ARDefense.Components {
 	// [[RequireComponent (typeof (MeshRenderer))]]
+	[DisallowMultipleComponent]
 	public class ShowHealth : MonoBehaviour {
 		[SerializeField]
 		private GameObject _healthPrefab = null;
@@ -30,7 +22,7 @@ namespace Sojourn.ARDefense.Components {
 		private float _hideDelay = 2.0f;
 
 		//need to mke this int a component
-		private SimepleHealthMeter _meter = null;
+		private SimpleHealthMeter _meter = null;
 		private Color _startColor = Color.white;
 		private Tween _flashTween = null;
 		private IPromise _showPromise = null;
@@ -39,7 +31,7 @@ namespace Sojourn.ARDefense.Components {
 		// private IGameManager _gameManager = null;
 
 		private void Awake() {
-			_meter = Instantiate(_healthPrefab, this.transform).GetComponent<SimepleHealthMeter>();
+			_meter = Instantiate(_healthPrefab, this.transform).GetComponent<SimpleHealthMeter>();
 			_meter.transform.localPosition = _meterOffset;
 			if (!_showAlways) {
 				_meter.HideInstant();

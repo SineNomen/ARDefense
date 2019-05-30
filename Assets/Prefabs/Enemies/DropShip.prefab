@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3639893115526051964}
   - component: {fileID: 5472533715934913755}
   - component: {fileID: 5790243498548648731}
+  - component: {fileID: 4323207352825254865}
   m_Layer: 0
   m_Name: DropShip
   m_TagString: Untagged
@@ -131,6 +132,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.3, y: 1.7, z: 8.2}
   m_Center: {x: 0, y: 0, z: 0.68}
+--- !u!114 &4323207352825254865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6159432158975644194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08f217d023e7f4f42bd339716419cd5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
+    type: 3}
+  _meterOffset: {x: 0, y: 2.5, z: 0}
+  _showOnDamage: 1
+  _showOnTargeted: 1
+  _showAlways: 0
+  _hideDelay: 2
 --- !u!1 &6452269876876717674
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,7 +332,7 @@ Transform:
   m_GameObject: {fileID: 6453059807216080692}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6451325322622737996}
   - {fileID: 6456199106223462976}
