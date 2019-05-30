@@ -91,7 +91,7 @@ namespace Sojourn.ARDefense.Components {
 			// Vector3 point = Random.insideUnitCircle * 3.0f;
 			// point.z = 2.0f;
 			Vector3 point = new Vector3(-5.0f, 2.0f, 15.0f);
-			DropShip ship = Instantiate(_dropShipPrefab).GetComponent<DropShip>();
+			Dropship ship = Instantiate(_dropShipPrefab).GetComponent<Dropship>();
 			ship.transform.position = point;
 #else
 			//pick a random one and put the dropship there

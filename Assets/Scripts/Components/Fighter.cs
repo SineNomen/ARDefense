@@ -20,5 +20,12 @@ has a team
 
 namespace Sojourn.ARDefense.Components {
 	public class Fighter : SimpleEnemy {
+		private static int _createCount = 0;
+
+		protected void Awake() {
+			base.Awake();
+			gameObject.name = string.Format("Fighter #{0}", _createCount);
+			_createCount++;
+		}
 	}
 }

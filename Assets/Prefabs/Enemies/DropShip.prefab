@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3073554065652386010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6794322254681296985}
+  m_Layer: 0
+  m_Name: Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6794322254681296985
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3073554065652386010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1071123748790960091}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6159432158975644194
 GameObject:
   m_ObjectHideFlags: 0
@@ -9,7 +39,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1071123748790960091}
-  - component: {fileID: 5461886913466855129}
+  - component: {fileID: 6728536105557732415}
   - component: {fileID: 4714133494802836619}
   - component: {fileID: 8596574332136901127}
   - component: {fileID: 3639893115526051964}
@@ -18,7 +48,7 @@ GameObject:
   - component: {fileID: 4323207352825254865}
   - component: {fileID: 7757716817123352351}
   m_Layer: 0
-  m_Name: DropShip
+  m_Name: Dropship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,10 +67,11 @@ Transform:
   m_Children:
   - {fileID: 6451119589282587164}
   - {fileID: 384780138795076553}
+  - {fileID: 6794322254681296985}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5461886913466855129
+--- !u!114 &6728536105557732415
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,9 +85,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _line: {fileID: 384780138789291681}
   _prefab: {fileID: 5809382421045864646, guid: 4ba23341507a944a0bd4a41cc72c5874, type: 3}
-  _count: 5
+  _count: 10
   _startDelay: 5
-  _delay: 10
+  _spawnTransform: {fileID: 6794322254681296985}
+  _delay: 5
   _spawnOnStart: 1
   _spawnOnGround: 1
 --- !u!114 &4714133494802836619
@@ -690,10 +722,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3370324, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []

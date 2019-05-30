@@ -15,7 +15,7 @@ has a team
 */
 
 namespace Sojourn.ARDefense.Components {
-	public class DropShip : SimpleEnemy {
+	public class Dropship : SimpleEnemy {
 		[SerializeField]
 		private VolumetricLineBehavior _line = null;
 		[SerializeField]
@@ -26,8 +26,9 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		[Tooltip("Delay before spawning")]
 		private float _startDelay = 5.0f;
-		[Tooltip("Local position to spawn objects, if not spawning on the ground")]
-		private Vector3 _spawnOffset = Vector3.zero;
+		[Tooltip("Local position to spawn objects")]
+		[SerializeField]
+		private Transform _spawnTransform = null;
 		[SerializeField]
 		[Tooltip("Delay between objects")]
 		private float _delay = 1;
@@ -37,8 +38,12 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _spawnOnGround = true;
 
+		private static int _createCount = 0;
+
 		protected void Awake() {
 			base.Awake();
+			gameObject.name = string.Format("Dropship #{0}", _createCount);
+			_createCount++;
 		}
 
 		protected void Start() {
@@ -68,11 +73,11 @@ namespace Sojourn.ARDefense.Components {
 			StartCoroutine(SpawnObjects());
 		}
 		private IEnumerator SpawnObjects() {
-			Vector3 spawnPos = this.transform.position + _spawnOffset;
+			Vector3 spawnPos = _spawnTransform.position;
 			if (_spawnOnGround) {
-				spawnPos.z = 0.0f;
+				spawnPos.y = 0.0f;
 			}
-			Debug.LogFormat("Spawn at {0}", spawnPos);
+			Debug.LogWarningFormat("Spawn at {0}, from {1}", spawnPos, this.transform.position);
 			for (int i = 0; i < _count; i++) {
 				Instantiate(_prefab, spawnPos, this.transform.rotation, null);
 				yield return new WaitForSeconds(_delay);

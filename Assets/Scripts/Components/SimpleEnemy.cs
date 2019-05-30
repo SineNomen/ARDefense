@@ -28,7 +28,7 @@ namespace Sojourn.ARDefense.Components {
 		protected virtual void Awake() {
 			Body = GetComponent<Rigidbody>();
 			_killable = GetComponent<IKillable>();
-			gameObject.name = string.Format("Enemy #{0}", _enemyCount);
+			// gameObject.name = string.Format("Enemy #{0}", _enemyCount);
 			_enemyCount++;
 		}
 

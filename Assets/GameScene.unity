@@ -4467,11 +4467,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DropShip
       objectReference: {fileID: 0}
-    - target: {fileID: 6159432158975644194, guid: 8019909ea494244c186238f9d9344d21,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1071123748790960091, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: m_LocalPosition.x
