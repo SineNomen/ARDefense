@@ -1,18 +1,9 @@
-using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.Components;
 using Sojourn.PicnicIOC;
-using Sojourn.Extensions;
-using Sojourn.Utility;
-using GoogleARCore;
 using UnityEngine;
 using UnityEngine.SpatialTracking;
-using AOFL.Promises.V1.Core;
-using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.XR.ARFoundation;
 
-#if UNITY_EDITOR || UNITY_STANDALONE
 namespace Sojourn.ARDefense.Components {
 	public class DebugController : MonoBehaviour {
 		[SerializeField] private bool _useDebugControls = false;
@@ -46,10 +37,11 @@ namespace Sojourn.ARDefense.Components {
 		private bool _turboOn = false;
 
 
+#if UNITY_EDITOR || UNITY_STANDALONE
 		private void Start() {
 			Container.AutoInject(this);
 			if (_useDebugControls) {
-				Destroy(_gameManager.DeviceCamera.gameObject.GetComponent<ARCoreBackgroundRenderer>());
+				Destroy(_gameManager.DeviceCamera.gameObject.GetComponent<ARCameraBackground>());
 				Destroy(_gameManager.DeviceCamera.gameObject.GetComponent<TrackedPoseDriver>());
 				_transform = _gameManager.DeviceCamera.transform;
 				_startingRotation = _gameManager.DeviceCamera.transform.rotation;
@@ -100,6 +92,6 @@ namespace Sojourn.ARDefense.Components {
 			}
 			_transform.Rotate(rot);
 		}
+#endif// UNITY_EDITOR || UNITY_STANDALONE
 	}
 }
-#endif// UNITY_EDITOR || UNITY_STANDALONE

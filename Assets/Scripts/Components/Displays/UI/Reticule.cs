@@ -7,8 +7,8 @@ using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
+
+
 using DG.Tweening;
 using TMPro;
 using System.Linq;

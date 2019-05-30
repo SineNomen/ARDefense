@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
+using UnityEngine.XR.ARFoundation;
 
 namespace Sojourn.ARDefense.Interfaces {
 	public interface IObjectPlacer {
-		IPromise<GameObject> PlaceObjectOnPlane(GameObject prefab, DetectedPlane plane = null);
-		IPromise<T> PlaceObjectOnPlane<T>(GameObject prefab, DetectedPlane plane = null) where T : Component;
+		IPromise<GameObject> PlaceObjectOnPlane(GameObject prefab, ARPlane plane = null);
+		IPromise<T> PlaceObjectOnPlane<T>(GameObject prefab, ARPlane plane = null) where T : Component;
 	}
 }

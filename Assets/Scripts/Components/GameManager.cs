@@ -1,23 +1,25 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
-using Sojourn.Utility;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
-using System;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {
 		[SerializeField]
 		private GameObject[] _debugObjects = null;
 		[SerializeField]
-		private ARCoreSession _arSession = null;
+		private ARSession _arSession = null;
+		[SerializeField]
+		private ARReferencePointManager _pointManager = null;
+		[SerializeField]
+		private ARPlaneManager _planeManager = null;
+		[SerializeField]
+		private ARRaycastManager _raycastManager = null;
 		[SerializeField]
 		private Camera _deviceCamera = null;
 		[SerializeField]
@@ -42,16 +44,19 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IPlaneSelector _planeSelector = null;
 
-		public ARCoreSession ArSession { get => _arSession; }
+		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
 		private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
 		public Base Player1Base { get; private set; }
 
-		public DetectedPlane GroundPlane { get; private set; }
+		public ARPlane GroundPlane { get; private set; }
 		public List<GameObject> EnemyList { get => _enemyList; }
 
 		public GameObjectEvent OnEnemyCreated { get; set; }
 		public GameObjectEvent OnEnemyKilled { get; set; }
+		public ARRaycastManager RaycastManager { get => _raycastManager; }
+		public ARReferencePointManager PointManager { get => _pointManager; }
+		public ARPlaneManager PlaneManager { get => _planeManager; }
 
 		private void Awake() {
 			Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.ScriptOnly);
@@ -77,12 +82,11 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void SpawnDropShip() {
-			List<Vector3> polygons = new List<Vector3>();
 			//pick a random one and put the dropship there
-			GroundPlane.GetBoundaryPolygon(polygons);
-			Vector3 point = polygons[UnityEngine.Random.Range(0, polygons.Count)];
+			Vector2 offset = GroundPlane.boundary[UnityEngine.Random.Range(0, GroundPlane.boundary.Length)];
+			Vector3 point = GroundPlane.center + new Vector3(offset.x, offset.y, 0.0f);
 			Pose p = new Pose(point, Quaternion.identity);
-			Anchor anchor = GroundPlane.CreateAnchor(p);
+			ARReferencePoint anchor = PointManager.AddReferencePoint(p);
 			DropShip ship = Instantiate(_dropShipPrefab).GetComponent<DropShip>();
 			ship.transform.SetPose(p);
 			ship.transform.parent = anchor.transform;
@@ -104,7 +108,7 @@ namespace Sojourn.ARDefense.Components {
 		//grab the new ones and put them in a hashset
 		public IPromise StartNewGame() {
 			return _planeSelector.SelectPlane()
-			.Then((DetectedPlane plane) => {
+			.Then((ARPlane plane) => {
 				Debug.LogErrorFormat("Plane Selected: {0}", plane);
 				GroundPlane = plane;
 			}
@@ -137,9 +141,10 @@ namespace Sojourn.ARDefense.Components {
 			Debug.LogError("Place Base");
 			Base b = Instantiate(_basePrefab, Vector3.zero, Quaternion.identity).GetComponent<Base>();
 
-			b.transform.SetPose(GroundPlane.CenterPose);
-			Anchor anchor = GroundPlane.CreateAnchor(GroundPlane.CenterPose);
-			b.transform.parent = anchor.transform;
+			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
+			b.transform.position = GroundPlane.center;
+			ARReferencePoint point = PointManager.AttachReferencePoint(GroundPlane, center);
+			b.transform.parent = point.transform;
 			return Promise<Base>.Resolved(b);
 		}
 		public IPromise<Base> ChoosePlaceBase() {

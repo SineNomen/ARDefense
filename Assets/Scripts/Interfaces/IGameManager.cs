@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.XR.ARFoundation;
 //`Mat hack, shouldn't need components
 using Sojourn.ARDefense.Components;
 
 namespace Sojourn.ARDefense.Interfaces {
 	public delegate void GameObjectEvent(GameObject go);
 	public interface IGameManager {
-		DetectedPlane GroundPlane { get; }
-		ARCoreSession ArSession { get; }
+		ARPlane GroundPlane { get; }
+		ARSession ArSession { get; }
+		ARRaycastManager RaycastManager { get; }
+		ARReferencePointManager PointManager { get; }
+		ARPlaneManager PlaneManager { get; }
 		Camera DeviceCamera { get; }
 		Base Player1Base { get; }
 		List<GameObject> EnemyList { get; }

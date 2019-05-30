@@ -6,10 +6,7 @@ using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
-using GoogleARCore;
-using GoogleARCore.Examples.Common;
-using TMPro;
-
+using UnityEngine.XR.ARFoundation;
 
 namespace Sojourn.ARDefense.Components {
 	public class ObjectPlacer : MonoBehaviour, IObjectPlacer {
@@ -34,7 +31,7 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 		}
 
-		public IPromise<GameObject> PlaceObjectOnPlane(GameObject prefab, DetectedPlane plane = null) {
+		public IPromise<GameObject> PlaceObjectOnPlane(GameObject prefab, ARPlane plane = null) {
 			_prefab = prefab;
 			PlacerDisplay display = Instantiate(_displayPrefab).GetComponent<PlacerDisplay>();
 			display.PlaceButton.onClick.AddListener(OnPlaceButton);
@@ -47,7 +44,7 @@ namespace Sojourn.ARDefense.Components {
 			return _placePromise;
 		}
 
-		public IPromise<T> PlaceObjectOnPlane<T>(GameObject prefab, DetectedPlane plane = null) where T : Component {
+		public IPromise<T> PlaceObjectOnPlane<T>(GameObject prefab, ARPlane plane = null) where T : Component {
 			IPromise<T> p = new Promise<T>();
 			PlaceObjectOnPlane(prefab, plane).Then((GameObject go) => {
 				p.Resolve(go.GetComponent<T>());
@@ -65,43 +62,42 @@ namespace Sojourn.ARDefense.Components {
 
 		}
 
-		private IEnumerator MovePlaceObject(DetectedPlane plane) {
+		private IEnumerator MovePlaceObject(ARPlane plane) {
 			yield return null;
 			if (plane == null) { plane = _gameManager.GroundPlane; }
-			Anchor anchor = null;
+			ARReferencePoint point = null;
 			while (true) {
-				Anchor newAnchor = PlaceObjectOnGround(plane);
-				if (newAnchor != null) {
-					if (anchor != null) { Destroy(anchor.gameObject); }
-					anchor = newAnchor;
+				ARReferencePoint newPoint = PlaceObjectOnGround(plane);
+				if (newPoint != null) {
+					if (point != null) { Destroy(point.gameObject); }
+					point = newPoint;
 				}
 				yield return null;
 			}
 		}
-		private Anchor PlaceObjectOnGround(DetectedPlane plane) {
-			//get the screen position of the reticule
+		private ARReferencePoint PlaceObjectOnGround(ARPlane plane) {
 			// Vector2 reticulePos = _displayManager.CurrentDisplay.Reticule.ScreenPosition;
 			Vector2 reticulePos = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
-			TrackableHit hit;
-			// TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon;
-			TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinInfinity;
-			if (Frame.Raycast(reticulePos.x, reticulePos.y, raycastFilter, out hit)) {
+			List<ARRaycastHit> results = new List<ARRaycastHit>();
+			if (_gameManager.RaycastManager.Raycast(reticulePos, results, UnityEngine.XR.ARSubsystems.TrackableType.Planes)) {
 				// Use hit pose and camera pose to check if hittest is from the
 				// back of the plane, if it is, no need to create the anchor.
-				Debug.LogFormat("Hit: {0}", hit.Trackable);
-				if (hit.Trackable == plane &&
-					Vector3.Dot(_gameManager.DeviceCamera.transform.position - hit.Pose.position,
-					hit.Pose.rotation * Vector3.up) < 0) {
-				} else {
-					Debug.LogFormat("Moving object to new position: {0}", hit.Pose.position);
+				foreach (ARRaycastHit hit in results) {
+					Debug.LogFormat("Hit: {0}", hit.trackableId);
+					if (hit.trackableId == plane.trackableId &&
+						Vector3.Dot(_gameManager.DeviceCamera.transform.position - hit.pose.position,
+						hit.pose.rotation * Vector3.up) < 0) {
+					} else {
+						Debug.LogFormat("Moving object to new position: {0}", hit.pose.position);
 
-					if (_placeObject == null) {
-						_placeObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
+						if (_placeObject == null) {
+							_placeObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
+						}
+						_placeObject.transform.SetPose(hit.pose);
+						ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(plane, hit.pose);
+						_placeObject.transform.parent = point.transform;
+						return point;
 					}
-					_placeObject.transform.SetPose(hit.Pose);
-					Anchor anchor = hit.Trackable.CreateAnchor(hit.Pose);
-					_placeObject.transform.parent = anchor.transform;
-					return anchor;
 				}
 			} else {
 				Debug.Log("Not looking at the ground plane");
