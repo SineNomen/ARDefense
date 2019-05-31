@@ -17,9 +17,9 @@ namespace Sojourn.ARDefense.Components {
 		private bool _showOnTargeted = true;
 		[SerializeField]
 		private bool _showAlways = false;
-		[SerializeField]
-		[Tooltip("How long to wait before hiding")]
-		private float _hideDelay = 2.0f;
+		// [SerializeField]
+		// [Tooltip("How long to wait before hiding")]
+		// private float _hideDelay = 2.0f;
 
 		//need to mke this int a component
 		private SimpleHealthMeter _meter = null;

@@ -85,10 +85,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _line: {fileID: 384780138789291681}
   _prefab: {fileID: 5809382421045864646, guid: 4ba23341507a944a0bd4a41cc72c5874, type: 3}
-  _count: 10
+  _count: 50
   _startDelay: 5
   _spawnTransform: {fileID: 6794322254681296985}
-  _delay: 5
+  _delay: 3
   _spawnOnStart: 1
   _spawnOnGround: 1
 --- !u!114 &4714133494802836619
@@ -105,8 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 1
   _teamDamage: 0
-  _maxHealth: 50
-  _collisionDamageGiven: 50
+  _maxHealth: 100
+  _collisionDamageGiven: 100
 --- !u!114 &8596574332136901127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,11 +179,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
     type: 3}
-  _meterOffset: {x: 0, y: 1.5, z: 0}
+  _meterOffset: {x: 0, y: 2, z: 0}
   _showOnDamage: 1
   _showOnTargeted: 1
   _showAlways: 0
-  _hideDelay: 2
 --- !u!114 &7757716817123352351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,6 +721,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3370324, guid: c07c8697a750e4f4aa46512888536724, type: 3}
+      propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []

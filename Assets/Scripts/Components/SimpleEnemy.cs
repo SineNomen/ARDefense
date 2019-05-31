@@ -21,7 +21,7 @@ namespace Sojourn.ARDefense.Components {
 		public Transform Transform { get => this.transform; }
 
 		[AutoInject]
-		private IGameManager _gameManager = null;
+		protected IGameManager _gameManager = null;
 		private IKillable _killable = null;
 		private static int _enemyCount = 0;
 

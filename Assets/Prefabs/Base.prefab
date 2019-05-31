@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthPrefab: {fileID: 5164921724205067219, guid: 4bc169256e42049759f602ffd8239ea7,
     type: 3}
-  _meterOffset: {x: 0, y: 2, z: 0}
+  _meterOffset: {x: 0, y: 6, z: 0}
   _showOnDamage: 0
   _showOnTargeted: 0
   _showAlways: 1

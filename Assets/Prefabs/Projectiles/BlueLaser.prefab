@@ -7,15 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 136330, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
+      propertyPath: m_Name
+      value: BlueLaser
+      objectReference: {fileID: 0}
     - target: {fileID: 7136817975935085038, guid: f577c42acc59a418c9707c974caa0e8d,
         type: 3}
       propertyPath: _clip
       value: 
       objectReference: {fileID: 8300000, guid: 10f821af1b51849e28cea5dd790e3d5c, type: 3}
-    - target: {fileID: 136330, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
-      propertyPath: m_Name
-      value: BlueLaser
-      objectReference: {fileID: 0}
     - target: {fileID: 499656, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

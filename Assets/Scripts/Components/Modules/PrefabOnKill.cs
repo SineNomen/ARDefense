@@ -1,3 +1,4 @@
+using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using UnityEngine;
 
@@ -9,6 +10,9 @@ namespace Sojourn.ARDefense.Components {
 		private bool _preload = false;
 		private GameObject _preloadedObject = null;
 
+		[AutoInject]
+		private IGameManager _gameManager = null;
+
 		private void Awake() {
 			if (_preload) {
 				_preloadedObject = Instantiate(_prefab, null);
@@ -16,10 +20,14 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
+		private void Start() {
+			Container.AutoInject(this);
+		}
+
 		[ContextMenu("Do Prefab")]
 		public void TestDamage() { OnKill(null); }
 		public void OnKill(IKillable us) {
-			GameObject obj = (_preload ? _preloadedObject : Instantiate(_prefab, null));
+			GameObject obj = (_preload ? _preloadedObject : Instantiate(_prefab, _gameManager.WorldParent));
 			obj.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
 			// Debug.LogFormat("This: {0}, prefab: {1}", this.transform.position, obj.transform.position);
 			obj.SetActive(true);

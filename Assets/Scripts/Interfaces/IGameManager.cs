@@ -14,6 +14,9 @@ namespace Sojourn.ARDefense.Interfaces {
 		ARRaycastManager RaycastManager { get; }
 		ARReferencePointManager PointManager { get; }
 		ARPlaneManager PlaneManager { get; }
+		ARSessionOrigin Origin { get; }
+		Transform WorldParent { get; }
+		Vector3 GroundPosition { get; }
 		Camera DeviceCamera { get; }
 		Base Player1Base { get; }
 		List<GameObject> EnemyList { get; }

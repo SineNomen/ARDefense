@@ -22,8 +22,8 @@ MonoBehaviour:
   _projectilesPerShot: 2
   _delayBetweenProjectiles: 0
   _projectileOffsets:
-  - {x: -0.35, y: 0, z: 0}
-  - {x: 0.35, y: 0, z: 0}
+  - {x: -0.15, y: 0, z: 0}
+  - {x: 0.15, y: 0, z: 0}
   _maxAmmo: -1
   _speed: 300
   _projectileLifetime: 10

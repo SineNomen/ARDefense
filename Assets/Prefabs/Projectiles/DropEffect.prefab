@@ -96,7 +96,7 @@ MonoBehaviour:
   m_startPos: {x: 0, y: 0, z: 0}
   m_endPos: {x: 0, y: 0, z: 0}
   m_lineColor: {r: 0.8396226, g: 0.30588236, b: 1, a: 1}
-  m_lineWidth: 4
+  m_lineWidth: 15
   m_lightSaberFactor: 0.9
 --- !u!108 &10825254
 Light:

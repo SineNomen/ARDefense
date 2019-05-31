@@ -6,14 +6,6 @@ using System.Collections;
 using VolumetricLines;
 using DG.Tweening;
 
-/*
-Has a list of weapons
-	a current weapon
-Is damagable
-has a team
-
-*/
-
 namespace Sojourn.ARDefense.Components {
 	public class Dropship : SimpleEnemy {
 		[SerializeField]
@@ -61,7 +53,12 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private IPromise DoSpawnAnimation() {
+#if UNITY_EDITOR
 			float height = this.transform.localPosition.y;
+#else// UNITY_EDITOR
+			float height = this.transform.position.y - _gameManager.GroundPosition.y;
+#endif// UNITY_EDITOR
+
 			return DOVirtual.Float(0.0f, height, 3.0f, (val) => {
 				Vector3 pos = _line.EndPos;
 				pos.z = val;
@@ -75,11 +72,15 @@ namespace Sojourn.ARDefense.Components {
 		private IEnumerator SpawnObjects() {
 			Vector3 spawnPos = _spawnTransform.position;
 			if (_spawnOnGround) {
+#if UNITY_EDITOR
 				spawnPos.y = 0.0f;
+#else// UNITY_EDITOR
+				spawnPos.y = _gameManager.GroundPosition.y;
+#endif// UNITY_EDITOR
 			}
 			Debug.LogWarningFormat("Spawn at {0}, from {1}", spawnPos, this.transform.position);
 			for (int i = 0; i < _count; i++) {
-				Instantiate(_prefab, spawnPos, this.transform.rotation, null);
+				Instantiate(_prefab, spawnPos, this.transform.rotation, _gameManager.WorldParent);
 				yield return new WaitForSeconds(_delay);
 			}
 		}
