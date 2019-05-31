@@ -22,7 +22,9 @@ namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(Tank))]
 	public class DriveDirectPattern : MonoBehaviour {
 		[SerializeField]
-		private float _speed = 10.0f;
+		private float _driveSpeed = 1.5f;
+		[SerializeField]
+		private float _turnSpeed = 3.0f;
 		[SerializeField]
 		private bool _startOnCreate = true;
 
@@ -32,7 +34,8 @@ namespace Sojourn.ARDefense.Components {
 		private Tank _tank;
 		private Transform _target = null;
 
-		public float Speed { get => _speed; }
+		public float DriveSpeed { get => _driveSpeed; }
+		public float TurnSpeed { get => _turnSpeed; }
 
 		private void Awake() {
 			_tank = GetComponent<Tank>();
@@ -54,11 +57,11 @@ namespace Sojourn.ARDefense.Components {
 			while (true) {
 				Vector3 relativePos = _gameManager.Player1Base.CenterPosition - this.transform.position;
 				Quaternion look = Quaternion.LookRotation(relativePos, this.transform.up);
-				this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _speed * Time.deltaTime);
+				this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
 				float angle = Quaternion.Angle(look, this.transform.rotation);
 
 				// transform.LookAt(_gameManager.Player1Base.CenterPosition);
-				_tank.Body.velocity = transform.forward * _speed;
+				_tank.Body.velocity = transform.forward * _driveSpeed;
 				yield return null;
 			}
 		}

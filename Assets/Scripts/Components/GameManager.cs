@@ -111,7 +111,8 @@ namespace Sojourn.ARDefense.Components {
 #if UNITY_EDITOR
 			// Vector3 point =  * 3.0f;
 			Vector2 offset = new Vector3(UnityEngine.Random.Range(-30.0f, 30.0f), UnityEngine.Random.Range(-30.0f, 30.0f));
-			Vector3 point = new Vector3(offset.x, (CameraHeight * 1.25f), offset.y);
+			float height = Mathf.Max((CameraHeight * 1.25f), 15.0f);
+			Vector3 point = new Vector3(offset.x, height, offset.y);
 			Dropship ship = Instantiate(_dropShipPrefab, WorldParent).GetComponent<Dropship>();
 			ship.transform.position = point;
 #else
