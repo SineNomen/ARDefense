@@ -1,41 +1,20 @@
-Google ARCore SDK for Unity
+AR Defense
 ===========================
-Copyright 2017 Google LLC.  All rights reserved.
+Copyright 2019 Mat Valadez
 
-This SDK provides native APIs for all of the essential AR features like motion
-tracking, environmental understanding, and light estimation. With these
-capabilities you can build entirely new AR experiences or enhance existing apps
-with AR features.
+AR Defense is a simple proof-of-concept prototype for an Augmented Reality Tower defense style game.
 
 
-## Quick Start
 
-See the [Getting Started with Unity](//developers.google.com/ar/develop/unity/getting-started) developer guide.
+## How to Play
 
+Point the camera at the ground and move around slowly until the game recognizes the ground as a plane.
+Then, move the reticule around to "grow" the ground plane, when the reticule is green, press the confirm button
+to start the game. For best results, pay outdoors with as large an area as is comfortable to move about.
 
-## API Reference
-
-See the [ARCore SDK for Unity API Reference](//developers.google.com/ar/reference/unity).
-
-
-## Release Notes
-
-The SDK release notes are available on the
-[releases](//github.com/google-ar/arcore-unity-sdk/releases) page.
+Currently, Only Android is supported.
 
 
-## Terms & Conditions
-
-By downloading the ARCore SDK for Unity, you agree that the
-[Google APIs Terms of Service](//developers.google.com/terms/) governs your use
-thereof.
+## Code Walkthrough
 
 
-## User privacy requirements
-
-You must disclose the use of ARCore and how it collects and processes data,
-prominently in your application, easily accessible to users. You can do this by
-adding the following text on your main menu or notice screen: "This application
-runs on [ARCore](//play.google.com/store/apps/details?id=com.google.ar.core),
-which is provided by Google LLC and governed by the
-[Google Privacy Policy](//policies.google.com/privacy)".

@@ -1,6 +1,4 @@
-﻿using Sojourn.PicnicIOC;
-using Sojourn.ARDefense.Interfaces;
-using UnityEngine;
+﻿using Sojourn.ARDefense.Interfaces;
 
 namespace Sojourn.ARDefense.Components {
 	public class SoundOnDamage : SoundOnEvent {

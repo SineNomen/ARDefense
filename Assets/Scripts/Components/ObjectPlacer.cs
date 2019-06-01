@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine.XR.ARFoundation;
 
 namespace Sojourn.ARDefense.Components {
+	//Place an object on a plane, object is visible as a preview
 	public class ObjectPlacer : MonoBehaviour, IObjectPlacer {
 		[AutoInject]
 		private IGameManager _gameManager = null;

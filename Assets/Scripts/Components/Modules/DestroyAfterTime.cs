@@ -1,6 +1,4 @@
-﻿using Sojourn.PicnicIOC;
-using Sojourn.ARDefense.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
 	public class DestroyAfterTime : MonoBehaviour {

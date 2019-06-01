@@ -1,15 +1,6 @@
-﻿using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.Components;
-using Sojourn.PicnicIOC;
-using Sojourn.Extensions;
+﻿using Sojourn.ARDefense.Components;
 using UnityEngine;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-
-
-using TMPro;
 
 namespace Sojourn.ARDefense.Interfaces {
 	public delegate void DisplayCallback(IDisplay display);

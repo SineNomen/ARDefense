@@ -1,12 +1,8 @@
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.Components;
 using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using UnityEngine;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(CanvasGroup))]

@@ -1,7 +1,3 @@
-using Sojourn.ARDefense.Components;
-using Sojourn.ARDefense.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Sojourn.ARDefense.ScriptableObjects {

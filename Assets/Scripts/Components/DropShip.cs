@@ -1,4 +1,3 @@
-using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
@@ -32,13 +31,13 @@ namespace Sojourn.ARDefense.Components {
 
 		private static int _createCount = 0;
 
-		protected void Awake() {
+		protected override void Awake() {
 			base.Awake();
 			gameObject.name = string.Format("Dropship #{0}", _createCount);
 			_createCount++;
 		}
 
-		protected void Start() {
+		protected override void Start() {
 			base.Start();
 			if (_spawnOnStart && _count > 0) {
 				Spawn();

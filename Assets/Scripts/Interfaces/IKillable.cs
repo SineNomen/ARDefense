@@ -6,6 +6,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		// Switzerland,
 	}
 
+	//any object that can give or take damage needs to have a killable
 	//each killable is resonsible for taking the damage the other guy gives
 	public interface IKillable {
 		eKillableTeam Team { get; set; }

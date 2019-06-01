@@ -1,15 +1,8 @@
 using Sojourn.ARDefense.Interfaces;
 using UnityEngine;
 
-/*
-Has a list of weapons
-	a current weapon
-Is damagable
-has a team
-
-*/
-
 namespace Sojourn.ARDefense.Components {
+
 	public class SimpleKillable : MonoBehaviour, IKillable {
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;

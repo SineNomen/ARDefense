@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 namespace Sojourn.ARDefense.Components {
+	[DisallowMultipleComponent]
 	public class AudioManager : MonoBehaviour, IAudioManager {
 		[SerializeField]
 		private AudioMixerGroup _sfxGroup = null;

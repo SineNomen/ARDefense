@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.XR.ARFoundation;
 //`Mat hack, shouldn't need components

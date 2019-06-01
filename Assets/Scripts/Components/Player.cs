@@ -5,13 +5,6 @@ using Sojourn.Extensions;
 using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
 
-/*
-Has a list of weapons
-	a current weapon
-Is damagable
-has a team
-
-*/
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(SimpleKillable))]
 	public class Player : MonoBehaviour, IPlayer {
@@ -42,9 +35,9 @@ namespace Sojourn.ARDefense.Components {
 			_gameManager.OnPlayerKilled();
 			Destroy(this.gameObject);
 		}
-
-		public void OnDamaged(IKillable us) {
-			//flash red or something
-		}
+		//eventually, we may want to tell the user somehow, maybe using UI
+		// public void OnDamaged(IKillable us) {
+		//flash red or something
+		// }
 	}
 }

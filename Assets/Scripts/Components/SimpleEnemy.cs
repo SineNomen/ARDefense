@@ -2,17 +2,7 @@ using Sojourn.ARDefense.Interfaces;
 using Sojourn.PicnicIOC;
 using UnityEngine;
 
-/*
-Has a list of weapons
-	a current weapon
-Is damagable
-has a team
-
-*/
-
 namespace Sojourn.ARDefense.Components {
-	// [RequireComponent(typeof(SimpleKillable))]
-	// [RequireComponent(typeof(Rigidbody))]
 	public class SimpleEnemy : MonoBehaviour {
 		[SerializeField]
 
@@ -38,7 +28,6 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		// public void OnDamaged(IKillable us) { }
-		//`Mat need to only kill once
 		public void OnKill(IKillable us) {
 			Debug.LogFormat("Enemy {0} has been killed", this.gameObject.name);
 			_gameManager.UnregisterEnemy(this.gameObject);

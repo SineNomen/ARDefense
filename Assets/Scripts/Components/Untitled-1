@@ -1,7 +1,0 @@
-Need a Flyer Component
-Need a Driver Component
-
-Need a FlyDirectAttack Pattern
-	If it finds a flyer, if flies it straight toward the enemy base
-Need a DecayingOrbit Pattern
-	If it finds a flyer, flys around it, getting closer each pass

@@ -8,7 +8,6 @@ using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {

@@ -5,9 +5,9 @@ using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections.Generic;
 using UnityEngine.XR.ARFoundation;
-using System;
 
 namespace Sojourn.ARDefense.Components {
+	//used to choose the plane to act as the game's ground, can automatically pick the one looked at if it's big enough
 	public class PlaneSelector : MonoBehaviour, IPlaneSelector {
 		[Tooltip("How big the ground plane must be for us to use it")]
 		[SerializeField]

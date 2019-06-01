@@ -4,7 +4,6 @@ using AOFL.Promises.V1.Interfaces;
 using DG.Tweening;
 
 namespace Sojourn.ARDefense.Components {
-	// [[RequireComponent (typeof (MeshRenderer))]]
 	[DisallowMultipleComponent]
 	public class ShowHealth : MonoBehaviour {
 		[SerializeField]
@@ -24,7 +23,6 @@ namespace Sojourn.ARDefense.Components {
 		//need to mke this int a component
 		private SimpleHealthMeter _meter = null;
 		private Color _startColor = Color.white;
-		private Tween _flashTween = null;
 		private IPromise _showPromise = null;
 
 		// [AutoInject]

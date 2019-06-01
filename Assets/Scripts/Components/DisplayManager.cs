@@ -8,6 +8,7 @@ using AOFL.Promises.V1.Interfaces;
 using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Components {
+	//Manages display that are meant to be used during gameplay (like an airplane HUD)
 	public class DisplayManager : MonoBehaviour, IDisplayManager {
 		[SerializeField]
 		private Transform _displayParent = null;

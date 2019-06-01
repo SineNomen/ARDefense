@@ -5,6 +5,7 @@ using UnityEngine.SpatialTracking;
 using UnityEngine.XR.ARFoundation;
 
 namespace Sojourn.ARDefense.Components {
+	//allows the player to move around using a keyboard in non-device builds
 	public class DebugController : MonoBehaviour {
 		[SerializeField] private bool _useDebugControls = false;
 		[SerializeField] private float _moveSpeed = 1.0f;

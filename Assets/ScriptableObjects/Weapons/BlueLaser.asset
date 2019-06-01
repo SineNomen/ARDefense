@@ -16,7 +16,7 @@ MonoBehaviour:
     type: 3}
   displayPrefab: {fileID: 1834309449845521610, guid: 10049bced810842a6abde54abfbf779e,
     type: 3}
-  _damage: 1
+  _damage: 2
   _reloadTime: 0.5
   _shotPerLoad: 1
   _projectilesPerShot: 4

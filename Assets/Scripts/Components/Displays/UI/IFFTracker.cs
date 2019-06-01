@@ -13,10 +13,7 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private RectTransform _indicatorParent = null;
 		[SerializeField]
-		[Range(0.0f, 360.0f)]
-		private float _angle = 0.0f;
-		[SerializeField]
-		[Tooltip("Objects within the deadzone do not show and indicator")]
+		[Tooltip("Objects within the deadzone do not show an indicator")]
 		private float _deadZone = 0.0f;
 
 		[AutoInject]
