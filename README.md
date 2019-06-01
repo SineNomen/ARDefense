@@ -34,29 +34,26 @@ Used to find a suitable plane to act as the world's ground, to which all other o
 The UI is mostly expressed through "Displays". Full-screen UI pages that have a reticule with a reload meter
 and any buttons that will be used. Displays are pushed and popped depending on which component is in control
 and what the player needs to do.
-###IFFTracker
+### IFFTracker
 Shows the approximate direction of objects in the game, notable the players base, and enemies.
-###Weapon (ScriptableObject)
+### Weapon (ScriptableObject)
 Contains the configuration and projectile prefab for a weapon.
-###Cannon
+### Cannon
 Used to fire a weapon
-###SimpleKillable
+### SimpleKillable
 Any object that can give or receive damage must have an IKillable imlementation. SimpleKillable is a rudimentary implementation
 of IKillable that handles taking damage and destroying the GameObject when the health runs out.
-###SimpleProjectile
+### SimpleProjectile
 A projectile that fires in a straight line and is automatically destroyed after a period of time.
-###ShowHealth
+### ShowHealth
 This Module dsplay a health meter above the object on the given trigger (usually when in the current Display's Reticule).
-###PrefabOnKill
+### PrefabOnKill
 Instantiates a prefab when the IKillable is killed. Use this to create an explosion, debris, etc.
 
 
 ## Libraries Used
-###PicnicIOC
-A IoC library based on [MinIOC](https://github.com/microsoft/MinIoC).
-###TextMeshPro
-###AOFLPromises
+### PicnicIOC
+A simple IoC library based on [MinIOC](https://github.com/microsoft/MinIoC).
+### TextMeshPro
+### AOFLPromises
 [AofL Promises](https://github.com/AgeOfLearning/promises)
-
-
-
