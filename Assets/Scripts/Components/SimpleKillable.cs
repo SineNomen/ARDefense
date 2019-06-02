@@ -2,7 +2,7 @@ using Sojourn.ARDefense.Interfaces;
 using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
-
+	[DisallowMultipleComponent]
 	public class SimpleKillable : MonoBehaviour, IKillable {
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;
@@ -10,6 +10,7 @@ namespace Sojourn.ARDefense.Components {
 		private bool _teamDamage = false;
 		[SerializeField]
 		private int _maxHealth = 1;
+		[SerializeField]
 		private int _currentHealth;
 		[SerializeField]
 		private int _collisionDamageGiven = 1;
