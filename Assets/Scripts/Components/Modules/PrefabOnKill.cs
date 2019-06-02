@@ -15,7 +15,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Awake() {
 			if (_preload) {
-				_preloadedObject = Instantiate(_prefab, null);
+				_preloadedObject = Instantiate(_prefab, this.transform);
 				_preloadedObject.SetActive(false);
 			}
 		}
@@ -28,6 +28,7 @@ namespace Sojourn.ARDefense.Components {
 		public void TestDamage() { OnKill(null); }
 		public void OnKill(IKillable us) {
 			GameObject obj = (_preload ? _preloadedObject : Instantiate(_prefab, _gameManager.WorldParent));
+			obj.transform.SetParent(_gameManager.WorldParent);
 			obj.transform.SetPositionAndRotation(this.transform.position, this.transform.rotation);
 			// Debug.LogFormat("This: {0}, prefab: {1}", this.transform.position, obj.transform.position);
 			obj.SetActive(true);

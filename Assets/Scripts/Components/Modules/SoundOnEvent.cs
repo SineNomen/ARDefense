@@ -25,9 +25,8 @@ namespace Sojourn.ARDefense.Components {
 		private AudioSource CreateObject() {
 			//`Mat inject here because we may be getting called the same frame we get the OnFire and Start is not called yet
 			Container.AutoInject(this);
-
 			GameObject obj = new GameObject(string.Format("{0} {1}Sound", this.gameObject.name, Tag));
-			obj.transform.SetParent(_audioManager.SoundParent);
+			obj.transform.SetParent(this.transform);
 			AudioSource source = obj.AddComponent<AudioSource>();
 			source.playOnAwake = false;
 			source.outputAudioMixerGroup = _audioManager.SfxGroup;

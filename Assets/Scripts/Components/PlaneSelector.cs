@@ -57,18 +57,14 @@ namespace Sojourn.ARDefense.Components {
 			_gameManager.PlaneManager.planesChanged += OnPlanesChanged;
 
 			return this.StartCoroutineAsPromise<ARPlane>(PickPlane()).Then((ARPlane p) => {
-				TurnOffPlanes(p);
 				_gameManager.PlaneManager.planesChanged -= OnPlanesChanged;
 				_gameManager.PlaneManager.enabled = false;
+				TurnOffPlanes(p);
 			});
 		}
 
 		private void TurnOffPlanes(ARPlane chosen) {
-			foreach (ARPlane p in _planes) {
-				if (p.trackableId != chosen.trackableId) {
-					p.gameObject.SetActive(false);
-				}
-			}
+			VisualPlane.DestroyAll();
 		}
 
 		private void OnPlanesChanged(ARPlanesChangedEventArgs args) {

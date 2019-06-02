@@ -29,6 +29,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private GameObject _basePrefab = null;
 		[SerializeField]
+		private GameObject _groundPrefab = null;
+		[SerializeField]
 		private GameObject _dropShipPrefab = null;
 		[SerializeField]
 		private Weapon[] _testWeapons = null;
@@ -52,6 +54,7 @@ namespace Sojourn.ARDefense.Components {
 		public Base Player1Base { get; private set; }
 
 		public ARPlane GroundPlane { get; private set; }
+		public Ground Ground { get; private set; }
 		public List<GameObject> EnemyList { get => _enemyList; }
 
 		public GameObjectEvent OnEnemyCreated { get; set; }
@@ -61,7 +64,6 @@ namespace Sojourn.ARDefense.Components {
 		public ARPlaneManager PlaneManager { get => _planeManager; }
 		public ARSessionOrigin Origin { get => _origin; }
 		public Transform WorldParent { get => null; }
-		public Vector3 GroundPosition { get => GroundPlane.transform.position; }
 		public float CameraHeight { get => DeviceCamera.transform.position.y; }
 
 		private void Awake() {
@@ -92,7 +94,7 @@ namespace Sojourn.ARDefense.Components {
 			Player1Base.OnBaseKilled += OnBaseKilled;
 			_weaponObject.SetActive(true);
 			DEBUG_SetWeapon(0);
-			StartCoroutine(SpawnDropships(100));
+			StartCoroutine(SpawnDropships(8));
 		}
 
 		private IEnumerator SpawnDropships(int count) {
@@ -107,30 +109,28 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void SpawnDropShip() {
-#if UNITY_EDITOR
-			// Vector3 point =  * 3.0f;
-			Vector2 offset = new Vector3(UnityEngine.Random.Range(-30.0f, 30.0f), UnityEngine.Random.Range(-30.0f, 30.0f));
+			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
 			float height = Mathf.Max((CameraHeight * 1.25f), 15.0f);
-			Vector3 point = new Vector3(offset.x, height, offset.y);
-			Dropship ship = Instantiate(_dropShipPrefab, WorldParent).GetComponent<Dropship>();
-			ship.transform.position = point;
-#else
-			//pick a random one and put the dropship there
-			Vector2 offset = GroundPlane.centerInPlaneSpace + GroundPlane.boundary[UnityEngine.Random.Range(0, GroundPlane.boundary.Length)];
-			Vector3 point = GroundPlane.transform.TransformPoint(offset);
-			point.y = (CameraHeight * 1.25f);
+			float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);
+			Vector3 point = Ground.GetPositionAt(angle, distance, height);
+			Debug.LogFormat("New Dropship at [{0}, {1}], pos: {2}", angle, distance, point);
 			Pose p = new Pose(point, Quaternion.identity);
-			ARReferencePoint anchor = PointManager.AddReferencePoint(p);
-			Dropship ship = Instantiate(_dropShipPrefab).GetComponent<Dropship>();
-			// ship.transform.position = Vector3.up * 1.0f;
+
+			Dropship ship = Instantiate(_dropShipPrefab, WorldParent).GetComponent<Dropship>();
 			ship.transform.SetPose(p);
+#if !UNITY_EDITOR
+			ARReferencePoint anchor = PointManager.AddReferencePoint(p);
 			ship.transform.parent = anchor.transform;
-#endif// UNITY_EDITOR
+#endif// !UNITY_EDITOR
+
 		}
 
 		private IPromise CreateTestGame() {
-			// GroundPlane = Instantiate(_planeManager.planePrefab, Vector3.zero, Quaternion.identity).GetComponent<ARPlane>();
-			Player1Base = Instantiate(_basePrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Base>();
+			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Ground>();
+			Ground.Radius = 30.0f;
+			//hack for the to fix the prefab for testing on editor, scale is off
+			foreach (Transform child in Ground.Transform) { child.localScale *= 2.0f; }
+			Player1Base = Instantiate(_basePrefab, Ground.Center, Quaternion.identity, WorldParent).GetComponent<Base>();
 			return Promise.Resolved();
 		}
 
@@ -140,6 +140,12 @@ namespace Sojourn.ARDefense.Components {
 			.Then((ARPlane plane) => {
 				Debug.LogErrorFormat("Plane Selected: {0}", plane);
 				GroundPlane = plane;
+				Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Ground>();
+				Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * Origin.transform.localScale.x;
+				Pose pose = new Pose(plane.transform.position, Quaternion.identity);
+				ARReferencePoint anchor = PointManager.AttachReferencePoint(plane, pose);
+				Ground.transform.SetPose(pose);
+				Ground.transform.SetParent(anchor.transform);
 			}
 			)
 			.Then(() => {
