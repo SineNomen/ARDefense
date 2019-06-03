@@ -14,7 +14,7 @@ namespace Sojourn.ARDefense.Components {
 		private bool _startOnCreate = true;
 
 		[AutoInject]
-		private IGameManager _gameManager = null;
+		private ILevelManager _levelManager = null;
 
 		private Tank _tank;
 		// private Transform _target = null;
@@ -35,17 +35,17 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void Setup() {
-			// transform.LookAt(_gameManager.Player1Base.CenterPosition);
+			// transform.LookAt(_levelManager.PlayerBase.CenterPosition);
 		}
 
 		public IEnumerator UpdatePattern() {
 			while (true) {
-				Vector3 relativePos = _gameManager.Player1Base.CenterPosition - this.transform.position;
+				Vector3 relativePos = _levelManager.PlayerBase.CenterPosition - this.transform.position;
 				Quaternion look = Quaternion.LookRotation(relativePos, this.transform.up);
 				this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
 				float angle = Quaternion.Angle(look, this.transform.rotation);
 
-				// transform.LookAt(_gameManager.Player1Base.CenterPosition);
+				// transform.LookAt(_levelManager.PlayerBase.CenterPosition);
 				_tank.Body.velocity = transform.forward * _driveSpeed;
 				yield return null;
 			}

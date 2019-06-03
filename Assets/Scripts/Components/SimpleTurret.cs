@@ -29,7 +29,7 @@ namespace Sojourn.ARDefense.Components {
 		private Coroutine _trackCoroutine = null;
 
 		[AutoInject]
-		private IGameManager _gameManager = null;
+		private ILevelManager _levelManager = null;
 
 		private IKillable _killable = null;
 
@@ -43,8 +43,8 @@ namespace Sojourn.ARDefense.Components {
 
 		private IEnumerator CheckForTarget() {
 			while (true) {
-				if (Vector3.Distance(_gameManager.Player1Base.Transform.position, this.transform.position) <= _fireThreshold) {
-					SetTarget(_gameManager.Player1Base.Transform);
+				if (Vector3.Distance(_levelManager.PlayerBase.Transform.position, this.transform.position) <= _fireThreshold) {
+					SetTarget(_levelManager.PlayerBase.Transform);
 				} else {
 					SetTarget(null);
 				}
@@ -75,7 +75,7 @@ namespace Sojourn.ARDefense.Components {
 
 		[ContextMenu("TrackBase")]
 		private void StartTracking() {
-			_target = _gameManager.Player1Base.Transform;
+			_target = _levelManager.PlayerBase.Transform;
 			StartCoroutine(TrackTarget());
 		}
 

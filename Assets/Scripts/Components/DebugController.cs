@@ -31,6 +31,8 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
+		[AutoInject]
+		private ILevelManager _levelManager = null;
 
 		private Quaternion _startingRotation;
 		private Vector3 _startingPosition;
@@ -65,7 +67,7 @@ namespace Sojourn.ARDefense.Components {
 				if (Input.GetKey(_turnUpKey)) { MoveRotation(Vector3.right); }
 				if (Input.GetKey(_turnDownKey)) { MoveRotation(Vector3.left); }
 
-				if (Input.GetKey(_baseKey)) { _transform.LookAt(_gameManager.Player1Base.transform); }
+				if (Input.GetKey(_baseKey)) { _transform.LookAt(_levelManager.PlayerBase.transform); }
 				if (Input.GetKey(_resetOrientationKey)) { _transform.rotation = _startingRotation; }
 				if (Input.GetKey(_resetAllKey)) {
 					_transform.rotation = _startingRotation;

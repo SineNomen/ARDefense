@@ -27,38 +27,21 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private Camera _deviceCamera = null;
 		[SerializeField]
-		private GameObject _basePrefab = null;
-		[SerializeField]
-		private GameObject _groundPrefab = null;
-		[SerializeField]
-		private GameObject _dropShipPrefab = null;
-		[SerializeField]
 		private Weapon[] _testWeapons = null;
 		[SerializeField]
 		private GameObject _weaponObject = null;
-		[SerializeField]
-		private List<GameObject> _enemyList = new List<GameObject>();
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
 		[AutoInject]
-		private IObjectPlacer _objectPlacer = null;
-		[AutoInject]
 		private IPlayer _player1 = null;
 		[AutoInject]
-		private IPlaneSelector _planeSelector = null;
+		private ILevelManager _levelManager = null;
 
 		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
 		private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
-		public Base Player1Base { get; private set; }
 
-		public ARPlane GroundPlane { get; private set; }
-		public Ground Ground { get; private set; }
-		public List<GameObject> EnemyList { get => _enemyList; }
-
-		public GameObjectEvent OnEnemyCreated { get; set; }
-		public GameObjectEvent OnEnemyKilled { get; set; }
 		public ARRaycastManager RaycastManager { get => _raycastManager; }
 		public ARReferencePointManager PointManager { get => _pointManager; }
 		public ARPlaneManager PlaneManager { get => _planeManager; }
@@ -78,91 +61,21 @@ namespace Sojourn.ARDefense.Components {
 		private void Start() {
 			_weaponObject.SetActive(false);
 			Container.AutoInject(this);
-#if UNITY_EDITOR
-			//Only do test in the editor
-			CreateTestGame()
-			.Chain<float>(this.Wait, 5.0f)
-			// StartNewGame()
-#else// UNITY_EDITOR
-			StartNewGame()
-#endif// UNITY_EDITOR
+
+#if !UNITY_EDITOR
+			foreach (GameObject go in _debugObjects) {
+				go.SetActive(false);
+			}
+#endif// !UNITY_EDITOR
+			_levelManager.SetupLevel()
+			.Then(_levelManager.StartLevel)
 			// StartNewGame()
 			.Then(OnGameStart);
 		}
 
 		private void OnGameStart() {
-			Player1Base.OnBaseKilled += OnBaseKilled;
 			_weaponObject.SetActive(true);
 			DEBUG_SetWeapon(0);
-			StartCoroutine(SpawnDropships(8));
-		}
-
-		private IEnumerator SpawnDropships(int count) {
-			for (int i = 0; i < count; i++) {
-				SpawnDropShip();
-				yield return new WaitForSeconds(30.0f);
-			}
-		}
-
-		private void OnBaseKilled(Base b) {
-			Debug.LogError("Game Over!");
-		}
-
-		private void SpawnDropShip() {
-			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
-			float height = Mathf.Max((CameraHeight * 1.25f), 15.0f);
-			float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);
-			Vector3 point = Ground.GetPositionAt(angle, distance, height);
-			Debug.LogFormat("New Dropship at [{0}, {1}], pos: {2}", angle, distance, point);
-			Pose p = new Pose(point, Quaternion.identity);
-
-			Dropship ship = Instantiate(_dropShipPrefab, WorldParent).GetComponent<Dropship>();
-			ship.transform.SetPose(p);
-#if !UNITY_EDITOR
-			ARReferencePoint anchor = PointManager.AddReferencePoint(p);
-			ship.transform.parent = anchor.transform;
-#endif// !UNITY_EDITOR
-
-		}
-
-		private IPromise CreateTestGame() {
-			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Ground>();
-			Ground.Radius = 30.0f;
-			//hack for the to fix the prefab for testing on editor, scale is off
-			foreach (Transform child in Ground.Transform) { child.localScale *= 2.0f; }
-			Player1Base = Instantiate(_basePrefab, Ground.Center, Quaternion.identity, WorldParent).GetComponent<Base>();
-			return Promise.Resolved();
-		}
-
-		//grab the new ones and put them in a hashset
-		public IPromise StartNewGame() {
-			return _planeSelector.SelectPlane()
-			.Then((ARPlane plane) => {
-				Debug.LogErrorFormat("Plane Selected: {0}", plane);
-				GroundPlane = plane;
-				Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Ground>();
-				Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * Origin.transform.localScale.x;
-				Pose pose = new Pose(plane.transform.position, Quaternion.identity);
-				ARReferencePoint anchor = PointManager.AttachReferencePoint(plane, pose);
-				Ground.transform.SetPose(pose);
-				Ground.transform.SetParent(anchor.transform);
-			}
-			)
-			.Then(() => {
-				foreach (GameObject go in _debugObjects) {
-					go.SetActive(false);
-				}
-			})
-			.Chain(PlaceBase)
-			.Then(delegate (Base b) {
-				Player1Base = b;
-				Debug.LogErrorFormat("Base Placed: {0}", b.Transform.position);
-			})
-			.Then(() => { Debug.LogError("Setup complete!"); });
-		}
-
-		public void OnPlayerKilled() {
-			Debug.LogError("Game Over!");
 		}
 
 		public void DEBUG_SetWeapon(int index) {
@@ -170,38 +83,6 @@ namespace Sojourn.ARDefense.Components {
 			_player1.CurrentWeapon = _testWeapons[index];
 			IDisplay display = Instantiate(weapon.DisplayPrefab).GetComponent<IDisplay>();
 			_displayManager.PushDisplay(display);
-		}
-
-		public IPromise<Base> PlaceBase() {
-			Debug.LogError("Place Base");
-			Base b = Instantiate(_basePrefab, Vector3.zero, Quaternion.identity, WorldParent).GetComponent<Base>();
-
-			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
-			b.transform.position = GroundPlane.center;
-			ARReferencePoint point = PointManager.AttachReferencePoint(GroundPlane, center);
-			b.transform.parent = point.transform;
-			return Promise<Base>.Resolved(b);
-		}
-		public IPromise<Base> ChoosePlaceBase() {
-			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObjectOnPlane<Base>(_basePrefab, GroundPlane);
-			// Promise p = new Promise();
-			// //just put it in the middle for now, later, use a Placer class, same as for turrets
-			// Instantiate(BasePrefab, Vector3.zero, Quaternion.identity);
-			// return p;
-		}
-
-		public void RegisterEnemy(GameObject go) {
-			_enemyList.Add(go);
-			if (OnEnemyCreated != null) {
-				OnEnemyCreated(go);
-			}
-		}
-		public void UnregisterEnemy(GameObject go) {
-			_enemyList.Remove(go);
-			if (OnEnemyKilled != null) {
-				OnEnemyKilled(go);
-			}
 		}
 	}
 }

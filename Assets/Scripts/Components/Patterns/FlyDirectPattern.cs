@@ -11,7 +11,7 @@ namespace Sojourn.ARDefense.Components {
 		private bool _startOnCreate = true;
 
 		[AutoInject]
-		private IGameManager _gameManager = null;
+		private ILevelManager _levelManager = null;
 
 		private Fighter _fighter;
 
@@ -30,11 +30,11 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void Setup() {
-			transform.LookAt(_gameManager.Player1Base.CenterPosition);
+			transform.LookAt(_levelManager.PlayerBase.CenterPosition);
 		}
 
 		public void Update() {
-			transform.LookAt(_gameManager.Player1Base.CenterPosition);
+			transform.LookAt(_levelManager.PlayerBase.CenterPosition);
 			_fighter.Body.velocity = transform.forward * _speed;
 		}
 

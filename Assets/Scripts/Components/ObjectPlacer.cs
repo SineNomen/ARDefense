@@ -11,11 +11,6 @@ using UnityEngine.XR.ARFoundation;
 namespace Sojourn.ARDefense.Components {
 	//Place an object on a plane, object is visible as a preview
 	public class ObjectPlacer : MonoBehaviour, IObjectPlacer {
-		[AutoInject]
-		private IGameManager _gameManager = null;
-		[AutoInject]
-		private IDisplayManager _displayManager = null;
-
 		[SerializeField]
 		private GameObject _displayPrefab = null;
 
@@ -23,6 +18,14 @@ namespace Sojourn.ARDefense.Components {
 		private GameObject _placeObject = null;
 		private IPromise<GameObject> _placePromise = null;
 		private Coroutine _placeCoroutine = null;
+
+
+		[AutoInject]
+		private IGameManager _gameManager = null;
+		[AutoInject]
+		private IDisplayManager _displayManager = null;
+		[AutoInject]
+		private ILevelManager _levelManager = null;
 
 		private void Awake() {
 			Container.Register<IObjectPlacer>(this).AsSingleton();
@@ -65,7 +68,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private IEnumerator MovePlaceObject(ARPlane plane) {
 			yield return null;
-			if (plane == null) { plane = _gameManager.GroundPlane; }
+			if (plane == null) { plane = _levelManager.GroundPlane; }
 			ARReferencePoint point = null;
 			while (true) {
 				ARReferencePoint newPoint = PlaceObjectOnGround(plane);

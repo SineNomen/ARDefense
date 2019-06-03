@@ -18,6 +18,8 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
+		[AutoInject]
+		private ILevelManager _levelManager = null;
 		private float _ringRadius = 0.0f;
 
 		private Dictionary<GameObject, IFFIndicator> _objectMap = new Dictionary<GameObject, IFFIndicator>();
@@ -28,8 +30,8 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
-			_gameManager.OnEnemyCreated += OnEnemyCreated;
-			_gameManager.OnEnemyKilled += OnEnemyKilled;
+			_levelManager.OnEnemyCreated += OnEnemyCreated;
+			_levelManager.OnEnemyKilled += OnEnemyKilled;
 			OnPreShow();
 		}
 
@@ -42,11 +44,11 @@ namespace Sojourn.ARDefense.Components {
 
 		private void OnPreShow() {
 			if (_gameManager == null) { return; }
-			// Debug.LogFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _gameManager.Player1Base);
-			if (_gameManager.Player1Base != null) {
-				TrackObject(_gameManager.Player1Base.gameObject, eIFFCategory.Friend);
+			// Debug.LogFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _levelManager.PlayerBase);
+			if (_levelManager.PlayerBase != null) {
+				TrackObject(_levelManager.PlayerBase.gameObject, eIFFCategory.Friend);
 			}
-			foreach (GameObject obj in _gameManager.EnemyList) {
+			foreach (GameObject obj in _levelManager.EnemyList) {
 				if (!_objectMap.ContainsKey(obj)) {
 					TrackObject(obj, eIFFCategory.Enemy);
 				}

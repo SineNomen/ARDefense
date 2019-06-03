@@ -12,6 +12,9 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		protected IGameManager _gameManager = null;
+		[AutoInject]
+		protected ILevelManager _levelManager = null;
+
 		private IKillable _killable = null;
 		private static int _enemyCount = 0;
 
@@ -24,13 +27,13 @@ namespace Sojourn.ARDefense.Components {
 
 		protected virtual void Start() {
 			Container.AutoInject(this);
-			_gameManager.RegisterEnemy(this.gameObject);
+			_levelManager.RegisterEnemy(this.gameObject);
 		}
 
 		// public void OnDamaged(IKillable us) { }
 		public void OnKill(IKillable us) {
 			Debug.LogFormat("Enemy {0} has been killed", this.gameObject.name);
-			_gameManager.UnregisterEnemy(this.gameObject);
+			_levelManager.UnregisterEnemy(this.gameObject);
 			Destroy(this.gameObject);
 		}
 	}

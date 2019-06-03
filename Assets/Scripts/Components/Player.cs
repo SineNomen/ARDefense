@@ -13,7 +13,7 @@ namespace Sojourn.ARDefense.Components {
 		public Weapon CurrentWeapon { get; set; }
 
 		[AutoInject]
-		private IGameManager _gameManager = null;
+		private ILevelManager _levelManager = null;
 
 		private void Awake() {
 			Container.Register<IPlayer>(this).AsSingleton();
@@ -32,7 +32,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnKill(IKillable us) {
-			_gameManager.OnPlayerKilled();
+			_levelManager.OnPlayerKilled();
 			Destroy(this.gameObject);
 		}
 		//eventually, we may want to tell the user somehow, maybe using UI
