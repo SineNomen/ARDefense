@@ -8,7 +8,7 @@ namespace Sojourn.ARDefense.Components {
 		public Vector3 Center { get => this.transform.position; }
 		public float Radius {
 			get => this.transform.localScale.x;
-			set => this.transform.localScale = new Vector3(value, 0.001f, value);
+			set => this.transform.localScale = new Vector3(value, 0.1f, value);
 		}
 
 		public Vector3 GetPositionAt(float radianAngle, float distance, float height = 0.0f) {

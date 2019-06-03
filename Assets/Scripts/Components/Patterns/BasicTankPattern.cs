@@ -13,12 +13,17 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _startOnCreate = true;
 		[SerializeField]
-		private bool _randomSpread = true;
+		private bool _spreadOnStart = true;
 		[SerializeField]
 		private float _spreadDistance = 5.0f;
 		[SerializeField]
 		[Range(0, 180.0f)]
 		private float _spreadRange = -90.0f;
+
+		[SerializeField]
+		private bool _orbitTarget = true;
+		[SerializeField]
+		private float _orbitDistance = 10.0f;
 
 		[AutoInject]
 		private ILevelManager _levelManager = null;
@@ -47,7 +52,7 @@ namespace Sojourn.ARDefense.Components {
 			Vector3 relativePos = _levelManager.PlayerBase.CenterPosition - this.transform.position;
 			Quaternion look = Quaternion.LookRotation(relativePos, this.transform.up);
 			Quaternion rotation = look;
-			if (_randomSpread) {
+			if (_spreadOnStart) {
 				rotation *= Quaternion.Euler(0.0f, Random.Range(-_spreadRange, _spreadRange), 0.0f);
 			}
 
@@ -55,18 +60,28 @@ namespace Sojourn.ARDefense.Components {
 			_startPos = transform.position;
 		}
 
+		//1) [Optional] Spread out in a fan
+		//2) Move towards target
+		//3) [Optional] Orbit around target
 		public IEnumerator UpdatePattern() {
 			while (true) {
-				if (_randomSpread && DistanceDriven < _spreadDistance) {
+				Vector3 deltaPosition = _levelManager.PlayerBase.CenterPosition - this.transform.position;
+				Quaternion look = Quaternion.LookRotation(deltaPosition, this.transform.up);
+
+				if (_spreadOnStart && DistanceDriven < _spreadDistance) {
 					//move towards the first point
-				} else {
-					Vector3 relativePos = _levelManager.PlayerBase.CenterPosition - this.transform.position;
-					Quaternion look = Quaternion.LookRotation(relativePos, this.transform.up);
+				} else if (_orbitTarget && deltaPosition.magnitude < _orbitDistance) {
+					//go perpendicular to the the right or left
+					Quaternion left = look * Quaternion.Euler(0.0f, 90.0f, 0.0f);
+					Quaternion right = look * Quaternion.Euler(0.0f, -90.0f, 0.0f);
+					//pick the closer one
+					look = (Quaternion.Angle(transform.rotation, left) < Quaternion.Angle(transform.rotation, right) ? left : right);
 					this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
-					float angle = Quaternion.Angle(look, this.transform.rotation);
+				} else {
+					//go straight toward the target
+					this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
 				}
 
-				// transform.LookAt(_levelManager.PlayerBase.CenterPosition);
 				_tank.Body.velocity = transform.forward * _driveSpeed;
 				yield return null;
 			}
