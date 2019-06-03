@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _driveSpeed: 1.5
-  _turnSpeed: 3
+  _turnSpeed: 1
   _startOnCreate: 1
   _spreadOnStart: 1
   _spreadDistance: 7

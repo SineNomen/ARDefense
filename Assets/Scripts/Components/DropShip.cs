@@ -39,6 +39,9 @@ namespace Sojourn.ARDefense.Components {
 
 		protected override void Start() {
 			base.Start();
+			Vector3 pos = _levelManager.PlayerBase.transform.position;
+			pos.y = this.transform.position.y;
+			transform.LookAt(pos);
 			if (_spawnOnStart && _count > 0) {
 				Spawn();
 			}
