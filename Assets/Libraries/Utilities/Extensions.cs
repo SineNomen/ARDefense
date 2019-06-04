@@ -58,6 +58,16 @@ namespace Sojourn.Extensions {
 		public static void SetPose(this Transform tr, Pose pose) {
 			tr.SetPositionAndRotation(pose.position, pose.rotation);
 		}
+
+		public static Quaternion GetLookRotation(this Transform tr, Vector3 targetPos) {
+			return GetLookRotation(tr, targetPos, Vector3.one);
+		}
+
+		public static Quaternion GetLookRotation(this Transform tr, Vector3 targetPos, Vector3 multiplier) {
+			Vector3 relativePos = targetPos - tr.position;
+			relativePos.Scale(multiplier);
+			return Quaternion.LookRotation(relativePos, tr.up);
+		}
 	}
 
 	public static class CanvasGroupExtensions {
