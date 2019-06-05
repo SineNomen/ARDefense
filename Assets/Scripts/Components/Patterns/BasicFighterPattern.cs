@@ -1,5 +1,6 @@
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.PicnicIOC;
+using Sojourn.Utility;
 using UnityEngine;
 using System.Collections;
 
@@ -38,19 +39,18 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _spreadOnStart = true;
 		[SerializeField]
-		private float _spreadDistance = 5.0f;
+		private RandomFloat _spreadDistance = new RandomFloat(5.0f, 7.0f, 0.0f, 10.0f);
 		[SerializeField]
-		[Range(0, 45.0f)]
-		private float _spreadRange = -30.0f;
+		private RandomFloat _spreadRange = new RandomFloat(-30.0f, 30.0f, -45.0f, 45.0f);
+		[SerializeField]
+		private RandomFloat _orbitDistance = new RandomFloat(10.0f, 12.0f, 5.0f);
+		[SerializeField]
+		private RandomFloat _orbitTime = new RandomFloat(2.0f, 10.0f, 0.0f, 60.0f);
+		[SerializeField]
+		private RandomFloat _orbitHeightVariance = new RandomFloat(-10.0f, 10.0f);
 
 		[SerializeField]
 		private float _disengageDistance = 4.0f;
-		[SerializeField]
-		private float _orbitDistance = 10.0f;
-		[SerializeField]
-		private float _minOrbitTime = 2.0f;
-		[SerializeField]
-		private float _maxOrbitTime = 10.0f;
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
 
@@ -126,16 +126,18 @@ namespace Sojourn.ARDefense.Components {
 			switch (_currentPhase) {
 				case eBasicFighterPatternPhase.Entry:
 					_diveTime = -1;
+					_orbitDistance.Pick();
+					_spreadDistance.Pick();
 					Quaternion rotation = Quaternion.LookRotation(GetTargetPos(true), this.transform.up);
 					if (_spreadOnStart) {
-						rotation *= Quaternion.Euler(0.0f, Random.Range(-_spreadRange, _spreadRange), 0.0f);
+						rotation *= Quaternion.Euler(0.0f, _spreadRange.Pick(), 0.0f);
 					}
 
 					transform.rotation = rotation;
 					_startPos = transform.position;
 					break;
 				case eBasicFighterPatternPhase.OrbitTarget:
-					_diveTime = Time.time + Random.Range(_minOrbitTime, _maxOrbitTime);
+					_diveTime = Time.time + _orbitTime.Pick();
 					break;
 				//if we aim too high we will get far away before we hit the orbit distance
 				case eBasicFighterPatternPhase.Disengage:
@@ -145,10 +147,12 @@ namespace Sojourn.ARDefense.Components {
 					float width = new Vector2(_levelManager.PlayerBase.Size.x + _fighter.Size.x,
 											_levelManager.PlayerBase.Size.z + _fighter.Size.z).magnitude;//we are veering laterally
 					float angle = Mathf.Atan2(width, distanceToTarget);
+					//go left or right half the time
+					if (Random.value > 0.5f) { angle = -angle; }
 					//use a portion of the true distance to give us extra room
 					//`Mat TODO: Take rotate speed into account
-					Vector3 pos = GetTargetPos(false) + (transform.forward * (_orbitDistance * 0.5f));
-					pos.y = _startPos.y;
+					Vector3 pos = GetTargetPos(false) + (transform.forward * (_orbitDistance.Pick() * 0.5f));
+					pos.y = (_startPos.y + _orbitHeightVariance.Pick());
 
 					//rotate pos by angle
 					Quaternion axis = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.up);

@@ -8,6 +8,7 @@ using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections;
 using System.Collections.Generic;
+using Sojourn.Utility;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {
@@ -37,6 +38,8 @@ namespace Sojourn.ARDefense.Components {
 		private IPlayer _player1 = null;
 		[AutoInject]
 		private ILevelManager _levelManager = null;
+
+		[SerializeField]
 
 		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }

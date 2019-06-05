@@ -168,13 +168,33 @@ MonoBehaviour:
   _flightSpeed: 8
   _turnSpeed: 3
   _startOnCreate: 1
-  _spreadOnStart: 0
-  _spreadDistance: 1.5
-  _spreadRange: 15
+  _spreadOnStart: 1
+  _spreadDistance:
+    Min: 5
+    Max: 7
+    Low: 0
+    High: 10
+  _spreadRange:
+    Min: -15
+    Max: 15
+    Low: -45
+    High: 45
+  _orbitDistance:
+    Min: 75
+    Max: 85
+    Low: 5
+    High: Infinity
+  _orbitTime:
+    Min: 2
+    Max: 10
+    Low: 0
+    High: 60
+  _orbitHeightVariance:
+    Min: -10
+    Max: 10
+    Low: -Infinity
+    High: Infinity
   _disengageDistance: 30
-  _orbitDistance: 80
-  _minOrbitTime: 2
-  _maxOrbitTime: 10
   _rotationSpeedScale: 3
 --- !u!54 &8537054347246404823
 Rigidbody:
@@ -375,18 +395,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1087372179352684, guid: c590b17884b119046bc6412066500b7d, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1180495232730458, guid: c590b17884b119046bc6412066500b7d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1430769185673144, guid: c590b17884b119046bc6412066500b7d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4731861580502952, guid: c590b17884b119046bc6412066500b7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -430,6 +438,22 @@ PrefabInstance:
     - target: {fileID: 4731861580502952, guid: c590b17884b119046bc6412066500b7d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4731861580502952, guid: c590b17884b119046bc6412066500b7d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087372179352684, guid: c590b17884b119046bc6412066500b7d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430769185673144, guid: c590b17884b119046bc6412066500b7d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180495232730458, guid: c590b17884b119046bc6412066500b7d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c590b17884b119046bc6412066500b7d, type: 3}

@@ -14,7 +14,7 @@ namespace Sojourn.ARDefense.Components {
 		private RectTransform _indicatorParent = null;
 		[SerializeField]
 		[Tooltip("Objects within the deadzone do not show an indicator")]
-		private float _deadZone = 0.0f;
+		private float _deadZone = 20.0f;
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
@@ -89,23 +89,22 @@ namespace Sojourn.ARDefense.Components {
 
 		//set the new position, if it is in the reticule, hide the indicator
 		private void UpdateObject(GameObject go, IFFIndicator indicator) {
-			Transform viewport = _gameManager.DeviceCamera.transform;
-			Vector2 projectedPos = Vector3.ProjectOnPlane(go.transform.position, viewport.forward);
-			float magnitude = projectedPos.magnitude;
+			Vector3 deltaPos = go.transform.position - _gameManager.DeviceCamera.transform.position;
+			float angle = Vector3.SignedAngle(deltaPos, _gameManager.DeviceCamera.transform.forward, Vector3.up);
+			Quaternion look = Quaternion.LookRotation(deltaPos, Vector3.up);
+			float lookDelta = Quaternion.Angle(_gameManager.DeviceCamera.transform.rotation, look);
 
-			if (magnitude < _deadZone) {
+			if (lookDelta < _deadZone) {
 				indicator.Hide();
 			} else {
 				indicator.Show();
 			}
 
 			//shift by 90 degrees to account for Unity's orientation
-			float angleRad = -Mathf.Atan2(projectedPos.x, projectedPos.y) + (Mathf.PI / 2.0f);
+			float angleRad = (angle + 90.0f) * Mathf.Deg2Rad;
 			Vector2 trig = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
 			indicator.Rect.anchoredPosition = trig * _ringRadius;
 			indicator.Rect.localEulerAngles = Vector3.forward * angleRad * Mathf.Rad2Deg;
-			// Debug.LogFormat("Plane: {0}, ProjectedPos: {1}, Angle: {2}", plane, projectedPos, angleDeg);
-			// Debug.LogFormat("{0}[{1}] Magnitude: {2}", go.name, projectedPos, magnitude);
 		}
 	}
 }

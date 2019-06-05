@@ -2,6 +2,7 @@
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.Extensions;
+using Sojourn.Utility;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using AOFL.Promises.V1.Core;
@@ -20,11 +21,7 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _spawnDropshipsRandomly = false;
 		[SerializeField]
-		[Range(0.0f, 1.0f)]
-		private float _minSpawnRadiusScale = 0.5f;
-		[SerializeField]
-		[Range(0.0f, 1.0f)]
-		private float _maxSpawnRadiusScale = 1.0f;
+		private RandomFloat _spawnRadius = new RandomFloat(0.5f, 1.0f, 0.0f, 1.0f);
 		[SerializeField]
 		private bool _playerPlacesBase = false;
 
@@ -124,7 +121,7 @@ namespace Sojourn.ARDefense.Components {
 		private IEnumerator SpawnDropships(int count) {
 			for (int i = 0; i < count; i++) {
 				SpawnDropship();
-				yield return new WaitForSeconds(30.0f);
+				yield return new WaitForSeconds(45.0f);
 			}
 		}
 
@@ -146,7 +143,7 @@ namespace Sojourn.ARDefense.Components {
 			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
 			float height = Mathf.Max((_gameManager.CameraHeight * 1.25f), 15.0f);
 			// float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);
-			float distance = Random.Range(Ground.Radius * _minSpawnRadiusScale, Ground.Radius * _maxSpawnRadiusScale);
+			float distance = Ground.Radius * _spawnRadius.Pick();
 			Vector3 point = Ground.GetPositionAt(angle, distance, height);
 			Debug.LogFormat("New Dropship at [{0}, {1}], pos: {2}", angle, distance, point);
 			Pose p = new Pose(point, Quaternion.identity);

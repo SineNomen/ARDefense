@@ -70,12 +70,12 @@ PrefabInstance:
     - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: _count
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: _delay
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 384780138797457627, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}

@@ -69,25 +69,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
-      propertyPath: _prefab
-      value: 
-      objectReference: {fileID: 1510364872509504, guid: a84a85355da98404998d6fda8d0943df,
-        type: 3}
-    - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
-        type: 3}
       propertyPath: _spawnOnGround
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: _count
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: _delay
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6728536105557732415, guid: 8019909ea494244c186238f9d9344d21,
+        type: 3}
+      propertyPath: _prefab
+      value: 
+      objectReference: {fileID: 1510364872509504, guid: a84a85355da98404998d6fda8d0943df,
+        type: 3}
     - target: {fileID: 384780138797457627, guid: 8019909ea494244c186238f9d9344d21,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
