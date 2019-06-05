@@ -7,6 +7,8 @@ namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(Collider))]
 	public class Fighter : SimpleEnemy {
 		[SerializeField]
+		private Cannon[] _mainCannons = null;
+		[SerializeField]
 		private Transform _model = null;
 
 		private Collider _collider = null;
@@ -14,6 +16,7 @@ namespace Sojourn.ARDefense.Components {
 
 		public Transform Model { get => _model; }
 		public Vector3 Size { get => _collider.bounds.size; }
+		public Cannon[] MainCannons { get => _mainCannons; }
 
 		protected override void Awake() {
 			base.Awake();

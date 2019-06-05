@@ -8,9 +8,14 @@ namespace Sojourn.ARDefense.Components {
 	//`Mat cannon should be placed on the Killable object, not on the transform that will fire (barrelTransform)
 	public class Cannon : MonoBehaviour {
 		[SerializeField]
+		[Tooltip("If null, will use the one on this object")]
+		private SimpleKillable _killable;
+		[SerializeField]
 		private int _ammo = 100;
 		[SerializeField]
 		private Transform _barrelTransform = null;
+		[SerializeField]
+		private Weapon _weapon;
 
 		public int Ammo { get => _ammo; set => _ammo = value; }
 
@@ -26,7 +31,7 @@ namespace Sojourn.ARDefense.Components {
 				return Mathf.Clamp01(((Time.time - _lastFireTime) / Weapon.ReloadTime));
 			}
 		}
-		public Weapon Weapon { get; set; }
+		public Weapon Weapon { get => _weapon; set => _weapon = value; }
 
 		public WeaponCallback OnFireStart { get; set; }
 		public WeaponCallback OnFireEnd { get; set; }
@@ -38,11 +43,15 @@ namespace Sojourn.ARDefense.Components {
 		private IGameManager _gameManager;
 
 		private float _lastFireTime = 0.0f;
+
 		public IKillable Killable { get; set; }
 
 		private void Start() {
 			Container.AutoInject(this);
-			Killable = GetComponent<IKillable>();
+			if (Killable == null) {
+				if (_killable == null) { _killable = GetComponent<SimpleKillable>(); }
+				Killable = _killable;
+			}
 			if (Killable == null) {
 				Debug.LogErrorFormat("Cannon {0} is not on a Killable object", gameObject.name);
 			}
@@ -71,9 +80,9 @@ namespace Sojourn.ARDefense.Components {
 				}
 				GameObject go = Instantiate(Weapon.ProjectilePrefab, offset, _barrelTransform.rotation, null);
 				IProjectile projectile = go.GetComponent<IProjectile>();
-				IKillable killable = go.GetComponent<IKillable>();
+				IKillable projectileKillable = go.GetComponent<IKillable>();
 				projectile.Weapon = Weapon;
-				killable.Team = Killable.Team;
+				projectileKillable.Team = Killable.Team;
 
 				// projectile.OnFire();
 				//`Mat Broadcast message

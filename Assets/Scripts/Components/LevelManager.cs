@@ -18,6 +18,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private GameObject[] _dropshipPrefabs = null;
 		[SerializeField]
+		private bool _spawnDropshipsRandomly = false;
+		[SerializeField]
 		[Range(0.0f, 1.0f)]
 		private float _minSpawnRadiusScale = 0.5f;
 		[SerializeField]
@@ -41,6 +43,8 @@ namespace Sojourn.ARDefense.Components {
 		private IObjectPlacer _objectPlacer = null;
 		[AutoInject]
 		private IPlaneSelector _planeSelector = null;
+
+		private int _dropshipIndex = 0;
 
 		private void Awake() {
 			Container.Register<ILevelManager>(this).AsSingleton();
@@ -129,7 +133,16 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void SpawnDropship() {
-			GameObject prefab = _dropshipPrefabs[UnityEngine.Random.Range(0, _dropshipPrefabs.Length)];
+			GameObject prefab = null;
+			if (_spawnDropshipsRandomly) {
+				prefab = _dropshipPrefabs[UnityEngine.Random.Range(0, _dropshipPrefabs.Length)];
+			} else {
+				prefab = _dropshipPrefabs[_dropshipIndex];
+				_dropshipIndex++;
+				if (_dropshipIndex >= _dropshipPrefabs.Length) {
+					_dropshipIndex = 0;
+				}
+			}
 			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
 			float height = Mathf.Max((_gameManager.CameraHeight * 1.25f), 15.0f);
 			// float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);

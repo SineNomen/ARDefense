@@ -48,20 +48,17 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private float _orbitDistance = 10.0f;
 		[SerializeField]
-		private float _orbitHeightVariance = 10.0f;
-		[SerializeField]
 		private float _minOrbitTime = 2.0f;
 		[SerializeField]
 		private float _maxOrbitTime = 10.0f;
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
 
-		[SerializeField]
-		private eBasicFighterPatternPhase _currentPhase = eBasicFighterPatternPhase.Entry;
 
 		[AutoInject]
 		private ILevelManager _levelManager = null;
 
+		private eBasicFighterPatternPhase _currentPhase = eBasicFighterPatternPhase.Entry;
 		private Fighter _fighter;
 		private Vector3 _startPos;
 		private float _diveTime = -1;
@@ -149,6 +146,7 @@ namespace Sojourn.ARDefense.Components {
 											_levelManager.PlayerBase.Size.z + _fighter.Size.z).magnitude;//we are veering laterally
 					float angle = Mathf.Atan2(width, distanceToTarget);
 					//use a portion of the true distance to give us extra room
+					//`Mat TODO: Take rotate speed into account
 					Vector3 pos = GetTargetPos(false) + (transform.forward * (_orbitDistance * 0.5f));
 					pos.y = _startPos.y;
 
@@ -194,6 +192,11 @@ namespace Sojourn.ARDefense.Components {
 						break;
 					case eBasicFighterPatternPhase.Dive:
 						lookRotation = Quaternion.LookRotation(GetTargetPos(false), this.transform.up);
+						//`Mat magic nuber! Just needs to be pretty close
+						//once we are facing the base, start shooting
+						if (Quaternion.Angle(this.transform.rotation, lookRotation) < 2.0f) {
+							TryShootMain();
+						}
 						break;
 					case eBasicFighterPatternPhase.Disengage:
 						lookRotation = _escapeRotation;
@@ -208,6 +211,16 @@ namespace Sojourn.ARDefense.Components {
 				yield return null;
 				// Debug.LogFormat("Distance: {0}", distanceToTarget);
 				CheckPatternPhase();
+			}
+		}
+
+		private void TryShootMain() {
+			Debug.Log("TryShoot");
+			foreach (Cannon c in _fighter.MainCannons) {
+				if (c.IsReadyToFire) {
+					// Debug.Log("Fire");
+					StartCoroutine(c.Fire());
+				}
 			}
 		}
 

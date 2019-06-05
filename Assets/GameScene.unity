@@ -972,6 +972,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 0
   _teamDamage: 0
+  _killOnHitGround: 0
   _maxHealth: 1000
   _collisionDamageGiven: 0
 --- !u!114 &445519100
@@ -986,8 +987,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd95ef838700449fe99f91b2ebc75a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _killable: {fileID: 0}
   _ammo: -1
   _barrelTransform: {fileID: 2062381887}
+  _weapon: {fileID: 0}
 --- !u!1 &484361708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2449,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 279
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2848,6 +2851,7 @@ MonoBehaviour:
   _basePrefab: {fileID: 9145851907619672964, guid: 49d7adf894b374f3b9a363a94ec5752e,
     type: 3}
   _dropshipPrefabs:
+  - {fileID: 5895932490254234247, guid: b2cabf31628fe4256a51146c27b4f87e, type: 3}
   - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
   _minSpawnRadiusScale: 0.8
   _maxSpawnRadiusScale: 1

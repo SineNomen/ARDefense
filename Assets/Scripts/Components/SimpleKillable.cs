@@ -9,6 +9,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _teamDamage = false;
 		[SerializeField]
+		private bool _killOnHitGround = false;
+		[SerializeField]
 		private int _maxHealth = 1;
 		[SerializeField]
 		private int _collisionDamageGiven = 1;
@@ -20,6 +22,7 @@ namespace Sojourn.ARDefense.Components {
 		public int CurrentHealth { get => _currentHealth; set => _currentHealth = value; }
 		public int CollisionDamageGiven { get => _collisionDamageGiven; set => _collisionDamageGiven = value; }
 		public bool TeamDamage { get => _teamDamage; }
+		public bool KillOnHitGround { get => _killOnHitGround; }
 
 		private void Start() {
 			CurrentHealth = MaxHealth;
@@ -37,6 +40,7 @@ namespace Sojourn.ARDefense.Components {
 
 		public void OnHit(GameObject go) {
 			IKillable killable = go.GetComponent<IKillable>();
+			Ground ground = go.GetComponent<Ground>();
 			if (killable != null) {
 				bool doDamage = TeamDamage || killable.Team != Team;
 				if (doDamage && killable.CollisionDamageGiven > 0) {
@@ -49,6 +53,9 @@ namespace Sojourn.ARDefense.Components {
 						BroadcastMessage("OnDamaged", this, SendMessageOptions.RequireReceiver);
 					}
 				}
+			} else if (ground != null && KillOnHitGround) {
+				//`Mat Broadcast message
+				BroadcastMessage("OnKill", this, SendMessageOptions.RequireReceiver);
 			}
 		}
 	}

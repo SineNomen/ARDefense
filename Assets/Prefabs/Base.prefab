@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 9149054562115474299}
   - component: {fileID: 4299043603314507592}
   - component: {fileID: 5491764799633234947}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,8 +66,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 0
   _teamDamage: 0
+  _killOnHitGround: 0
   _maxHealth: 100
-  _currentHealth: 0
   _collisionDamageGiven: 100
 --- !u!114 &4319060268762051094
 MonoBehaviour:
@@ -169,6 +169,10 @@ PrefabInstance:
     - target: {fileID: 1387288896626470, guid: b646308b3a9e53a468a82fce94285708, type: 3}
       propertyPath: m_Name
       value: Generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387288896626470, guid: b646308b3a9e53a468a82fce94285708, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4265573415787504, guid: b646308b3a9e53a468a82fce94285708, type: 3}
       propertyPath: m_LocalPosition.x

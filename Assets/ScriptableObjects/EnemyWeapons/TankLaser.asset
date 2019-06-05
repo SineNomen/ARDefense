@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60841d5021ea4ea78edb3ddc18a33bf, type: 3}
+  m_Name: TankLaser
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 64111472236465649, guid: c4565b0601f8c499fb461cd894c543a2,
+    type: 3}
+  displayPrefab: {fileID: 8748134831289071138, guid: e0b0e8bb7ea924cc3b0275176641b863,
+    type: 3}
+  _damage: 1
+  _reloadTime: 0.75
+  _shotPerLoad: 1
+  _projectilesPerShot: 1
+  _delayBetweenProjectiles: 0
+  _projectileOffsets: []
+  _maxAmmo: -1
+  _speed: 300
+  _projectileLifetime: 10

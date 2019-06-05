@@ -11,6 +11,7 @@ namespace Sojourn.ARDefense.Interfaces {
 	public interface IKillable {
 		eKillableTeam Team { get; set; }
 		bool TeamDamage { get; }
+		bool KillOnHitGround { get; }
 		int CurrentHealth { get; }
 		int MaxHealth { get; }
 		int CollisionDamageGiven { get; }
