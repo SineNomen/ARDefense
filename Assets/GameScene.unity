@@ -973,7 +973,6 @@ MonoBehaviour:
   _team: 0
   _teamDamage: 0
   _maxHealth: 1000
-  _currentHealth: 0
   _collisionDamageGiven: 0
 --- !u!114 &445519100
 MonoBehaviour:
@@ -2850,7 +2849,7 @@ MonoBehaviour:
     type: 3}
   _dropshipPrefabs:
   - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
-  _minSpawnRadiusScale: 0.5
+  _minSpawnRadiusScale: 0.8
   _maxSpawnRadiusScale: 1
   _playerPlacesBase: 0
 --- !u!4 &1314097473
@@ -3424,7 +3423,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1510364872509504, guid: a84a85355da98404998d6fda8d0943df, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4433942057210488, guid: a84a85355da98404998d6fda8d0943df, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3469,11 +3468,6 @@ PrefabInstance:
     - target: {fileID: 4433942057210488, guid: a84a85355da98404998d6fda8d0943df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5393906968206470205, guid: a84a85355da98404998d6fda8d0943df,
-        type: 3}
-      propertyPath: _modelSpeedScale
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a84a85355da98404998d6fda8d0943df, type: 3}

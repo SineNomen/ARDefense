@@ -11,9 +11,9 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private int _maxHealth = 1;
 		[SerializeField]
-		private int _currentHealth;
-		[SerializeField]
 		private int _collisionDamageGiven = 1;
+
+		private int _currentHealth;
 
 		public eKillableTeam Team { get => _team; set => _team = value; }
 		public int MaxHealth { get => _maxHealth; set => _maxHealth = value; }

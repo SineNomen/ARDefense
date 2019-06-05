@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2073141824314320699}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 1638202210}
   - component: {fileID: 1583921886}
   - component: {fileID: 6598248526431007627}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BasicTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   _team: 1
   _teamDamage: 0
   _maxHealth: 1
-  _currentHealth: 0
   _collisionDamageGiven: 1
 --- !u!114 &5359347235108559223
 MonoBehaviour:
@@ -254,7 +253,7 @@ GameObject:
   - component: {fileID: 1288155641712429545}
   - component: {fileID: 1568129406050997392}
   - component: {fileID: 7161943527043217461}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +330,7 @@ GameObject:
   - component: {fileID: 162889850602631843}
   - component: {fileID: 6922521006758113313}
   - component: {fileID: 2464011025837746358}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Turret Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -408,6 +407,10 @@ PrefabInstance:
     - target: {fileID: 111078, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
       propertyPath: m_Name
       value: SpaceShuttle_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 111078, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 486654, guid: b271505711828fd4e9719f1b97a0922a, type: 3}
       propertyPath: m_LocalPosition.x

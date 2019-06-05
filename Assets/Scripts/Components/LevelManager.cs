@@ -70,7 +70,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void CreateTestLevel() {
 			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
-			Ground.Radius = 30.0f;
+			Ground.Radius = 60.0f;
 			//hack for the to fix the prefab for testing on editor, scale is off
 			foreach (Transform child in Ground.Transform) { child.localScale *= 2.0f; }
 		}
@@ -94,7 +94,7 @@ namespace Sojourn.ARDefense.Components {
 			.Then(delegate (Base b) {
 				PlayerBase = b;
 				Debug.LogErrorFormat("Base Placed: {0}", b.Transform.position);
-				Debug.LogError("Setup complete!"); ;
+				Debug.LogError("Setup complete!");
 			});
 		}
 

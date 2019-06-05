@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6794322254681296985}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 5790243498548648731}
   - component: {fileID: 4323207352825254865}
   - component: {fileID: 7757716817123352351}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Dropship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,6 @@ MonoBehaviour:
   _team: 1
   _teamDamage: 0
   _maxHealth: 50
-  _currentHealth: 0
   _collisionDamageGiven: 50
 --- !u!114 &8596574332136901127
 MonoBehaviour:
@@ -209,7 +208,7 @@ GameObject:
   - component: {fileID: 6451325322622737996}
   - component: {fileID: 6484576040357236164}
   - component: {fileID: 6474901817443998622}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: core engine ribs003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,7 +285,7 @@ GameObject:
   - component: {fileID: 6450948541060702436}
   - component: {fileID: 6485005647398052978}
   - component: {fileID: 6474668501700005582}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: core engine ribs005
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,7 +362,7 @@ GameObject:
   - component: {fileID: 6451119589282587164}
   - component: {fileID: 6485148827611136472}
   - component: {fileID: 6474821619219707140}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Luminaris Starship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -445,7 +444,7 @@ GameObject:
   - component: {fileID: 6451110263923351160}
   - component: {fileID: 6485004859179937558}
   - component: {fileID: 6474983714335616944}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: upper engine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -522,7 +521,7 @@ GameObject:
   - component: {fileID: 6450979030189104424}
   - component: {fileID: 6484636154761664068}
   - component: {fileID: 6474664040510203200}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: lower Rotor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -599,7 +598,7 @@ GameObject:
   - component: {fileID: 6456199106223462976}
   - component: {fileID: 6485110538050778618}
   - component: {fileID: 6474821193203293952}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: core engine ribs004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,6 +674,10 @@ PrefabInstance:
     - target: {fileID: 136330, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Name
       value: DropEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 136330, guid: c07c8697a750e4f4aa46512888536724, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalPosition.x

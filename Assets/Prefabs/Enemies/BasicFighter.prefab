@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 89404277}
   - component: {fileID: 89404278}
   - component: {fileID: 1717165918767982658}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sparrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 7037117498737102008}
   - component: {fileID: 1510364872509505}
   - component: {fileID: 1510364872509507}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: BasicFighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,9 +131,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 1
   _teamDamage: 0
-  _maxHealth: 3
-  _currentHealth: 0
-  _collisionDamageGiven: 3
+  _maxHealth: 6
+  _collisionDamageGiven: 6
 --- !u!114 &5393906968206470205
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,7 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _model: {fileID: 89404277}
-  _modelSpeedScale: 5
 --- !u!114 &7882844871137825227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,14 +158,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfdafbcde00c4ce09a0cb93fa2f318f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _flightSpeed: 3
-  _turnSpeed: 8
+  _flightSpeed: 10
+  _turnSpeed: 10
   _startOnCreate: 1
   _spreadOnStart: 0
-  _spreadDistance: 5
-  _spreadRange: -90
-  _orbitTarget: 1
-  _orbitDistance: 15
+  _spreadDistance: 3
+  _spreadRange: 15
+  _disengageDistance: 25
+  _orbitDistance: 80
+  _orbitHeightVariance: 10
+  _minOrbitTime: 2
+  _maxOrbitTime: 10
+  _rotationSpeedScale: 1
+  _currentPhase: 0
 --- !u!54 &8537054347246404823
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -256,5 +259,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.8, y: 0.75, z: 2.2}
+  m_Size: {x: 2.8, y: 2.8, z: 2.2}
   m_Center: {x: 0, y: 0, z: 0}

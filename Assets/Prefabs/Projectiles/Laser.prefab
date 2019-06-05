@@ -67,7 +67,6 @@ MonoBehaviour:
   _team: 0
   _teamDamage: 0
   _maxHealth: 1
-  _currentHealth: 0
   _collisionDamageGiven: 1
 --- !u!65 &9006872713617240349
 BoxCollider:
