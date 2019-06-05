@@ -2851,8 +2851,17 @@ MonoBehaviour:
   _basePrefab: {fileID: 9145851907619672964, guid: 49d7adf894b374f3b9a363a94ec5752e,
     type: 3}
   _dropshipPrefabs:
+  - {fileID: 5895932490254234247, guid: 7eb396de1d4704a8b9004dcdea8dc23f, type: 3}
+  - {fileID: 5895932490254234247, guid: 9360efd42e6134b19a3d4b14ac122c7b, type: 3}
   - {fileID: 5895932490254234247, guid: b2cabf31628fe4256a51146c27b4f87e, type: 3}
   - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
+  - {fileID: 5895932490254234247, guid: b2cabf31628fe4256a51146c27b4f87e, type: 3}
+  - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
+  - {fileID: 5895932490254234247, guid: b2cabf31628fe4256a51146c27b4f87e, type: 3}
+  - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
+  - {fileID: 5895932490254234247, guid: b2cabf31628fe4256a51146c27b4f87e, type: 3}
+  - {fileID: 5895932490254234247, guid: bb52a2a790d554588b881e8ca93126c6, type: 3}
+  _spawnDropshipsRandomly: 0
   _minSpawnRadiusScale: 0.8
   _maxSpawnRadiusScale: 1
   _playerPlacesBase: 0
