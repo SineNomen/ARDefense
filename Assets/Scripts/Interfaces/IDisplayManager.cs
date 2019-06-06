@@ -18,6 +18,7 @@ namespace Sojourn.ARDefense.Interfaces {
 
 	public interface IDisplayManager {
 		Transform DisplayParent { get; }
+		RectTransform ModalParent { get; }
 		IDisplay CurrentDisplay { get; }
 		IDisplay DefaultDisplay { get; }
 		DisplayCallback OnShowDisplay { get; set; }
@@ -30,5 +31,6 @@ namespace Sojourn.ARDefense.Interfaces {
 
 		//Reset the stack and show the default, mostly used for hard reset.
 		IPromise PushDefault();
+		IPromise<eModalOption> ShowOKCancelModal(string title, string bodyText, string okText = "OK", string cancelText = "Cancel");
 	}
 }

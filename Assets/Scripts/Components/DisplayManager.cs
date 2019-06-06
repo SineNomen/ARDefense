@@ -13,9 +13,14 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private Transform _displayParent = null;
 		[SerializeField]
+		private RectTransform _modalParent = null;
+		[SerializeField]
 		private GameObject _defaultDisplay = null;
+		[SerializeField]
+		private GameObject _okCancelModalPrefab = null;
 
 		public Transform DisplayParent { get => _displayParent; }
+		public RectTransform ModalParent { get => _modalParent; }
 		public IDisplay CurrentDisplay { get => _displayStack.Peek(); }
 		public IDisplay DefaultDisplay { get; private set; }
 		public DisplayCallback OnShowDisplay { get; set; }
@@ -97,6 +102,12 @@ namespace Sojourn.ARDefense.Components {
 				ClearAll(),
 				PushDisplay(display)
 			);
+		}
+
+		public IPromise<eModalOption> ShowOKCancelModal(string title, string bodyText, string okText = "OK", string cancelText = "Cancel") {
+			OKCancelModal modal = Instantiate(_okCancelModalPrefab, _modalParent).GetComponent<OKCancelModal>();
+			modal.Setup(title, bodyText, okText, cancelText);
+			return modal.DoModal();
 		}
 	}
 }

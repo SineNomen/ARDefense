@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
 	public class SimpleEnemy : MonoBehaviour {
-		[SerializeField]
-
 		public eKillableTeam Team { get => _killable.Team; }
 		public Rigidbody Body { get; private set; }
 		public Transform Transform { get => this.transform; }

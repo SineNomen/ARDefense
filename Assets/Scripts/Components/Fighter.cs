@@ -24,6 +24,5 @@ namespace Sojourn.ARDefense.Components {
 			_collider = GetComponent<Collider>();
 			_createCount++;
 		}
-
 	}
 }

@@ -1,17 +1,10 @@
-using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.Components;
 using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using Sojourn.Utility;
 using Sojourn.Interfaces;
 using UnityEngine;
-using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using System;
-using DG.Tweening;
 using UnityEngine.UI;
 using Sojourn.ARDefense.Data;
 using TMPro;
@@ -30,6 +23,8 @@ namespace Sojourn.ARDefense.Components {
 		private ILevelManager _levelManager = null;
 		[AutoInject]
 		private IPersistentDataManager _saveDataManager = null;
+		[AutoInject]
+		private IDisplayManager _displayManager = null;
 
 		private void Awake() {
 			Container.Register<IMainMenu>(this).AsSingleton();

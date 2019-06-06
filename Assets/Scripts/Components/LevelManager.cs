@@ -1,6 +1,5 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.Interfaces;
 using Sojourn.Extensions;
 using Sojourn.Utility;
@@ -59,6 +58,8 @@ namespace Sojourn.ARDefense.Components {
 		private IPlayer _player = null;
 		[AutoInject]
 		private IPlayerHUD _playerHUD = null;
+		[AutoInject]
+		private IMainMenu _mainMenu = null;
 
 		private int _dropshipIndex = 0;
 
@@ -184,13 +185,31 @@ namespace Sojourn.ARDefense.Components {
 
 		public void EndGame() {
 			LevelSaveData data = _saveDataManager.LoadData<LevelSaveData>("TestLevelData");
+			string body = null;
 			if (_currentScore > data.HighScore) {
 				data.HighScore = _currentScore;
 				_saveDataManager.SaveData("TestLevelData", data);
-				Debug.LogErrorFormat("New High Score: {0}", _currentScore);
+				body = string.Format("You base was destroyed.\n\nNew High Score: {0}", _currentScore);
+			} else {
+				body = string.Format("You base was destroyed.\n\nScore: {0}", _currentScore);
 			}
-			Debug.LogError("Game Over!");
-			if (OnLevelEnded != null) { OnLevelEnded(); }
+
+			_displayManager.ShowOKCancelModal("Game Over", body, "Main Menu", null)
+			.Then((eModalOption option) => {
+				_mainMenu.Show().Then(() => {
+					CleanupLevel();
+					if (OnLevelEnded != null) { OnLevelEnded(); }
+				});
+			});
+		}
+
+		private void CleanupLevel() {
+			foreach (GameObject obj in _enemyList) {
+				Destroy(obj);
+			}
+			Destroy(PlayerBase.gameObject);
+			Destroy(Ground.gameObject);
+			_enemyList.Clear();
 		}
 
 		public void RegisterEnemy(GameObject go) {
