@@ -19,6 +19,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		GameObjectEvent OnEnemyKilled { get; set; }
 		LevelEvent OnLevelStarted { get; set; }
 		LevelEvent OnLevelEnded { get; set; }
+		int CurrentScore { get; }
 
 		void OnPlayerKilled();
 		void RegisterEnemy(GameObject go);

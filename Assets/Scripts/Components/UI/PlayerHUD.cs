@@ -23,10 +23,6 @@ namespace Sojourn.ARDefense.Components {
 		private Toggle[] _weaponToggles = null;
 
 		private CanvasGroup _canvasGroup;
-		private int _dropshipScore = 50;
-		private int _tankScore = 10;
-		private int _fighterScore = 20;
-		private int _currentScore = 0;
 
 		[AutoInject]
 		private ILevelManager _levelManager = null;
@@ -41,7 +37,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
-			SetScore();
+			SetScore(_levelManager.CurrentScore);
 			_levelManager.OnLevelStarted += OnLevelStarted;
 			_levelManager.OnEnemyKilled += OnEnemyKilled;
 
@@ -60,7 +56,6 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnLevelStarted() {
-			_currentScore = 0;
 			//setup the weapon toggles
 			for (int i = 0; i < _weaponToggles.Length; i++) {
 				if (i < _player.WeaponList.Capacity) {
@@ -78,17 +73,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnEnemyKilled(GameObject go) {
-			Dropship dropship = go.GetComponent<Dropship>();
-			Fighter fighter = go.GetComponent<Fighter>();
-			Tank tank = go.GetComponent<Tank>();
-			if (dropship != null) {
-				_currentScore += _dropshipScore;
-			} else if (fighter != null) {
-				_currentScore += _fighterScore;
-			} else if (tank != null) {
-				_currentScore += _tankScore;
-			}
-			SetScore();
+			SetScore(_levelManager.CurrentScore);
 		}
 
 		public void ShowInstant() { _canvasGroup.ShowInstant(); }
@@ -97,8 +82,8 @@ namespace Sojourn.ARDefense.Components {
 		public IPromise Show() { return _canvasGroup.Show(0.1f); }
 		public IPromise Hide() { return _canvasGroup.Hide(0.1f); }
 
-		private void SetScore() {
-			_scoreText.text = _currentScore.ToString("N0");
+		private void SetScore(int score) {
+			_scoreText.text = score.ToString("N0");
 		}
 	}
 }

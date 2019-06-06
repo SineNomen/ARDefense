@@ -33,7 +33,15 @@ namespace Sojourn.ARDefense.Components {
 		public GameObjectEvent OnEnemyKilled { get; set; }
 		public LevelEvent OnLevelStarted { get; set; }
 		public LevelEvent OnLevelEnded { get; set; }
+		public int CurrentScore { get => _currentScore; }
+
 		private List<GameObject> _enemyList = new List<GameObject>();
+
+
+		private const int _dropshipScore = 50;
+		private const int _tankScore = 10;
+		private const int _fighterScore = 20;
+		private int _currentScore = 0;
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
@@ -74,6 +82,8 @@ namespace Sojourn.ARDefense.Components {
 			_playerHUD.Show();
 			PlayerBase.OnBaseKilled += OnBaseKilled;
 			StartCoroutine(SpawnDropships(100));
+
+			_currentScore = 0;
 			if (OnLevelStarted != null) { OnLevelStarted(); }
 		}
 
@@ -182,6 +192,18 @@ namespace Sojourn.ARDefense.Components {
 		}
 		public void UnregisterEnemy(GameObject go) {
 			_enemyList.Remove(go);
+
+			Dropship dropship = go.GetComponent<Dropship>();
+			Fighter fighter = go.GetComponent<Fighter>();
+			Tank tank = go.GetComponent<Tank>();
+			if (dropship != null) {
+				_currentScore += _dropshipScore;
+			} else if (fighter != null) {
+				_currentScore += _fighterScore;
+			} else if (tank != null) {
+				_currentScore += _tankScore;
+			}
+
 			if (OnEnemyKilled != null) {
 				OnEnemyKilled(go);
 			}
