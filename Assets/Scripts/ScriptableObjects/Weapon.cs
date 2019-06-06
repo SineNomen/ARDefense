@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Sojourn.ARDefense.ScriptableObjects {
 
@@ -8,10 +9,15 @@ namespace Sojourn.ARDefense.ScriptableObjects {
 	public class Weapon : ScriptableObject {
 		[SerializeField]
 		[Tooltip("The projectile that is fire")]
-		private GameObject projectilePrefab = null;
+		[FormerlySerializedAs("projectilePrefab")]
+		private GameObject _projectilePrefab = null;
 		[SerializeField]
 		[Tooltip("The display used for this weapon")]
-		private GameObject displayPrefab = null;
+		[FormerlySerializedAs("displayPrefab")]
+		private GameObject _displayPrefab = null;
+		[SerializeField]
+		[Tooltip("The icon to show for this weapon")]
+		private GameObject _uiIcon = null;
 
 		[SerializeField]
 		[Tooltip("How much damage each projectile deals")]
@@ -44,8 +50,9 @@ namespace Sojourn.ARDefense.ScriptableObjects {
 		//`Mat NOTE: This does not keep track of ammo, that is tied to the object using the weapon
 		private float _projectileLifetime = -10.0f;
 
-		public GameObject ProjectilePrefab { get => projectilePrefab; }
-		public GameObject DisplayPrefab { get => displayPrefab; }
+		public GameObject ProjectilePrefab { get => _projectilePrefab; }
+		public GameObject DisplayPrefab { get => _displayPrefab; }
+		public GameObject UIIcon { get => _uiIcon; }
 		public int Damage { get => _damage; }
 		public float ReloadTime { get => _reloadTime; }
 		public float ShotPerLoad { get => _shotPerLoad; }

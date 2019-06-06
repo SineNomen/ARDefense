@@ -31,15 +31,22 @@ namespace Sojourn.ARDefense.Components {
 		public List<GameObject> EnemyList { get => _enemyList; }
 		public GameObjectEvent OnEnemyCreated { get; set; }
 		public GameObjectEvent OnEnemyKilled { get; set; }
-
+		public LevelEvent OnLevelStarted { get; set; }
+		public LevelEvent OnLevelEnded { get; set; }
 		private List<GameObject> _enemyList = new List<GameObject>();
 
 		[AutoInject]
 		private IGameManager _gameManager = null;
 		[AutoInject]
+		private IDisplayManager _displayManager = null;
+		[AutoInject]
 		private IObjectPlacer _objectPlacer = null;
 		[AutoInject]
 		private IPlaneSelector _planeSelector = null;
+		[AutoInject]
+		private IPlayer _player = null;
+		[AutoInject]
+		private IPlayerHUD _playerHUD = null;
 
 		private int _dropshipIndex = 0;
 
@@ -64,8 +71,10 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void StartLevel() {
+			_playerHUD.Show();
 			PlayerBase.OnBaseKilled += OnBaseKilled;
 			StartCoroutine(SpawnDropships(100));
+			if (OnLevelStarted != null) { OnLevelStarted(); }
 		}
 
 
@@ -94,14 +103,12 @@ namespace Sojourn.ARDefense.Components {
 			return (_playerPlacesBase ? ChoosePlaceBase() : PlaceBase())
 			.Then(delegate (Base b) {
 				PlayerBase = b;
-				Debug.LogErrorFormat("Base Placed: {0}", b.Transform.position);
-				Debug.LogError("Setup complete!");
+				Debug.LogFormat("Base Placed: {0}", b.Transform.position);
 			});
 		}
 
 		//pu the base in the center
 		public IPromise<Base> PlaceBase() {
-			Debug.LogError("Place Base");
 			Base b = Instantiate(_basePrefab, Ground.Center, Quaternion.identity, _gameManager.WorldParent).GetComponent<Base>();
 #if !UNITY_EDITOR
 			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
@@ -123,10 +130,6 @@ namespace Sojourn.ARDefense.Components {
 				SpawnDropship();
 				yield return new WaitForSeconds(45.0f);
 			}
-		}
-
-		private void OnBaseKilled(Base b) {
-			Debug.LogError("Game Over!");
 		}
 
 		private void SpawnDropship() {
@@ -156,8 +159,19 @@ namespace Sojourn.ARDefense.Components {
 #endif// !UNITY_EDITOR
 		}
 
+		private void OnBaseKilled(Base b) {
+			EndGame();
+		}
+
 		public void OnPlayerKilled() {
+			_playerHUD.Hide();
+			_displayManager.PushDefault();
+			EndGame();
+		}
+
+		public void EndGame() {
 			Debug.LogError("Game Over!");
+			if (OnLevelEnded != null) { OnLevelEnded(); }
 		}
 
 		public void RegisterEnemy(GameObject go) {

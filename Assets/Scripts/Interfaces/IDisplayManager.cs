@@ -28,7 +28,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		//Kill the current one and show the previous one
 		IPromise PopDisplay();
 
-		//Kill the current one and show the default, mostly used for hard reset. This will reset the stack
+		//Reset the stack and show the default, mostly used for hard reset.
 		IPromise PushDefault();
 	}
 }

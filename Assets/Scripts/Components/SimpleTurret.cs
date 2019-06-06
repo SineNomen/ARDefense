@@ -64,7 +64,7 @@ namespace Sojourn.ARDefense.Components {
 		// }
 
 		private void SetTarget(Transform tr) {
-			Debug.LogFormat("{0}, new target: {1}", this.name, tr);
+			// Debug.LogFormat("{0}, new target: {1}", this.name, tr);
 			_target = tr;
 			if (_target == null && _trackCoroutine != null) {
 				StopCoroutine(_trackCoroutine);

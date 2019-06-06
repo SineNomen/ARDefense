@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60841d5021ea4ea78edb3ddc18a33bf, type: 3}
   m_Name: GreenLaser
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 64111472236465649, guid: a5eae3aba35354a73ba9154c5c2f608f,
+  _projectilePrefab: {fileID: 64111472236465649, guid: a5eae3aba35354a73ba9154c5c2f608f,
     type: 3}
-  displayPrefab: {fileID: 8748134831289071138, guid: e0b0e8bb7ea924cc3b0275176641b863,
+  _displayPrefab: {fileID: 8748134831289071138, guid: e0b0e8bb7ea924cc3b0275176641b863,
     type: 3}
+  _uiIcon: {fileID: 6418609797601788361, guid: fc0e1b4af3cb64c8db2486b9ce8aca90, type: 3}
   _damage: 1
   _reloadTime: 0.05
   _shotPerLoad: 1

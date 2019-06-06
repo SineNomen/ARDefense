@@ -2,6 +2,7 @@ using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
+using System.Collections.Generic;
 using UnityEngine;
 using AOFL.Promises.V1.Interfaces;
 
@@ -10,10 +11,16 @@ namespace Sojourn.ARDefense.Components {
 	public class Player : MonoBehaviour, IPlayer {
 		[SerializeField]
 		private Cannon _cannon = null;
-		public Weapon CurrentWeapon { get; set; }
+		[SerializeField]
+		private List<Weapon> weaponList = new List<Weapon>();
+
+		public Weapon CurrentWeapon { get; private set; }
+		public List<Weapon> WeaponList { get => weaponList; }
 
 		[AutoInject]
 		private ILevelManager _levelManager = null;
+		[AutoInject]
+		private IDisplayManager _displayManager = null;
 
 		private void Awake() {
 			Container.Register<IPlayer>(this).AsSingleton();
@@ -21,6 +28,13 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Start() {
 			Container.AutoInject(this);
+		}
+
+		public void SetCurrentWeapon(int index) {
+			if (index < 0 || index >= WeaponList.Count) { return; }
+			CurrentWeapon = WeaponList[index];
+			IDisplay display = Instantiate(CurrentWeapon.DisplayPrefab).GetComponent<IDisplay>();
+			_displayManager.PushDisplay(display);
 		}
 
 		public IPromise RequestFireCannon() {

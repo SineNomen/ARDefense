@@ -7,6 +7,7 @@ using UnityEngine.XR.ARFoundation;
 using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Interfaces {
+	public delegate void LevelEvent();
 	public delegate void GameObjectEvent(GameObject go);
 	public interface ILevelManager {
 		Ground Ground { get; }
@@ -16,6 +17,8 @@ namespace Sojourn.ARDefense.Interfaces {
 		List<GameObject> EnemyList { get; }
 		GameObjectEvent OnEnemyCreated { get; set; }
 		GameObjectEvent OnEnemyKilled { get; set; }
+		LevelEvent OnLevelStarted { get; set; }
+		LevelEvent OnLevelEnded { get; set; }
 
 		void OnPlayerKilled();
 		void RegisterEnemy(GameObject go);

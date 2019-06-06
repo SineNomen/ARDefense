@@ -27,15 +27,9 @@ namespace Sojourn.ARDefense.Components {
 
 		[SerializeField]
 		private Camera _deviceCamera = null;
-		[SerializeField]
-		private Weapon[] _testWeapons = null;
-		[SerializeField]
-		private GameObject _weaponObject = null;
 
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
-		[AutoInject]
-		private IPlayer _player1 = null;
 		[AutoInject]
 		private ILevelManager _levelManager = null;
 
@@ -62,30 +56,14 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void Start() {
-			_weaponObject.SetActive(false);
 			Container.AutoInject(this);
-
 #if !UNITY_EDITOR
 			foreach (GameObject go in _debugObjects) {
 				go.SetActive(false);
 			}
 #endif// !UNITY_EDITOR
 			_levelManager.SetupLevel()
-			.Then(_levelManager.StartLevel)
-			// StartNewGame()
-			.Then(OnGameStart);
-		}
-
-		private void OnGameStart() {
-			_weaponObject.SetActive(true);
-			DEBUG_SetWeapon(0);
-		}
-
-		public void DEBUG_SetWeapon(int index) {
-			Weapon weapon = _testWeapons[index];
-			_player1.CurrentWeapon = _testWeapons[index];
-			IDisplay display = Instantiate(weapon.DisplayPrefab).GetComponent<IDisplay>();
-			_displayManager.PushDisplay(display);
+			.Then(_levelManager.StartLevel);
 		}
 	}
 }

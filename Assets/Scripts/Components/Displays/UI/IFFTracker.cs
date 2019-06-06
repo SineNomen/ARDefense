@@ -91,13 +91,17 @@ namespace Sojourn.ARDefense.Components {
 		private void UpdateObject(GameObject go, IFFIndicator indicator) {
 			Vector3 deltaPos = go.transform.position - _gameManager.DeviceCamera.transform.position;
 			float angle = Vector3.SignedAngle(deltaPos, _gameManager.DeviceCamera.transform.forward, Vector3.up);
-			Quaternion look = Quaternion.LookRotation(deltaPos, Vector3.up);
-			float lookDelta = Quaternion.Angle(_gameManager.DeviceCamera.transform.rotation, look);
+			if (deltaPos != Vector3.zero) {
+				Quaternion look = Quaternion.LookRotation(deltaPos, Vector3.up);
+				float lookDelta = Quaternion.Angle(_gameManager.DeviceCamera.transform.rotation, look);
 
-			if (lookDelta < _deadZone) {
-				indicator.Hide();
+				if (lookDelta < _deadZone) {
+					indicator.Hide();
+				} else {
+					indicator.Show();
+				}
 			} else {
-				indicator.Show();
+				indicator.Hide();
 			}
 
 			//shift by 90 degrees to account for Unity's orientation

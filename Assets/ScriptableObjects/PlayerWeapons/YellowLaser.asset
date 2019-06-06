@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60841d5021ea4ea78edb3ddc18a33bf, type: 3}
   m_Name: YellowLaser
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 8903522669077981400, guid: 536f1055a0d9344b8a4f9b0f98cdd649,
+  _projectilePrefab: {fileID: 8903522669077981400, guid: 536f1055a0d9344b8a4f9b0f98cdd649,
     type: 3}
-  displayPrefab: {fileID: 3186422917782456870, guid: 985a6279d8c66405cadbf06eb5c63f50,
+  _displayPrefab: {fileID: 3186422917782456870, guid: 985a6279d8c66405cadbf06eb5c63f50,
     type: 3}
+  _uiIcon: {fileID: 6418609797601788361, guid: ffd82012ad38d4f6480ff185f013195a, type: 3}
   _damage: 2
   _reloadTime: 0.25
   _shotPerLoad: 2
