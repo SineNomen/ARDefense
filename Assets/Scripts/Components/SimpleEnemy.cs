@@ -32,7 +32,6 @@ namespace Sojourn.ARDefense.Components {
 		public void OnKill(IKillable us) {
 			Debug.LogFormat("Enemy {0} has been killed", this.gameObject.name);
 			_levelManager.UnregisterEnemy(this.gameObject);
-			Destroy(this.gameObject);
 		}
 	}
 }

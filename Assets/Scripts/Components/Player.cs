@@ -47,7 +47,6 @@ namespace Sojourn.ARDefense.Components {
 
 		public void OnKill(IKillable us) {
 			_levelManager.OnPlayerKilled();
-			Destroy(this.gameObject);
 		}
 		//eventually, we may want to tell the user somehow, maybe using UI
 		// public void OnDamaged(IKillable us) {

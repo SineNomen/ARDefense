@@ -174,6 +174,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnBaseKilled(Base b) {
+			Debug.LogError("OnBaseKilled");
 			EndGame();
 		}
 

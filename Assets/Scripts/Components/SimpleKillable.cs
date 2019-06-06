@@ -48,6 +48,7 @@ namespace Sojourn.ARDefense.Components {
 					if (_currentHealth <= 0) {
 						//`Mat Broadcast message
 						BroadcastMessage("OnKill", this, SendMessageOptions.RequireReceiver);
+						Destroy(this.gameObject);
 					} else {
 						//`Mat Broadcast message
 						BroadcastMessage("OnDamaged", this, SendMessageOptions.RequireReceiver);
@@ -56,6 +57,7 @@ namespace Sojourn.ARDefense.Components {
 			} else if (ground != null && KillOnHitGround) {
 				//`Mat Broadcast message
 				BroadcastMessage("OnKill", this, SendMessageOptions.RequireReceiver);
+				Destroy(this.gameObject);
 			}
 		}
 	}

@@ -32,8 +32,5 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnDamaged(IKillable us) { }
-		public void OnKill(IKillable us) {
-			Destroy(this.gameObject);
-		}
 	}
 }
