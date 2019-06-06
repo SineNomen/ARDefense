@@ -62,8 +62,6 @@ namespace Sojourn.ARDefense.Components {
 				go.SetActive(false);
 			}
 #endif// !UNITY_EDITOR
-			_levelManager.SetupLevel()
-			.Then(_levelManager.StartLevel);
 		}
 	}
 }
