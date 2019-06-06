@@ -1,6 +1,8 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
+using Sojourn.Interfaces;
+using Sojourn.Utility;
 using Sojourn.Extensions;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
@@ -32,8 +34,9 @@ namespace Sojourn.ARDefense.Components {
 		private IDisplayManager _displayManager = null;
 		[AutoInject]
 		private ILevelManager _levelManager = null;
+		[AutoInject]
+		private IMainMenu _mainMenu = null;
 
-		[SerializeField]
 
 		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
@@ -52,6 +55,9 @@ namespace Sojourn.ARDefense.Components {
 			Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.ScriptOnly);
 			Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.ScriptOnly);
 			Application.SetStackTraceLogType(LogType.Assert, StackTraceLogType.ScriptOnly);
+
+			// string name = Application.productName;
+			Container.Register<IPersistentDataManager>(new PersistentDataManager()).AsSingleton();
 			Container.Register<IGameManager>(this).AsSingleton();
 		}
 
@@ -62,6 +68,7 @@ namespace Sojourn.ARDefense.Components {
 				go.SetActive(false);
 			}
 #endif// !UNITY_EDITOR
+			_mainMenu.ShowInstant();
 		}
 	}
 }

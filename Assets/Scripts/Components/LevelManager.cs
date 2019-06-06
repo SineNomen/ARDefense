@@ -1,8 +1,10 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.ARDefense.ScriptableObjects;
+using Sojourn.Interfaces;
 using Sojourn.Extensions;
 using Sojourn.Utility;
+using Sojourn.ARDefense.Data;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using AOFL.Promises.V1.Core;
@@ -52,6 +54,8 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IPlaneSelector _planeSelector = null;
 		[AutoInject]
+		private IPersistentDataManager _saveDataManager = null;
+		[AutoInject]
 		private IPlayer _player = null;
 		[AutoInject]
 		private IPlayerHUD _playerHUD = null;
@@ -86,7 +90,6 @@ namespace Sojourn.ARDefense.Components {
 			_currentScore = 0;
 			if (OnLevelStarted != null) { OnLevelStarted(); }
 		}
-
 
 		private void CreateTestLevel() {
 			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
@@ -180,6 +183,12 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void EndGame() {
+			LevelSaveData data = _saveDataManager.LoadData<LevelSaveData>("TestLevelData");
+			if (_currentScore > data.HighScore) {
+				data.HighScore = _currentScore;
+				_saveDataManager.SaveData("TestLevelData", data);
+				Debug.LogErrorFormat("New High Score: {0}", _currentScore);
+			}
 			Debug.LogError("Game Over!");
 			if (OnLevelEnded != null) { OnLevelEnded(); }
 		}

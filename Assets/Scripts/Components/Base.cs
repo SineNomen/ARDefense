@@ -26,6 +26,11 @@ namespace Sojourn.ARDefense.Components {
 			_collider = GetComponent<Collider>();
 		}
 
+		[ContextMenu("Kill Base")]
+		private void TestKill() {
+			OnKill(null);
+		}
+
 		private void OnKill(IKillable us) {
 			if (OnBaseKilled != null) { OnBaseKilled(this); }
 		}

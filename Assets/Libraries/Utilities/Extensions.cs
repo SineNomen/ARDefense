@@ -82,7 +82,11 @@ namespace Sojourn.Extensions {
 		}
 
 		public static Tween HideTween(this CanvasGroup cg, float time) {
-			return cg.DOFade(0.0f, time).OnComplete(() => {
+			return cg.DOFade(0.0f, time)
+			.OnComplete(() => {
+				cg.SetBlocking(false);
+			})
+			.OnKill(() => {
 				cg.SetBlocking(false);
 			});
 		}

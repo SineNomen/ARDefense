@@ -14,6 +14,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 using TMPro;
 
+//may need a pause menu
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(CanvasGroup))]
 	public class PlayerHUD : MonoBehaviour, IPlayerHUD {

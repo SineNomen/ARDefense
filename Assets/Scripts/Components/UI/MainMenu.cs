@@ -4,6 +4,7 @@ using Sojourn.ARDefense.Components;
 using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using Sojourn.Utility;
+using Sojourn.Interfaces;
 using UnityEngine;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
@@ -12,11 +13,12 @@ using System.Collections.Generic;
 using System;
 using DG.Tweening;
 using UnityEngine.UI;
+using Sojourn.ARDefense.Data;
 using TMPro;
 
 namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(CanvasGroup))]
-	public class MainMenu : MonoBehaviour, IPlayerHUD {
+	public class MainMenu : MonoBehaviour, IMainMenu {
 		[SerializeField]
 		private Button _newGameButton = null;
 		[SerializeField]
@@ -26,9 +28,11 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		private ILevelManager _levelManager = null;
+		[AutoInject]
+		private IPersistentDataManager _saveDataManager = null;
 
 		private void Awake() {
-			Container.Register<IPlayerHUD>(this).AsSingleton();
+			Container.Register<IMainMenu>(this).AsSingleton();
 			_canvasGroup = GetComponent<CanvasGroup>();
 		}
 
@@ -47,10 +51,22 @@ namespace Sojourn.ARDefense.Components {
 			.Then(_levelManager.StartLevel);
 		}
 
-		public void ShowInstant() { _canvasGroup.ShowInstant(); }
+		public void ShowInstant() {
+			OnShow();
+			_canvasGroup.ShowInstant();
+		}
 		public void HideInstant() { _canvasGroup.HideInstant(); }
 
-		public IPromise Show() { return _canvasGroup.Show(0.1f); }
+		public IPromise Show() {
+			OnShow();
+			return _canvasGroup.Show(0.1f);
+		}
+
+		private void OnShow() {
+			LevelSaveData data = _saveDataManager.LoadData<LevelSaveData>("TestLevelData");
+			SetScore(data.HighScore);
+		}
+
 		public IPromise Hide() { return _canvasGroup.Hide(0.1f); }
 
 		private void SetScore(int score) {
