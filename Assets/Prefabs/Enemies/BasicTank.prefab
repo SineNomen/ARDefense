@@ -100,8 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _team: 1
   _teamDamage: 0
-  _maxHealth: 1
-  _collisionDamageGiven: 1
+  _killOnHitGround: 0
+  _maxHealth: 3
+  _collisionDamageGiven: 3
 --- !u!114 &5359347235108559223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,8 +131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd95ef838700449fe99f91b2ebc75a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _killable: {fileID: 0}
   _ammo: 100
   _barrelTransform: {fileID: 2073141824314320699}
+  _weapon: {fileID: 0}
 --- !u!114 &1982721086446707979
 MonoBehaviour:
   m_ObjectHideFlags: 0

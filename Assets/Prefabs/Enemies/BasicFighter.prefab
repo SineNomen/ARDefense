@@ -135,8 +135,8 @@ MonoBehaviour:
   _team: 1
   _teamDamage: 0
   _killOnHitGround: 0
-  _maxHealth: 6
-  _collisionDamageGiven: 6
+  _maxHealth: 10
+  _collisionDamageGiven: 10
 --- !u!114 &5393906968206470205
 MonoBehaviour:
   m_ObjectHideFlags: 0

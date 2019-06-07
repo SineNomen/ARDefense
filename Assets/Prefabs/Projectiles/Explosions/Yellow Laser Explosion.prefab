@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8252812245947308077, guid: 4adedd438a6424915a30f73c6879e605,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fad1f3342cc8a4638b969935a639d5dc, type: 3}
     - target: {fileID: 100006, guid: 4adedd438a6424915a30f73c6879e605, type: 3}
       propertyPath: m_Name
       value: Yellow Laser Explosion

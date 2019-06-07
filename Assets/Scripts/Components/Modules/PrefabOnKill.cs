@@ -34,6 +34,8 @@ namespace Sojourn.ARDefense.Components {
 			obj.SetActive(true);
 			ParticleSystem ps = obj.GetComponent<ParticleSystem>();
 			if (ps != null) { ps.Play(); }
+			AudioSource audio = obj.GetComponent<AudioSource>();
+			if (audio != null) { audio.Play(); }
 		}
 	}
 }
