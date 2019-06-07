@@ -62,7 +62,7 @@ namespace Sojourn.ARDefense.Components {
 					_weaponToggles[i].gameObject.SetActive(false);
 				}
 			}
-			// _weaponToggles[0].isOn = true;
+			OnWeaponToggle(0);
 		}
 
 		private void OnEnemyKilled(GameObject go) {

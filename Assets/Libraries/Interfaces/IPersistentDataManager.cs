@@ -3,7 +3,7 @@ using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.ARDefense.Interfaces;
 
 namespace Sojourn.Interfaces {
-	interface IPersistentDataManager {
+	public interface IPersistentDataManager {
 		void DeleteAll();
 		void DeleteData(string key);
 		void SaveData(string key, object obj);

@@ -95,8 +95,6 @@ namespace Sojourn.ARDefense.Components {
 		private void CreateTestLevel() {
 			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
 			Ground.Radius = 60.0f;
-			//hack for the to fix the prefab for testing on editor, scale is off
-			foreach (Transform child in Ground.Transform) { child.localScale *= 2.0f; }
 		}
 
 		public IPromise CreateBasicLevel() {
@@ -105,8 +103,10 @@ namespace Sojourn.ARDefense.Components {
 				Debug.LogErrorFormat("Plane Selected: {0}", plane);
 				GroundPlane = plane;
 				Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
-				Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * _gameManager.Origin.transform.localScale.x;
-				Pose pose = new Pose(plane.transform.position, Quaternion.identity);
+				Ground.Radius = Mathf.Sqrt(plane.extents.magnitude) * _gameManager.Origin.transform.localScale.x;
+				Debug.LogFormat("Creating Ground, Radius: {0}, Plane Size: {1}, Plane Extents: {2}", Ground.Radius, plane.size, plane.extents);
+				// Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * _gameManager.Origin.transform.localScale.x;
+				Pose pose = new Pose(plane.center, Quaternion.identity);
 				ARReferencePoint anchor = _gameManager.PointManager.AttachReferencePoint(plane, pose);
 				Ground.transform.SetPose(pose);
 				Ground.transform.SetParent(anchor.transform);
@@ -160,7 +160,7 @@ namespace Sojourn.ARDefense.Components {
 			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
 			float height = Mathf.Max((_gameManager.CameraHeight * 1.25f), 15.0f);
 			// float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);
-			float distance = Ground.Radius * _spawnRadius.Pick();
+			float distance = Ground.Radius;// * _spawnRadius.Pick();
 			Vector3 point = Ground.GetPositionAt(angle, distance, height);
 			Debug.LogFormat("New Dropship at [{0}, {1}], pos: {2}", angle, distance, point);
 			Pose p = new Pose(point, Quaternion.identity);

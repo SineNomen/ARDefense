@@ -3,7 +3,7 @@ using Sojourn.ARDefense.ScriptableObjects;
 using UnityEngine;
 
 namespace Sojourn.ARDefense.Interfaces {
-	interface IProjectile {
+	public interface IProjectile {
 		Transform Transform { get; }
 		Weapon Weapon { get; set; }
 		Rigidbody Body { get; }

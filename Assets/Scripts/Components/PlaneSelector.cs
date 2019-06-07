@@ -102,7 +102,7 @@ namespace Sojourn.ARDefense.Components {
 					if (selectedPlane.size.magnitude > _groundAreaThreshold) {
 						_displayManager.CurrentDisplay.Reticule.ShowHighlight();
 						planeOK = true;
-						Debug.LogErrorFormat("Good plane: {0}", selectedPlane);
+						// Debug.LogErrorFormat("Good plane: {0}", selectedPlane);
 					}
 				} else {
 					_displayManager.CurrentDisplay.Reticule.Unload();

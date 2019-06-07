@@ -4,7 +4,7 @@ using Sojourn.ARDefense.Interfaces;
 using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Interfaces {
-	interface IPlayer {
+	public interface IPlayer {
 		// eKillableTeam Team { get; }
 		Weapon CurrentWeapon { get; }
 		List<Weapon> WeaponList { get; }

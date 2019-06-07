@@ -1,16 +1,9 @@
 ﻿using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
-using Sojourn.ARDefense.ScriptableObjects;
 using Sojourn.Interfaces;
 using Sojourn.Utility;
-using Sojourn.Extensions;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
-using AOFL.Promises.V1.Core;
-using AOFL.Promises.V1.Interfaces;
-using System.Collections;
-using System.Collections.Generic;
-using Sojourn.Utility;
 
 namespace Sojourn.ARDefense.Components {
 	public class GameManager : MonoBehaviour, IGameManager {
