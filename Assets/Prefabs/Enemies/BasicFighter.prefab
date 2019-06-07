@@ -165,7 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adfdafbcde00c4ce09a0cb93fa2f318f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _flightSpeed: 8
+  _flightSpeed:
+    Min: 8
+    Max: 12
+    Low: 0
+    High: 100
   _turnSpeed: 3
   _startOnCreate: 1
   _spreadOnStart: 1
@@ -194,8 +198,8 @@ MonoBehaviour:
     Max: 10
     Low: -Infinity
     High: Infinity
-  _disengageDistance: 30
-  _rotationSpeedScale: 3
+  _disengageRange: 4
+  _rotationSpeedScale: 6
 --- !u!54 &8537054347246404823
 Rigidbody:
   m_ObjectHideFlags: 0

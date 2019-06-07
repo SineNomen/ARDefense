@@ -1,4 +1,5 @@
 using Sojourn.ARDefense.Interfaces;
+using Sojourn.Utility;
 using Sojourn.PicnicIOC;
 using UnityEngine;
 using System.Collections;
@@ -15,10 +16,9 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private bool _spreadOnStart = true;
 		[SerializeField]
-		private float _spreadDistance = 5.0f;
+		private RandomFloat _spreadDistance = new RandomFloat(5.0f, 5.0f, 0.0f, 100.0f);
 		[SerializeField]
-		[Range(0, 180.0f)]
-		private float _spreadRange = -90.0f;
+		private RandomFloat _spreadRange = new RandomFloat(-45.0f, 45.0f, -180.0f, 180.0f);
 
 		[SerializeField]
 		private bool _orbitTarget = true;
@@ -38,6 +38,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Awake() {
 			_tank = GetComponent<Tank>();
+			_spreadDistance.Pick();
 		}
 
 		private void Start() {
@@ -53,7 +54,7 @@ namespace Sojourn.ARDefense.Components {
 			Quaternion look = Quaternion.LookRotation(relativePos, this.transform.up);
 			Quaternion rotation = look;
 			if (_spreadOnStart) {
-				rotation *= Quaternion.Euler(0.0f, Random.Range(-_spreadRange, _spreadRange), 0.0f);
+				rotation *= Quaternion.Euler(0.0f, _spreadRange.Pick(), 0.0f);
 			}
 
 			transform.rotation = rotation;

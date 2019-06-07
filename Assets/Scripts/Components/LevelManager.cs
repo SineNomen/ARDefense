@@ -24,6 +24,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private RandomFloat _spawnRadius = new RandomFloat(0.5f, 1.0f, 0.0f, 1.0f);
 		[SerializeField]
+		private RandomFloat _dropshipWaitTime = new RandomFloat(20.0f, 40.0f);
+		[SerializeField]
 		private bool _playerPlacesBase = false;
 
 		public Base PlayerBase { get; private set; }
@@ -142,7 +144,7 @@ namespace Sojourn.ARDefense.Components {
 		private IEnumerator SpawnDropships(int count) {
 			for (int i = 0; i < count; i++) {
 				SpawnDropship();
-				yield return new WaitForSeconds(45.0f);
+				yield return new WaitForSeconds(_dropshipWaitTime.Pick());
 			}
 		}
 

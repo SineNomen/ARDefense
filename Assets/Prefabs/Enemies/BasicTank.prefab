@@ -151,8 +151,16 @@ MonoBehaviour:
   _turnSpeed: 1
   _startOnCreate: 1
   _spreadOnStart: 1
-  _spreadDistance: 7
-  _spreadRange: 45
+  _spreadDistance:
+    Min: 4
+    Max: 6
+    Low: 0
+    High: 100
+  _spreadRange:
+    Min: -45
+    Max: 45
+    Low: -180
+    High: 180
   _orbitTarget: 1
   _orbitDistance: 8
 --- !u!54 &8985582424059657593

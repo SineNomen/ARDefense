@@ -31,7 +31,7 @@ namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(Fighter))]
 	public class BasicFighterPattern : MonoBehaviour {
 		[SerializeField]
-		private float _flightSpeed = 3.0f;
+		private RandomFloat _flightSpeed = new RandomFloat(8.0f, 8.0f, 0.0f, 100.0f);
 		[SerializeField]
 		private float _turnSpeed = 3.0f;
 		[SerializeField]
@@ -50,7 +50,7 @@ namespace Sojourn.ARDefense.Components {
 		private RandomFloat _orbitHeightVariance = new RandomFloat(-10.0f, 10.0f);
 
 		[SerializeField]
-		private float _disengageDistance = 4.0f;
+		private float _disengageRange = 4.0f;
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
 
@@ -70,6 +70,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void Awake() {
 			_fighter = GetComponent<Fighter>();
+			_flightSpeed.Pick();
 		}
 
 		private void Start() {
@@ -105,7 +106,7 @@ namespace Sojourn.ARDefense.Components {
 					}
 					break;
 				case eBasicFighterPatternPhase.Dive:
-					if (distanceToTarget < _disengageDistance) {
+					if (distanceToTarget < (_disengageRange * _flightSpeed)) {
 						newPhase = eBasicFighterPatternPhase.Disengage;
 					}
 					break;

@@ -19,6 +19,7 @@ namespace Sojourn.ARDefense.Components {
 		public Vector3 CenterPosition { get => this.transform.position + Vector3.up * 0.5f; }
 		public BaseEvent OnBaseKilled { get; set; }
 
+		private bool _killed = false;
 		private Collider _collider;
 		private void Start() {
 			Container.AutoInject(this);
@@ -32,6 +33,8 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnKill(IKillable us) {
+			if (_killed) { return; }
+			_killed = true;//e may get hit multiple time in the lastframe
 			if (OnBaseKilled != null) { OnBaseKilled(this); }
 		}
 	}
