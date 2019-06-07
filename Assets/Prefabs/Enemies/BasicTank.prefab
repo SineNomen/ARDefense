@@ -101,8 +101,8 @@ MonoBehaviour:
   _team: 1
   _teamDamage: 0
   _killOnHitGround: 0
-  _maxHealth: 3
-  _collisionDamageGiven: 3
+  _maxHealth: 5
+  _collisionDamageGiven: 5
 --- !u!114 &5359347235108559223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flashColor: {r: 1, g: 0, b: 0, a: 1}
   _transitionTime: 0.3
-  _flashCount: 3
+  _flashCount: 1
 --- !u!114 &1638202208
 MonoBehaviour:
   m_ObjectHideFlags: 0

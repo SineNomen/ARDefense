@@ -24,6 +24,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private RandomFloat _spawnRadius = new RandomFloat(0.5f, 1.0f, 0.0f, 1.0f);
 		[SerializeField]
+		private RandomFloat _spawnHeightScale = new RandomFloat(-0.8f, 1.25f, 0.5f, 3.0f);
+		[SerializeField]
 		private RandomFloat _dropshipWaitTime = new RandomFloat(20.0f, 40.0f);
 		[SerializeField]
 		private bool _playerPlacesBase = false;
@@ -160,7 +162,7 @@ namespace Sojourn.ARDefense.Components {
 				}
 			}
 			float angle = Random.Range(0.0f, Mathf.PI * 2.0f);
-			float height = Mathf.Max((_gameManager.CameraHeight * 1.25f), 15.0f);
+			float height = Mathf.Max((_gameManager.CameraHeight * _spawnHeightScale.Pick()), 15.0f);
 			// float distance = Random.Range(Ground.Radius * 0.5f, Ground.Radius);
 			float distance = Ground.Radius;// * _spawnRadius.Pick();
 			Vector3 point = Ground.GetPositionAt(angle, distance, height);
