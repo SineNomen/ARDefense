@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5210201446084185517, guid: f577c42acc59a418c9707c974caa0e8d,
+        type: 3}
+      propertyPath: _prefab
+      value: 
+      objectReference: {fileID: 9011771560698216317, guid: 1430e757099e7423c8acfb57f71ea6fe,
+        type: 3}
     - target: {fileID: 136330, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_Name
       value: GreenLaser
