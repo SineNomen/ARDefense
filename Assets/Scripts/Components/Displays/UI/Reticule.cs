@@ -10,7 +10,6 @@ using TMPro;
 using System.Linq;
 
 namespace Sojourn.ARDefense.Components {
-	//`Mat raycast things inside the reticule
 	public class Reticule : MonoBehaviour {
 		[SerializeField]
 		private Image _reloadMeter = null;
@@ -18,8 +17,6 @@ namespace Sojourn.ARDefense.Components {
 		private CanvasGroup _highlightGroup = null;
 		[SerializeField]
 		private TMP_Text _reloadPercentage = null;
-		// [SerializeField]
-		// private Image _reloadFill = null;
 		[SerializeField]
 		[Tooltip("How many seconds a full reload takes when reloding")]
 		private float _reloadSpeed = 1.0f;
@@ -76,12 +73,12 @@ namespace Sojourn.ARDefense.Components {
 			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, Mathf.Infinity, mask);
 			if (hits.Length > 0) {
 				foreach (RaycastHit hit in hits) {
-					// Debug.LogErrorFormat("Looking at: {0}", hit.transform.name);
+					// Debug.LogFormat("Looking at: {0}", hit.transform.name);
 					newObjects.Add(hit.transform.gameObject);
 				}
 			}
 
-			//Object that were targeted, but not anymore
+			//Objects that were targeted, but not anymore
 			foreach (GameObject obj in _targetedObjects.Except(newObjects)) {
 				//`Mat Broadcast message
 				if (obj != null) {
@@ -118,8 +115,6 @@ namespace Sojourn.ARDefense.Components {
 			seq.Join(DOTween.To(x => _reloadMeter.fillAmount = x, _reloadMeter.fillAmount, 1.0f, time)
 			.OnUpdate(() => { _reloadPercentage.SetText(string.Format("{0:P0}", _reloadMeter.fillAmount)); }));
 			seq.AppendCallback(() => { _reloadPercentage.SetText(""); });
-			// _reloadPercentage.SetText(string.Format("%{0:P0}", val));
-			// seq.Join(_reloadFill.DOGradientColor(1.0f, time));
 			return seq.ToPromise();
 		}
 

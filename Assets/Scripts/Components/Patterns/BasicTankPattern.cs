@@ -5,6 +5,10 @@ using UnityEngine;
 using System.Collections;
 
 namespace Sojourn.ARDefense.Components {
+	// 1) Spread out a bit
+	// 2) Move towards the target
+	// 3) Orbit around the target
+	//repeat
 	[RequireComponent(typeof(Tank))]
 	public class BasicTankPattern : MonoBehaviour {
 		[SerializeField]

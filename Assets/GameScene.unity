@@ -3528,7 +3528,7 @@ MonoBehaviour:
     Max: 50
     Low: -Infinity
     High: Infinity
-  _playerPlacesBase: 0
+  _playerPlacesBase: 1
 --- !u!4 &1314097473
 Transform:
   m_ObjectHideFlags: 0

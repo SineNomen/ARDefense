@@ -12,6 +12,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Components {
+	//mananges spawning, scoring and game over
 	public class LevelManager : MonoBehaviour, ILevelManager {
 		[SerializeField]
 		private GameObject _groundPrefab = null;
@@ -128,19 +129,24 @@ namespace Sojourn.ARDefense.Components {
 		//pu the base in the center
 		public IPromise<Base> PlaceBase() {
 			Base b = Instantiate(_basePrefab, Ground.Center, Quaternion.identity, _gameManager.WorldParent).GetComponent<Base>();
-#if !UNITY_EDITOR
-			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
-			b.transform.position = GroundPlane.center;
-			ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(GroundPlane, center);
-			b.transform.parent = point.transform;
-#endif// !UNITY_EDITOR
+			SetupBase(b);
 			return Promise<Base>.Resolved(b);
 		}
 
 		//use the object placer to let the user put it where they want
 		public IPromise<Base> ChoosePlaceBase() {
 			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObjectOnPlane<Base>(_basePrefab, GroundPlane);
+			return _objectPlacer.PlaceObject<Base>(_basePrefab, Ground)
+			.Then(SetupBase);
+		}
+
+		private void SetupBase(Base b) {
+#if !UNITY_EDITOR
+			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
+			b.transform.position = GroundPlane.center;
+			ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(GroundPlane, center);
+			b.transform.parent = point.transform;
+#endif// !UNITY_EDITOR
 		}
 
 		private IEnumerator SpawnDropships(int count) {

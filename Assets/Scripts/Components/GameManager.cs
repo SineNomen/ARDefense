@@ -49,7 +49,6 @@ namespace Sojourn.ARDefense.Components {
 			Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.ScriptOnly);
 			Application.SetStackTraceLogType(LogType.Assert, StackTraceLogType.ScriptOnly);
 
-			// string name = Application.productName;
 			Container.Register<IPersistentDataManager>(new PersistentDataManager()).AsSingleton();
 			Container.Register<IGameManager>(this).AsSingleton();
 		}

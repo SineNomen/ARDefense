@@ -5,23 +5,11 @@ using UnityEngine;
 using System.Collections;
 
 namespace Sojourn.ARDefense.Components {
-	//make a figure 8, shooter when the base is lined up
-	//1) Fly direct and shoot until within a acertain range of target
-	//2) Turn around, until angle between us and target is about 180
-	//3) Fly away until a certain distance away
-	//4) Turn around until we are facing the target
-	//repeat
-
 	//1) Orbit around the target
 	//2) Turn towards the target and fire
 	//3) Veer away from target and enter new orbit
+	//repeat
 
-
-	// public enum eBasicFighterPatternType {
-	// 	CircleAndDive,
-	// 	Figure8,
-	// 	Flower,
-	// }
 	public enum eBasicFighterPatternPhase {
 		Entry,//start flying toward the target, only used at the start
 		OrbitTarget,//fly in a circle around the target
@@ -122,6 +110,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void SetPhase(eBasicFighterPatternPhase newPhase) {
+			// Use with "Error Pause" option for easy debugging
 			// Debug.LogErrorFormat("Switch phase {0} -> {1}", _currentPhase, newPhase);
 			_currentPhase = newPhase;
 			switch (_currentPhase) {
@@ -164,9 +153,9 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
-		//1) [Optional] Spread out in a fan
+		//1) Spread out in a fan
 		//2) Move towards target
-		//3) [Optional] Orbit around target
+		//3) Orbit around target
 		public IEnumerator UpdatePattern() {
 			while (true) {
 				Quaternion lookRotation = this.transform.rotation;

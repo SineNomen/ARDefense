@@ -50,6 +50,7 @@ namespace Sojourn.ARDefense.Components {
 			OnShow();
 			_canvasGroup.ShowInstant();
 		}
+
 		public void HideInstant() { _canvasGroup.HideInstant(); }
 
 		public IPromise Show() {

@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace Sojourn.ARDefense.Components {
+	//Cannon is what will actually fire a weapon, Player on Enemy classes with holda reference and call Fire()
 	//`Mat cannon should be placed on the Killable object, not on the transform that will fire (barrelTransform)
 	public class Cannon : MonoBehaviour {
 		[SerializeField]

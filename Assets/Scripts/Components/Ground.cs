@@ -1,9 +1,12 @@
+using UnityEngine.XR.ARFoundation;
 using Sojourn.ARDefense.Interfaces;
 using Sojourn.PicnicIOC;
 using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
+	//The game surface. This will be placed on the chosen ARPlane. All the action takes place here
 	public class Ground : MonoBehaviour {
+		public ARPlane Plane { get; set; }
 		public Transform Transform { get => this.transform; }
 		public Vector3 Center { get => this.transform.position; }
 		public float Radius {
@@ -20,9 +23,5 @@ namespace Sojourn.ARDefense.Components {
 			// Debug.LogFormat("GetPositionAt [{0}, {1}], offset: {2} pos: {3}", radianAngle, distance, offset, pos);
 			return pos;
 		}
-
-		// public Vector3 GetRandomPosition() {
-		// 	return GetPositionAt();
-		// }
 	}
 }

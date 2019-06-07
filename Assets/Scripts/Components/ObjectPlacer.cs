@@ -35,22 +35,22 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 		}
 
-		public IPromise<GameObject> PlaceObjectOnPlane(GameObject prefab, ARPlane plane = null) {
+		public IPromise<GameObject> PlaceObject(GameObject prefab, Ground ground) {
 			_prefab = prefab;
 			PlacerDisplay display = Instantiate(_displayPrefab).GetComponent<PlacerDisplay>();
 			display.PlaceButton.onClick.AddListener(OnPlaceButton);
 
 			_displayManager.PushDisplay(display);
 
-			_placeCoroutine = StartCoroutine(MovePlaceObject(plane));
+			_placeCoroutine = StartCoroutine(MovePlaceObject(ground));
 
 			_placePromise = new Promise<GameObject>();
 			return _placePromise;
 		}
 
-		public IPromise<T> PlaceObjectOnPlane<T>(GameObject prefab, ARPlane plane = null) where T : Component {
+		public IPromise<T> PlaceObject<T>(GameObject prefab, Ground ground) where T : Component {
 			IPromise<T> p = new Promise<T>();
-			PlaceObjectOnPlane(prefab, plane).Then((GameObject go) => {
+			PlaceObject(prefab, ground).Then((GameObject go) => {
 				p.Resolve(go.GetComponent<T>());
 			});
 			return p;
@@ -66,12 +66,12 @@ namespace Sojourn.ARDefense.Components {
 
 		}
 
-		private IEnumerator MovePlaceObject(ARPlane plane) {
+		private IEnumerator MovePlaceObject(Ground ground) {
 			yield return null;
-			if (plane == null) { plane = _levelManager.GroundPlane; }
+			if (ground.Plane == null) { ground.Plane = _levelManager.GroundPlane; }
 			ARReferencePoint point = null;
 			while (true) {
-				ARReferencePoint newPoint = PlaceObjectOnGround(plane);
+				ARReferencePoint newPoint = PlaceObjectOnGround(ground);
 				if (newPoint != null) {
 					if (point != null) { Destroy(point.gameObject); }
 					point = newPoint;
@@ -79,32 +79,29 @@ namespace Sojourn.ARDefense.Components {
 				yield return null;
 			}
 		}
-		private ARReferencePoint PlaceObjectOnGround(ARPlane plane) {
-			// Vector2 reticulePos = _displayManager.CurrentDisplay.Reticule.ScreenPosition;
+		private ARReferencePoint PlaceObjectOnGround(Ground ground) {
 			Vector2 reticulePos = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
 			List<ARRaycastHit> results = new List<ARRaycastHit>();
-			if (_gameManager.RaycastManager.Raycast(reticulePos, results, UnityEngine.XR.ARSubsystems.TrackableType.Planes)) {
-				// Use hit pose and camera pose to check if hittest is from the
-				// back of the plane, if it is, no need to create the anchor.
-				foreach (ARRaycastHit hit in results) {
-					Debug.LogFormat("Hit: {0}", hit.trackableId);
-					if (hit.trackableId == plane.trackableId &&
-						Vector3.Dot(_gameManager.DeviceCamera.transform.position - hit.pose.position,
-						hit.pose.rotation * Vector3.up) < 0) {
-					} else {
-						Debug.LogFormat("Moving object to new position: {0}", hit.pose.position);
+			Transform camera = _gameManager.DeviceCamera.transform;
+			Ray ray = _gameManager.DeviceCamera.ScreenPointToRay(reticulePos);
+			RaycastHit hit;
+			int mask = LayerMask.GetMask("Ground");
+			if (Physics.Raycast(camera.position, camera.forward, out hit, Mathf.Infinity, mask)) {
+				// if (_gameManager.RaycastManager.Raycast(reticulePos, results, UnityEngine.XR.ARSubsystems.TrackableType.Planes)) {
+				if (hit.transform == ground.transform) {
+					Pose pose = new Pose(hit.point, Quaternion.identity);
+					Debug.LogFormat("Moving object to new position: {0}", pose.position);
 
-						if (_placeObject == null) {
-							_placeObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
-						}
-						_placeObject.transform.SetPose(hit.pose);
-						ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(plane, hit.pose);
+					if (_placeObject == null) {
+						_placeObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity);
+					}
+					_placeObject.transform.SetPose(pose);
+					if (ground.Plane != null) {
+						ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(ground.Plane, pose);
 						_placeObject.transform.parent = point.transform;
 						return point;
 					}
 				}
-			} else {
-				Debug.Log("Not looking at the ground plane");
 			}
 			return null;
 		}

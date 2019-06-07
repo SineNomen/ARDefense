@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
+	[DisallowMultipleComponent]
 	public class DestroyAfterTime : MonoBehaviour {
 		[SerializeField]
 		private float _delay;

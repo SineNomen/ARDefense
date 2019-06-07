@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Sojourn.ARDefense.Components {
 	public delegate void BaseEvent(Base b);
 
+	//This is the bae you must defend, most enemies will target this directly
 	[RequireComponent(typeof(SimpleKillable))]
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(Collider))]
