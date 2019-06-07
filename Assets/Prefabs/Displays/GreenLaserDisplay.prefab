@@ -12,12 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenLaserDisplay
       objectReference: {fileID: 0}
-    - target: {fileID: 2449696910619429679, guid: a99e07fc129644abbb7bd1be832cf8cb,
-        type: 3}
-      propertyPath: _weapon
-      value: 
-      objectReference: {fileID: 11400000, guid: 5128b90ba4d5e4ec8856de62770da4ae,
-        type: 2}
     - target: {fileID: 4213163185322387998, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -168,6 +162,28 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7682791249773847398, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7682791248963691909, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2638941764714393664, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 535dc3e61b06073448c508224ae20bd9,
+        type: 3}
+    - target: {fileID: 7682791248963691915, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 535dc3e61b06073448c508224ae20bd9,
+        type: 3}
     - target: {fileID: 7682791249965075380, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.r
@@ -186,17 +202,29 @@ PrefabInstance:
     - target: {fileID: 4788323212941791844, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.r
-      value: 0
+      value: 0.027411906
       objectReference: {fileID: 0}
     - target: {fileID: 4788323212941791844, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 0.8301887
       objectReference: {fileID: 0}
     - target: {fileID: 4788323212941791844, guid: a99e07fc129644abbb7bd1be832cf8cb,
         type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 0.08999946
       objectReference: {fileID: 0}
+    - target: {fileID: 4788323212941791844, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 535dc3e61b06073448c508224ae20bd9,
+        type: 3}
+    - target: {fileID: 2449696910619429679, guid: a99e07fc129644abbb7bd1be832cf8cb,
+        type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 5128b90ba4d5e4ec8856de62770da4ae,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a99e07fc129644abbb7bd1be832cf8cb, type: 3}

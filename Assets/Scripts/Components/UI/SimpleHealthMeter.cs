@@ -67,9 +67,6 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
-		public void OnKill(IKillable us) {
-			Destroy(this.gameObject);
-		}
 		public void OnDamaged(IKillable us) { SetValue((float)us.CurrentHealth / (float)us.MaxHealth); }
 	}
 }
