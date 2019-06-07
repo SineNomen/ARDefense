@@ -90,11 +90,12 @@ namespace Sojourn.ARDefense.Components {
 		//set the new position, if it is in the reticule, hide the indicator
 		private void UpdateObject(GameObject go, IFFIndicator indicator) {
 			Vector3 deltaPos = go.transform.position - _gameManager.DeviceCamera.transform.position;
-			float angle = Vector3.SignedAngle(deltaPos, _gameManager.DeviceCamera.transform.forward, Vector3.up);
+			Vector3 localPosition = _gameManager.DeviceCamera.transform.InverseTransformPoint(go.transform.position).normalized;
+			float angleRad = Mathf.Atan2(localPosition.y, localPosition.x);
+
 			if (deltaPos != Vector3.zero) {
 				Quaternion look = Quaternion.LookRotation(deltaPos, Vector3.up);
 				float lookDelta = Quaternion.Angle(_gameManager.DeviceCamera.transform.rotation, look);
-
 				if (lookDelta < _deadZone) {
 					indicator.Hide();
 				} else {
@@ -104,8 +105,6 @@ namespace Sojourn.ARDefense.Components {
 				indicator.Hide();
 			}
 
-			//shift by 90 degrees to account for Unity's orientation
-			float angleRad = (angle + 90.0f) * Mathf.Deg2Rad;
 			Vector2 trig = new Vector2(Mathf.Cos(angleRad), Mathf.Sin(angleRad));
 			indicator.Rect.anchoredPosition = trig * _ringRadius;
 			indicator.Rect.localEulerAngles = Vector3.forward * angleRad * Mathf.Rad2Deg;
