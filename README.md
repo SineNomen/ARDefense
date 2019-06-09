@@ -3,7 +3,7 @@ AR Defense
 Copyright 2019 Mat Valadez
 
 AR Defense is a simple proof-of-concept prototype for an Augmented Reality Tower defense style game.
-All art was found for free in the UnNity Assets store or online.
+All art was found for free in the Unity Asset store or online.
 
 
 ## How to Play
