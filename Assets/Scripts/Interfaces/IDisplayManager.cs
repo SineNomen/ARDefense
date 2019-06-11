@@ -32,5 +32,6 @@ namespace Sojourn.ARDefense.Interfaces {
 		//Reset the stack and show the default, mostly used for hard reset.
 		IPromise PushDefault();
 		IPromise<eModalOption> ShowOKCancelModal(string title, string bodyText, string okText = "OK", string cancelText = "Cancel");
+		IPromise<eModalOption> ShowOKModal(string title, string bodyText, string okText = null);
 	}
 }

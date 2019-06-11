@@ -39,10 +39,12 @@ namespace Sojourn.ARDefense.Components {
 
 		private void OnNewGame() {
 			Debug.Log("Starting new game");
+			string desc = "Defend your base against the enemies.\n\nDestroy the dropships before they launch their attacks!";
 			Utilities.PromiseGroup(
 				Hide(),
 				_levelManager.SetupLevel()
 			)
+			.Chain<string, string, string>(_displayManager.ShowOKModal, "New Game", desc, "GO")
 			.Then(_levelManager.StartLevel);
 		}
 

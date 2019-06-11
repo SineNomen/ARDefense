@@ -7,12 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5210201446084185517, guid: f577c42acc59a418c9707c974caa0e8d,
-        type: 3}
-      propertyPath: _prefab
-      value: 
-      objectReference: {fileID: 9011771560698216317, guid: d12abad20f205429fb457d2d6847014e,
-        type: 3}
     - target: {fileID: 136330, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_Name
       value: YellowLaser
@@ -22,6 +16,12 @@ PrefabInstance:
       propertyPath: _clip
       value: 
       objectReference: {fileID: 8300000, guid: e7d76bd86d8e24dee9f626b7b7474009, type: 3}
+    - target: {fileID: 5210201446084185517, guid: f577c42acc59a418c9707c974caa0e8d,
+        type: 3}
+      propertyPath: _prefab
+      value: 
+      objectReference: {fileID: 9011771560698216317, guid: d12abad20f205429fb457d2d6847014e,
+        type: 3}
     - target: {fileID: 499656, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

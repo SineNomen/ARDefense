@@ -109,5 +109,9 @@ namespace Sojourn.ARDefense.Components {
 			modal.Setup(title, bodyText, okText, cancelText);
 			return modal.DoModal();
 		}
+		public IPromise<eModalOption> ShowOKModal(string title, string bodyText, string okText = null) {
+			if (okText == null) { okText = "OK"; }
+			return ShowOKCancelModal(title, bodyText, okText, null);
+		}
 	}
 }
