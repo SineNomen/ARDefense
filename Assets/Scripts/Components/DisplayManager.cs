@@ -26,6 +26,7 @@ namespace Sojourn.ARDefense.Components {
 		public DisplayCallback OnShowDisplay { get; set; }
 
 		public Stack<IDisplay> _displayStack = new Stack<IDisplay>();
+		public Dictionary<GameObject, IDisplay> _prefabMap = new Dictionary<GameObject, IDisplay>();
 
 		private void Awake() {
 			Container.Register<IDisplayManager>(this).AsSingleton();
@@ -35,8 +36,33 @@ namespace Sojourn.ARDefense.Components {
 			PushDefault();
 		}
 
+		public IPromise PushDisplay(GameObject prefab) {
+			IDisplay display = GetDisplay<IDisplay>(prefab);
+			return ShowDisplay(display);
+		}
+
+		private T GetDisplay<T>(GameObject prefab) where T : IDisplay {
+			T display;
+			if (_prefabMap.ContainsKey(prefab)) {
+				display = (T)_prefabMap[prefab];
+			} else {
+				display = Instantiate(prefab).GetComponent<T>();
+				_prefabMap.Add(prefab, display);
+			}
+
+			return display;
+		}
+
+		public IPromise<T> PushDisplay<T>(GameObject prefab) where T : IDisplay {
+			T display = GetDisplay<T>(prefab);
+			Promise<T> p = new Promise<T>();
+			ShowDisplay(display)
+			.Then<T>(p.Resolve, display);
+			return p;
+		}
+
 		//always show and immediately end the curent one
-		public IPromise PushDisplay(IDisplay display) {
+		private IPromise ShowDisplay(IDisplay display) {
 			IDisplay previous = (_displayStack.Count > 0 ? _displayStack.Peek() : null);
 			_displayStack.Push(display);
 
@@ -100,7 +126,7 @@ namespace Sojourn.ARDefense.Components {
 			IDisplay display = Instantiate(_defaultDisplay).GetComponent<IDisplay>();
 			return Utilities.PromiseGroup(
 				ClearAll(),
-				PushDisplay(display)
+				ShowDisplay(display)
 			);
 		}
 

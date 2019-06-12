@@ -42,13 +42,14 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public IPromise<ARPlane> SelectPlane() {
-			PlaneSelectorDisplay display = Instantiate(_displayPrefab).GetComponent<PlaneSelectorDisplay>();
-			if (_autoPick) {
-				display.ChooseButton.gameObject.SetActive(false);
-			}
-			display.OnChooseButton += OnChoose;
-			display.OnCancelButton += OnCancel;
-			_displayManager.PushDisplay(display);
+			_displayManager.PushDisplay<PlaneSelectorDisplay>(_displayPrefab)
+			.Then((PlaneSelectorDisplay display) => {
+				if (_autoPick) {
+					display.ChooseButton.gameObject.SetActive(false);
+				}
+				display.OnChooseButton = OnChoose;
+				display.OnCancelButton = OnCancel;
+			});
 
 			_chooseButtonPressed = false;
 			_cancelButtonPressed = false;

@@ -37,10 +37,12 @@ namespace Sojourn.ARDefense.Components {
 
 		public IPromise<GameObject> PlaceObject(GameObject prefab, Ground ground) {
 			_prefab = prefab;
-			PlacerDisplay display = Instantiate(_displayPrefab).GetComponent<PlacerDisplay>();
-			display.PlaceButton.onClick.AddListener(OnPlaceButton);
 
-			_displayManager.PushDisplay(display);
+			_displayManager.PushDisplay<PlacerDisplay>(_displayPrefab)
+			.Then((PlacerDisplay display) => {
+				display.PlaceButton.onClick.RemoveAllListeners();
+				display.PlaceButton.onClick.AddListener(OnPlaceButton);
+			});
 
 			_placeCoroutine = StartCoroutine(MovePlaceObject(ground));
 

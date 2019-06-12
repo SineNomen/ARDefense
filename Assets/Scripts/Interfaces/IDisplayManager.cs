@@ -23,8 +23,8 @@ namespace Sojourn.ARDefense.Interfaces {
 		IDisplay DefaultDisplay { get; }
 		DisplayCallback OnShowDisplay { get; set; }
 
-		//always show and immediately end the curent one
-		IPromise PushDisplay(IDisplay display);
+		IPromise PushDisplay(GameObject prefab);
+		IPromise<T> PushDisplay<T>(GameObject prefab) where T : IDisplay;
 
 		//Kill the current one and show the previous one
 		IPromise PopDisplay();

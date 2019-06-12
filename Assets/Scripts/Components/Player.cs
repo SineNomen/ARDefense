@@ -33,8 +33,7 @@ namespace Sojourn.ARDefense.Components {
 		public void SetCurrentWeapon(int index) {
 			if (index < 0 || index >= WeaponList.Count) { return; }
 			CurrentWeapon = WeaponList[index];
-			IDisplay display = Instantiate(CurrentWeapon.DisplayPrefab).GetComponent<IDisplay>();
-			_displayManager.PushDisplay(display);
+			_displayManager.PushDisplay(CurrentWeapon.DisplayPrefab);
 		}
 
 		public IPromise RequestFireCannon() {
