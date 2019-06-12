@@ -910,6 +910,7 @@ MonoBehaviour:
   weaponList:
   - {fileID: 11400000, guid: 5128b90ba4d5e4ec8856de62770da4ae, type: 2}
   - {fileID: 11400000, guid: fee9bad5c96f14ef5a1f0c4bc833b66c, type: 2}
+  - {fileID: 11400000, guid: c5ec0240e17534c14b9f1cc26708ef89, type: 2}
 --- !u!114 &445519098
 MonoBehaviour:
   m_ObjectHideFlags: 0

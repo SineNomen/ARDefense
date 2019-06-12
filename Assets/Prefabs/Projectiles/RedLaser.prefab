@@ -7,12 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5210201446084185517, guid: f577c42acc59a418c9707c974caa0e8d,
-        type: 3}
-      propertyPath: _prefab
-      value: 
-      objectReference: {fileID: 9011771560698216317, guid: 0173f1ba7aaca41209caeb65b330c735,
-        type: 3}
     - target: {fileID: 136330, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_Name
       value: RedLaser
@@ -22,6 +16,12 @@ PrefabInstance:
       propertyPath: _clip
       value: 
       objectReference: {fileID: 8300000, guid: 3db1a591a2d7546cba18cdd1d46ad05f, type: 3}
+    - target: {fileID: 5210201446084185517, guid: f577c42acc59a418c9707c974caa0e8d,
+        type: 3}
+      propertyPath: _prefab
+      value: 
+      objectReference: {fileID: 9011771560698216317, guid: 0173f1ba7aaca41209caeb65b330c735,
+        type: 3}
     - target: {fileID: 499656, guid: f577c42acc59a418c9707c974caa0e8d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

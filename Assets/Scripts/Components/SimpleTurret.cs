@@ -7,7 +7,13 @@ using System.Collections;
 
 //`Mat fires when something on the other team is in range
 namespace Sojourn.ARDefense.Components {
-	// [RequireComponent(typeof(SphereCollider))]
+	public enum eTurretTargetMode {
+		PlayerBase,
+		BaseAndPlayer,
+		GroundEnemies,
+		AirEnemies,
+		GroundAndAirEnemies
+	}
 	public class SimpleTurret : MonoBehaviour {
 		[SerializeField]
 		private Transform _cannonTransform = null;

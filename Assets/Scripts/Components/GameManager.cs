@@ -31,7 +31,6 @@ namespace Sojourn.ARDefense.Components {
 
 		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }
-		private Reticule Reticule { get => _displayManager.CurrentDisplay.Reticule; }
 
 		public ARRaycastManager RaycastManager { get => _raycastManager; }
 		public ARReferencePointManager PointManager { get => _pointManager; }

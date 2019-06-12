@@ -42,6 +42,8 @@ namespace Sojourn.ARDefense.Components {
 
 		[AutoInject]
 		private IGameManager _gameManager;
+		[AutoInject]
+		private IDisplayManager _displayManager;
 
 		private float _lastFireTime = 0.0f;
 
@@ -85,7 +87,8 @@ namespace Sojourn.ARDefense.Components {
 				projectile.Weapon = Weapon;
 				projectileKillable.Team = Killable.Team;
 
-				// projectile.OnFire();
+				Transform target = _displayManager.CurrentDisplay.Reticule.TrackedObject?.transform;
+				projectile.Launch(this, target);
 				//`Mat Broadcast message
 				projectile.Transform.gameObject.BroadcastMessage("OnFire", SendMessageOptions.RequireReceiver);
 				_ammo--;

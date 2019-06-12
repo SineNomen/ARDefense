@@ -1,4 +1,5 @@
 using AOFL.Promises.V1.Interfaces;
+using Sojourn.ARDefense.Components;
 using Sojourn.ARDefense.ScriptableObjects;
 using UnityEngine;
 
@@ -8,6 +9,6 @@ namespace Sojourn.ARDefense.Interfaces {
 		Weapon Weapon { get; set; }
 		Rigidbody Body { get; }
 
-		void OnFire();
+		void Launch(Cannon cannon, Transform target);
 	}
 }

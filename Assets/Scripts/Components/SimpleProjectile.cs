@@ -6,8 +6,8 @@ namespace Sojourn.ARDefense.Components {
 	[RequireComponent(typeof(SimpleKillable))]
 	public class SimpleProjectile : MonoBehaviour, IProjectile {
 		[SerializeField]
-		private Rigidbody _body = null;
-		private SimpleKillable _killable = null;
+		protected Rigidbody _body = null;
+		protected SimpleKillable _killable = null;
 
 		public Transform Transform { get => this.transform; }
 		public Weapon Weapon { get; set; }
@@ -17,8 +17,7 @@ namespace Sojourn.ARDefense.Components {
 			_killable = GetComponent<SimpleKillable>();
 		}
 
-		// private void Start() {
-		// }
+		public virtual void Launch(Cannon cannon, Transform target) { }
 
 		public void OnFire() {
 			Invoke("Destroy", Weapon.ProjectileLifetime);
