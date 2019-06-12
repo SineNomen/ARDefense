@@ -90,7 +90,7 @@ namespace Sojourn.ARDefense.Components {
 				// if (_gameManager.RaycastManager.Raycast(reticulePos, results, UnityEngine.XR.ARSubsystems.TrackableType.Planes)) {
 				if (hit.transform == ground.transform) {
 					Pose pose = new Pose(hit.point, Quaternion.identity);
-					Debug.LogFormat("Moving object to new position: {0}", pose.position);
+					// Debug.LogFormat("Moving object to new position: {0}", pose.position);
 
 					if (_placeObject == null) {
 						_placeObject = Instantiate(_prefab, Vector3.zero, Quaternion.identity);

@@ -1,8 +1,5 @@
-using Sojourn.ARDefense.Interfaces;
-using Sojourn.PicnicIOC;
 using Sojourn.Extensions;
 using Sojourn.Utility;
-using Sojourn.Interfaces;
 using UnityEngine;
 using AOFL.Promises.V1.Core;
 using AOFL.Promises.V1.Interfaces;
@@ -26,11 +23,6 @@ namespace Sojourn.ARDefense.Components {
 
 		private CanvasGroup _canvasGroup;
 		private IPromise<eModalOption> _promise;
-
-		[AutoInject]
-		private ILevelManager _levelManager = null;
-		[AutoInject]
-		private IPersistentDataManager _saveDataManager = null;
 
 		private void Awake() {
 			_canvasGroup = GetComponent<CanvasGroup>();

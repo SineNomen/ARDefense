@@ -44,7 +44,8 @@ namespace Sojourn.ARDefense.Components {
 				Hide(),
 				_levelManager.SetupLevel()
 			)
-			.Chain<string, string, string>(_displayManager.ShowOKModal, "New Game", desc, "GO")
+			.Then(() => { Debug.Log("Showing start game modal"); })
+			.Chain<string, string, string>(_displayManager.ShowOKModal, "How to play", desc, "GO")
 			.Then(_levelManager.StartLevel);
 		}
 

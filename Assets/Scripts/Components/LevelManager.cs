@@ -60,8 +60,6 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IPersistentDataManager _saveDataManager = null;
 		[AutoInject]
-		private IPlayer _player = null;
-		[AutoInject]
 		private IPlayerHUD _playerHUD = null;
 		[AutoInject]
 		private IMainMenu _mainMenu = null;
@@ -121,34 +119,23 @@ namespace Sojourn.ARDefense.Components {
 		private IPromise SetupBase() {
 			return (_playerPlacesBase ? ChoosePlaceBase() : PlaceBase())
 			.Then(delegate (Base b) {
-				PlayerBase = b;
+				Debug.Log(b);
 				Debug.LogFormat("Base Placed: {0}", b.Transform.position);
+				PlayerBase = b;
 			});
 		}
 
 		//pu the base in the center
 		public IPromise<Base> PlaceBase() {
 			Base b = Instantiate(_basePrefab, Ground.Center, Quaternion.identity, _gameManager.WorldParent).GetComponent<Base>();
-			SetupBase(b);
 			return Promise<Base>.Resolved(b);
 		}
 
 		//use the object placer to let the user put it where they want
 		public IPromise<Base> ChoosePlaceBase() {
 			Debug.LogError("Place Base");
-			return _objectPlacer.PlaceObject<Base>(_basePrefab, Ground)
-			.Then(SetupBase);
+			return _objectPlacer.PlaceObject<Base>(_basePrefab, Ground);
 		}
-
-		private void SetupBase(Base b) {
-#if !UNITY_EDITOR
-			Pose center = new Pose(GroundPlane.center, Quaternion.identity);
-			b.transform.position = GroundPlane.center;
-			ARReferencePoint point = _gameManager.PointManager.AttachReferencePoint(GroundPlane, center);
-			b.transform.parent = point.transform;
-#endif// !UNITY_EDITOR
-		}
-
 		private IEnumerator SpawnDropships(int count) {
 			for (int i = 0; i < count; i++) {
 				SpawnDropship();

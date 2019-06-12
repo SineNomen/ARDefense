@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4323207352825254865}
   - component: {fileID: 7757716817123352351}
   m_Layer: 11
-  m_Name: Dropship
+  m_Name: DropShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,6 +680,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0009536743
@@ -723,10 +727,6 @@ PrefabInstance:
     - target: {fileID: 499656, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2356442, guid: c07c8697a750e4f4aa46512888536724, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3370324, guid: c07c8697a750e4f4aa46512888536724, type: 3}
       propertyPath: m_Mesh

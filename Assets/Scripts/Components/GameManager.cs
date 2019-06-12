@@ -26,8 +26,6 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IDisplayManager _displayManager = null;
 		[AutoInject]
-		private ILevelManager _levelManager = null;
-		[AutoInject]
 		private IMainMenu _mainMenu = null;
 
 
