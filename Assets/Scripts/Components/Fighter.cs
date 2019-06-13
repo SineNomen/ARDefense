@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace Sojourn.ARDefense.Components {
 	//curently no dfferent from Enemy, but some patterns are meant for a specific type of enemy
+	[SelectionBase]
 	[RequireComponent(typeof(Collider))]
 	public class Fighter : SimpleEnemy {
 		[SerializeField]

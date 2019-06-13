@@ -64,6 +64,9 @@ namespace Sojourn.ARDefense.Components {
 		//always show and immediately end the curent one
 		private IPromise ShowDisplay(IDisplay display) {
 			IDisplay previous = (_displayStack.Count > 0 ? _displayStack.Peek() : null);
+
+			if (previous == display) { return Promise.Resolved(); }
+
 			_displayStack.Push(display);
 
 			display.Group.HideInstant();
@@ -79,6 +82,7 @@ namespace Sojourn.ARDefense.Components {
 			//`Mat Broadcast message
 			previous?.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
 			// previous?.OnPreHide();
+			display.Transform.gameObject.SetActive(true);
 			return Utilities.PromiseGroupSafe(
 				display.Show(),
 				previous?.Hide()
@@ -86,6 +90,7 @@ namespace Sojourn.ARDefense.Components {
 			.Then(() => {
 				//`Mat Broadcast message
 				previous.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				previous.Transform.gameObject.SetActive(false);
 			});
 		}
 

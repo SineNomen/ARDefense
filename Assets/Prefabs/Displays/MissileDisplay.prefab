@@ -653,7 +653,7 @@ MonoBehaviour:
   _reloadPercentage: {fileID: 7682791250146616954}
   _reloadSpeed: 1
   _reloadDelay: 0
-  _radius: 0.2
+  _radius: 1.5
   _trackingTime: 3
 --- !u!1 &7682791249965075382
 GameObject:

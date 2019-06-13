@@ -40,10 +40,16 @@ namespace Sojourn.ARDefense.Components {
 				//`Mat Broadcast message
 				if (obj != null) {
 					obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
-					TrackedObject = obj;
+					if (TrackedObject == null) {
+						TrackedObject = obj;
+					}
 				}
 			}
 			_targetedObjects = newObjects;
+			if (TrackedObject != null && !_targetedObjects.Contains(TrackedObject)) {
+				TrackedObject = null;
+			}
+			Debug.LogFormat("Tracked: {0}", TrackedObject);
 		}
 	}
 }

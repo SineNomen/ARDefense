@@ -18,7 +18,7 @@ MonoBehaviour:
     type: 3}
   _uiIcon: {fileID: 4003139784155332915, guid: 70df5f2a5231c4db4a1176ac1e6d2110, type: 3}
   _damage: 15
-  _reloadTime: 5
+  _reloadTime: 1
   _shotPerLoad: 1
   _projectilesPerShot: 1
   _delayBetweenProjectiles: 0

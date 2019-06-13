@@ -39,7 +39,11 @@ namespace Sojourn.ARDefense.Components {
 		public IPromise RequestFireCannon() {
 			_cannon.Weapon = CurrentWeapon;
 			if (_cannon.IsReadyToFire) {
-				return this.StartCoroutineAsPromise(_cannon.Fire());
+				Transform target = null;
+				if (_displayManager.CurrentDisplay != null && _displayManager.CurrentDisplay.Reticule.TrackedObject != null) {
+					target = _displayManager.CurrentDisplay.Reticule.TrackedObject.transform;
+				}
+				return this.StartCoroutineAsPromise(_cannon.Fire(target));
 			}
 			return null;
 		}

@@ -3,6 +3,7 @@ using Sojourn.ARDefense.Interfaces;
 using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
+	[SelectionBase]
 	[RequireComponent(typeof(SimpleKillable))]
 	public class SimpleProjectile : MonoBehaviour, IProjectile {
 		[SerializeField]
@@ -17,7 +18,9 @@ namespace Sojourn.ARDefense.Components {
 			_killable = GetComponent<SimpleKillable>();
 		}
 
-		public virtual void Launch(Cannon cannon, Transform target) { }
+		public virtual void Launch(Cannon cannon, Transform target) {
+			Body.velocity = Transform.forward * Weapon.Speed;
+		}
 
 		public void OnFire() {
 			Invoke("Destroy", Weapon.ProjectileLifetime);

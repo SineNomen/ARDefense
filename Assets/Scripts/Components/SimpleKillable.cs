@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Sojourn.ARDefense.Components {
 	[DisallowMultipleComponent]
+	[SelectionBase]
 	public class SimpleKillable : MonoBehaviour, IKillable {
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;

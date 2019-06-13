@@ -44,7 +44,7 @@ namespace Sojourn.ARDefense.Components {
 				// .Chain(_meter.Hide);
 			}
 		}
-		//why is meter deleted
+
 		public void OnTargeted() {
 			if (_showOnTargeted && !_showAlways) {
 				if (_showPromise != null) { _showPromise.RequestCancel(); }

@@ -6,6 +6,7 @@ using VolumetricLines;
 using DG.Tweening;
 
 namespace Sojourn.ARDefense.Components {
+	[SelectionBase]
 	public class Dropship : SimpleEnemy {
 		[SerializeField]
 		private VolumetricLineBehavior _line = null;

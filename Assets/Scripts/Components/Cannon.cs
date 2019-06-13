@@ -45,7 +45,7 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private IDisplayManager _displayManager;
 
-		private float _lastFireTime = 0.0f;
+		private float _lastFireTime = -Mathf.Infinity;//start off fully loaded
 
 		public IKillable Killable { get; set; }
 
@@ -60,7 +60,7 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
-		public IEnumerator Fire() {
+		public IEnumerator Fire(Transform target = null) {
 			if (!IsLoaded) {
 				Debug.LogFormat("Cannot fire {0}, not loaded, Time: {1}, TimeUntilLoaded: {2} ", Weapon, Time.time, TimeUntilLoaded);
 				if (OnEmptyFire != null) { OnEmptyFire(Weapon); }
@@ -87,12 +87,10 @@ namespace Sojourn.ARDefense.Components {
 				projectile.Weapon = Weapon;
 				projectileKillable.Team = Killable.Team;
 
-				Transform target = _displayManager.CurrentDisplay.Reticule.TrackedObject?.transform;
 				projectile.Launch(this, target);
 				//`Mat Broadcast message
 				projectile.Transform.gameObject.BroadcastMessage("OnFire", SendMessageOptions.RequireReceiver);
 				_ammo--;
-				projectile.Body.velocity = projectile.Transform.forward * Weapon.Speed;
 				if (Weapon.DelayBetweenProjectiles > 0.0f) {
 					yield return new WaitForSeconds(Weapon.DelayBetweenProjectiles);
 				}

@@ -47,7 +47,7 @@ public class MissileDisplay : MonoBehaviour, IDisplay {
 		if (_displayManager.CurrentDisplay.Reticule.TrackedObject != null) {
 			IPromise p = _player1.RequestFireCannon();
 			if (p != null) {
-				_reticule.Unload();
+				p = p.Chain(_reticule.Unload);
 				p.Then(() => {
 					_reticule.ReloadSpeed = _player1.CurrentWeapon.ReloadTime;
 					_reticule.Reload();
