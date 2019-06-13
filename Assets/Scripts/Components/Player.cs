@@ -40,8 +40,8 @@ namespace Sojourn.ARDefense.Components {
 			_cannon.Weapon = CurrentWeapon;
 			if (_cannon.IsReadyToFire) {
 				Transform target = null;
-				if (_displayManager.CurrentDisplay != null && _displayManager.CurrentDisplay.Reticule.TrackedObject != null) {
-					target = _displayManager.CurrentDisplay.Reticule.TrackedObject.transform;
+				if (_displayManager.CurrentDisplay != null && _displayManager.CurrentDisplay.Reticule.LockedObject != null) {
+					target = _displayManager.CurrentDisplay.Reticule.LockedObject.transform;
 				}
 				return this.StartCoroutineAsPromise(_cannon.Fire(target));
 			}

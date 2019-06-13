@@ -636,6 +636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reloadMeter: {fileID: 7682791250103860559}
+  _targettingRange: 100
   _highlightGroup: {fileID: 8997035890871343689}
   _reloadPercentage: {fileID: 7682791250146616954}
   _reloadSpeed: 3

@@ -13,8 +13,6 @@ public class MissileDisplay : MonoBehaviour, IDisplay {
 	[SerializeField]
 	private Button _fireButton = null;
 	[SerializeField]
-	private float _targetTime = 2.0f;
-	[SerializeField]
 	private IFFTracker tracker = null;
 
 	public Transform Transform { get => transform; }
@@ -44,7 +42,7 @@ public class MissileDisplay : MonoBehaviour, IDisplay {
 	}
 
 	private void FireCannon() {
-		if (_displayManager.CurrentDisplay.Reticule.TrackedObject != null) {
+		if (Reticule.LockedObject != null) {
 			IPromise p = _player1.RequestFireCannon();
 			if (p != null) {
 				p = p.Chain(_reticule.Unload);

@@ -22,12 +22,8 @@ namespace Sojourn.ARDefense.Components {
 
 		[SerializeField]
 		private Camera _deviceCamera = null;
-
-		[AutoInject]
-		private IDisplayManager _displayManager = null;
 		[AutoInject]
 		private IMainMenu _mainMenu = null;
-
 
 		public ARSession ArSession { get => _arSession; }
 		public Camera DeviceCamera { get => _deviceCamera; }

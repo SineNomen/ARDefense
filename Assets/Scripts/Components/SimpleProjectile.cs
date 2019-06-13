@@ -22,7 +22,7 @@ namespace Sojourn.ARDefense.Components {
 			Body.velocity = Transform.forward * Weapon.Speed;
 		}
 
-		public void OnFire() {
+		public virtual void OnFire() {
 			Invoke("Destroy", Weapon.ProjectileLifetime);
 		}
 

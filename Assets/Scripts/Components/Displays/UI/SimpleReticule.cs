@@ -14,6 +14,8 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		protected Image _reloadMeter = null;
 		[SerializeField]
+		protected float _targettingRange = 1000.0f;
+		[SerializeField]
 		protected CanvasGroup _highlightGroup = null;
 		[SerializeField]
 		protected TMP_Text _reloadPercentage = null;
@@ -42,9 +44,9 @@ namespace Sojourn.ARDefense.Components {
 
 		public float ReloadSpeed { get => _reloadSpeed; set => _reloadSpeed = value; }
 		public List<GameObject> VisibleObjects { get => _targetedObjects; }
-		public GameObject TrackedObject { get; protected set; }
+		public GameObject LockedObject { get; protected set; }
 
-		private void Awake() {
+		protected virtual void Awake() {
 			_group = GetComponent<CanvasGroup>();
 			_rect = GetComponent<RectTransform>();
 		}
@@ -72,7 +74,7 @@ namespace Sojourn.ARDefense.Components {
 			Ray ray = _gameManager.DeviceCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 			//everything BUT the player
 			int mask = ~LayerMask.GetMask("Player");
-			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, Mathf.Infinity, mask);
+			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, _targettingRange, mask);
 			if (hits.Length > 0) {
 				foreach (RaycastHit hit in hits) {
 					// Debug.LogFormat("Looking at: {0}", hit.transform.name);

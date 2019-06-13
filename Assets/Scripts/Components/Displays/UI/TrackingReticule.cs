@@ -10,17 +10,32 @@ using TMPro;
 using System.Linq;
 
 namespace Sojourn.ARDefense.Components {
+	[RequireComponent(typeof(AudioSource))]
 	public class TrackingReticule : SimpleReticule, IReticule {
 		[SerializeField]
-		protected float _trackingTime = 3.0f;
+		protected float _trackingTime = 2.0f;
+		[SerializeField]
+		protected CanvasGroup _lockGroup = null;
+		[SerializeField]
+		protected AudioClip _trackedClip = null;
+		[SerializeField]
+		protected AudioClip _lockedClip = null;
 		//mark an object as tracked when we've been looking at it long enough
+		private GameObject _trackedObject = null;
+		private float _trackTime = 0.0f;
+		protected AudioSource _source;
+
+		protected override void Awake() {
+			base.Awake();
+			_source = GetComponent<AudioSource>();
+		}
 
 		protected override void Update() {
 			List<GameObject> newObjects = new List<GameObject>();
 			Ray ray = _gameManager.DeviceCamera.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
 			//everything BUT the player
 			int mask = ~LayerMask.GetMask("Player");
-			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, Mathf.Infinity, mask);
+			RaycastHit[] hits = Physics.SphereCastAll(ray, _radius, _targettingRange, mask);
 			if (hits.Length > 0) {
 				foreach (RaycastHit hit in hits) {
 					// Debug.LogFormat("Looking at: {0}", hit.transform.name);
@@ -40,16 +55,35 @@ namespace Sojourn.ARDefense.Components {
 				//`Mat Broadcast message
 				if (obj != null) {
 					obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
-					if (TrackedObject == null) {
-						TrackedObject = obj;
+					if (_trackedObject == null && IsEnemy(obj)) {
+						_trackedObject = obj;
+						Debug.LogWarningFormat("Tracked: {0}", _trackedObject);
+						_highlightGroup.Show(0.1f);
+						_trackTime = Time.time + _trackingTime;
 					}
 				}
 			}
 			_targetedObjects = newObjects;
-			if (TrackedObject != null && !_targetedObjects.Contains(TrackedObject)) {
-				TrackedObject = null;
+			if (_trackedObject != null) {
+				if (!_targetedObjects.Contains(_trackedObject)) {
+					_trackedObject = null;
+					LockedObject = null;
+					_highlightGroup.Hide(0.1f);
+					_lockGroup.Hide(0.1f);
+				} else {
+					if (LockedObject == null && Time.time > _trackTime) {
+						LockedObject = _trackedObject;
+						_highlightGroup.Hide(0.1f);
+						_lockGroup.Show(0.1f);
+						Debug.LogErrorFormat("Locked: {0}", LockedObject);
+					}
+				}
 			}
-			Debug.LogFormat("Tracked: {0}", TrackedObject);
+		}
+
+		private bool IsEnemy(GameObject obj) {
+			IKillable killable = obj.GetComponent<IKillable>();
+			return killable != null && killable.Team != eKillableTeam.Player1;
 		}
 	}
 }

@@ -25,9 +25,6 @@ namespace Sojourn.ARDefense.Components {
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
 
-		[AutoInject]
-		private ILevelManager _levelManager = null;
-
 		private eMissileProjectilePhase _currentPhase = eMissileProjectilePhase.Deploy;
 		private Vector3 _startPos;
 		private float _startTime;
@@ -44,7 +41,7 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 		}
 
-		public void OnFire() {
+		public override void OnFire() {
 			Invoke("Destroy", Weapon.ProjectileLifetime);
 		}
 
@@ -103,12 +100,12 @@ namespace Sojourn.ARDefense.Components {
 					case eMissileProjectilePhase.Deploy:
 						//move forward, increase speed
 						_body.velocity = (_forward + Vector3.down) * _startSpeed;
-						_model.localEulerAngles = Vector3.forward * _spin;
+						_model.localEulerAngles = Vector3.forward * _spin * Mathf.Rad2Deg;
 						Quaternion q = Quaternion.Lerp(this.transform.rotation, _upRotation, _turnSpeed * Time.deltaTime);
 						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, _upRotation, Time.deltaTime);
 						break;
 					case eMissileProjectilePhase.ChaseTarget:
-						_model.localEulerAngles = Vector3.forward * _spin;
+						_model.localEulerAngles = Vector3.forward * _spin * Mathf.Rad2Deg;
 						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, _turnSpeed * Time.deltaTime);
 						_body.velocity = transform.forward * Weapon.Speed;
 						break;

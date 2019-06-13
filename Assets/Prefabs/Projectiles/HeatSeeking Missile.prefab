@@ -152,7 +152,7 @@ MonoBehaviour:
     Low: 0
     High: 5
   _turnSpeed: 3
-  _rotationSpeedScale: 50
+  _rotationSpeedScale: 5
 --- !u!65 &9113597559297868079
 BoxCollider:
   m_ObjectHideFlags: 0
