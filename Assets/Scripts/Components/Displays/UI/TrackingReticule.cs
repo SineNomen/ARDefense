@@ -60,12 +60,14 @@ namespace Sojourn.ARDefense.Components {
 						Debug.LogWarningFormat("Tracked: {0}", _trackedObject);
 						_highlightGroup.Show(0.1f);
 						_trackTime = Time.time + _trackingTime;
+						PlaySound(_trackedClip);
 					}
 				}
 			}
 			_targetedObjects = newObjects;
 			if (_trackedObject != null) {
 				if (!_targetedObjects.Contains(_trackedObject)) {
+					StopSound();
 					_trackedObject = null;
 					LockedObject = null;
 					_highlightGroup.Hide(0.1f);
@@ -76,14 +78,28 @@ namespace Sojourn.ARDefense.Components {
 						_highlightGroup.Hide(0.1f);
 						_lockGroup.Show(0.1f);
 						Debug.LogErrorFormat("Locked: {0}", LockedObject);
+						PlaySound(_lockedClip);
 					}
 				}
+			} else {
+				_highlightGroup.Hide(0.1f);
+				_lockGroup.Hide(0.1f);
+				StopSound();
 			}
 		}
 
 		private bool IsEnemy(GameObject obj) {
 			IKillable killable = obj.GetComponent<IKillable>();
 			return killable != null && killable.Team != eKillableTeam.Player1;
+		}
+
+		private void PlaySound(AudioClip clip) {
+			_source.clip = clip;
+			_source.Play();
+		}
+
+		private void StopSound() {
+			_source.Stop();
 		}
 	}
 }
