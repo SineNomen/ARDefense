@@ -12,12 +12,17 @@ namespace Sojourn.ARDefense.Components {
 	public class Base : MonoBehaviour {
 		[SerializeField]
 		private eKillableTeam _team = eKillableTeam.Player1;
+		[SerializeField]
+		private Transform _center = null;
+		[SerializeField]
+		private Transform _top = null;
 
 		public eKillableTeam Team { get => _team; set => _team = value; }
 		public Rigidbody Body { get; private set; }
 		public Vector3 Size { get => _collider.bounds.size; }
 		public Transform Transform { get => this.transform; }
-		public Vector3 CenterPosition { get => this.transform.position + Vector3.up * 0.5f; }
+		public Vector3 CenterPosition { get => _center.position; }
+		public Vector3 TopPosition { get => _top.position; }
 		public BaseEvent OnBaseKilled { get; set; }
 
 		private bool _killed = false;

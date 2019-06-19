@@ -166,21 +166,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flightSpeed:
-    Min: 8
-    Max: 12
+    Min: 12
+    Max: 15
     Low: 0
     High: 100
   _turnSpeed: 3
   _startOnCreate: 1
   _spreadOnStart: 1
   _spreadDistance:
-    Min: 5
-    Max: 7
+    Min: 2
+    Max: 5
     Low: 0
     High: 10
   _spreadRange:
-    Min: -15
-    Max: 15
+    Min: -45
+    Max: 45
     Low: -45
     High: 45
   _orbitDistance:
@@ -189,8 +189,8 @@ MonoBehaviour:
     Low: 5
     High: Infinity
   _orbitTime:
-    Min: 2
-    Max: 10
+    Min: 5
+    Max: 15
     Low: 0
     High: 60
   _orbitHeightVariance:
@@ -200,6 +200,7 @@ MonoBehaviour:
     High: Infinity
   _disengageRange: 4
   _rotationSpeedScale: 6
+  _shootRange: 5
 --- !u!54 &8537054347246404823
 Rigidbody:
   m_ObjectHideFlags: 0

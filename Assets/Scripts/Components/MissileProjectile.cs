@@ -13,9 +13,12 @@ namespace Sojourn.ARDefense.Components {
 		ChaseTarget,//Fy towards the target to hit it
 	}
 	//`Mat maybe add an ancticipate (aim along the target's forward vector)?
+	[SelectionBase]
 	public class MissileProjectile : SimpleProjectile, IProjectile {
 		[SerializeField]
 		private Transform _model = null;
+		[SerializeField]
+		private GameObject _launchEffect = null;
 		[SerializeField]
 		private float _startSpeed = 5.0f;
 		[SerializeField]
@@ -24,6 +27,8 @@ namespace Sojourn.ARDefense.Components {
 		private float _turnSpeed = 3.0f;
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
+		[SerializeField]
+		private float _lockDistance = 50.0f;
 
 		private eMissileProjectilePhase _currentPhase = eMissileProjectilePhase.Deploy;
 		private Vector3 _startPos;
@@ -76,10 +81,12 @@ namespace Sojourn.ARDefense.Components {
 			_currentPhase = newPhase;
 			switch (_currentPhase) {
 				case eMissileProjectilePhase.Deploy:
+					_launchEffect.SetActive(true);
 					_startTime = Time.time;
 					_deployTime.Pick();
 					_startPos = transform.position;
-					_upRotation = Quaternion.LookRotation(transform.up, transform.up);
+					Vector3 pos = this.transform.TransformPoint(new Vector3(0.0f, 100.0f, 200.0f));
+					_upRotation = Quaternion.LookRotation(pos, transform.up);
 					_forward = transform.forward;
 					// transform.rotation = Quaternion.LookRotation(transform.up, transform.up);
 					break;
@@ -105,8 +112,12 @@ namespace Sojourn.ARDefense.Components {
 						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, _upRotation, Time.deltaTime);
 						break;
 					case eMissileProjectilePhase.ChaseTarget:
+						float distanceToTarget = Vector3.Distance(this.transform.position, deltaPosition);
 						_model.localEulerAngles = Vector3.forward * _spin * Mathf.Rad2Deg;
-						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, _turnSpeed * Time.deltaTime);
+						//make sure we hit the target
+						float speed = (distanceToTarget < _lockDistance ? _turnSpeed : _turnSpeed * 3.0f);
+						// Debug.LogErrorFormat("Distance: {0}, lock: {1}", distanceToTarget, _lockDistance);
+						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, speed * Time.deltaTime);
 						_body.velocity = transform.forward * Weapon.Speed;
 						break;
 				}

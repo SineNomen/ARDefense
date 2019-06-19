@@ -41,8 +41,12 @@ namespace Sojourn.ARDefense.Components {
 		private float _disengageRange = 4.0f;
 		[SerializeField]
 		private float _rotationSpeedScale = 1.0f;
+		[SerializeField]
+		private float _shootRange = 5.0f;
 
 
+		[AutoInject]
+		private IGameManager _gameManager = null;
 		[AutoInject]
 		private ILevelManager _levelManager = null;
 
@@ -74,7 +78,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private Vector3 GetTargetPos(bool keepHeight) {
-			Vector3 pos = _levelManager.PlayerBase.CenterPosition;
+			Vector3 pos = _levelManager.PlayerBase.TopPosition;
 			if (keepHeight) { pos.y = this.transform.position.y; }
 			return pos - this.transform.position;
 		}
@@ -94,7 +98,7 @@ namespace Sojourn.ARDefense.Components {
 					}
 					break;
 				case eBasicFighterPatternPhase.Dive:
-					if (distanceToTarget < (_disengageRange * _flightSpeed)) {
+					if (distanceToTarget < (_disengageRange * _gameManager.OriginScale)) {
 						newPhase = eBasicFighterPatternPhase.Disengage;
 					}
 					break;
@@ -111,7 +115,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void SetPhase(eBasicFighterPatternPhase newPhase) {
 			// Use with "Error Pause" option for easy debugging
-			// Debug.LogErrorFormat("Switch phase {0} -> {1}", _currentPhase, newPhase);
+			// Debug.LogErrorFormat("[{0}] Switch phase {1} -> {2}", gameObject.name, _currentPhase, newPhase);
 			_currentPhase = newPhase;
 			switch (_currentPhase) {
 				case eBasicFighterPatternPhase.Entry:
@@ -133,22 +137,14 @@ namespace Sojourn.ARDefense.Components {
 				case eBasicFighterPatternPhase.Disengage:
 					float distanceToTarget = Vector3.Distance(this.transform.position, GetTargetPos(true));
 					_diveTime = -1;
-					//go a enough to the right or left side to avoid it
-					float width = new Vector2(_levelManager.PlayerBase.Size.x + _fighter.Size.x,
-											_levelManager.PlayerBase.Size.z + _fighter.Size.z).magnitude;//we are veering laterally
-					float angle = Mathf.Atan2(width, distanceToTarget);
-					//go left or right half the time
-					if (Random.value > 0.5f) { angle = -angle; }
-					//use a portion of the true distance to give us extra room
-					//`Mat TODO: Take rotate speed into account
-					Vector3 pos = GetTargetPos(false) + (transform.forward * (_orbitDistance.Pick() * 0.5f));
+					Vector3 offset = (Random.value > 0.5f ? transform.right : -transform.right);
+					Vector3 dir = transform.forward + offset;
+					Vector3 pos = GetTargetPos(false) + (dir * (_orbitDistance.Pick() * 0.5f));
 					pos.y = (_startPos.y + _orbitHeightVariance.Pick());
-
-					//rotate pos by angle
-					Quaternion axis = Quaternion.AngleAxis(angle * Mathf.Rad2Deg, Vector3.up);
-					Quaternion q = Quaternion.LookRotation(pos, this.transform.up) * axis;
+					Quaternion q = Quaternion.LookRotation(pos, this.transform.up);
 					//need to figure out a point on the sphere of orbit
 					_escapeRotation = q;
+					Debug.LogErrorFormat("Disengage, distance: {0}, angle: {1}, height variance: {2}", distanceToTarget, Quaternion.Angle(this.transform.rotation, _escapeRotation), _orbitHeightVariance);
 					break;
 			}
 		}
@@ -159,10 +155,9 @@ namespace Sojourn.ARDefense.Components {
 		public IEnumerator UpdatePattern() {
 			while (true) {
 				Quaternion lookRotation = this.transform.rotation;
-				float rotAngle = 0.0f;
 				Vector3 deltaPosition = GetTargetPos(true);
-				Quaternion look = Quaternion.LookRotation(deltaPosition, Vector3.up);
 				float distanceToTarget = Vector3.Distance(this.transform.position, deltaPosition);
+				float rotAngle = Mathf.Min(_flightSpeed * _rotationSpeedScale, 90.0f);
 				switch (_currentPhase) {
 					case eBasicFighterPatternPhase.Entry:
 						//fly along what we already decided unti we go the distance
@@ -172,10 +167,10 @@ namespace Sojourn.ARDefense.Components {
 						break;
 					case eBasicFighterPatternPhase.OrbitTarget:
 						//go perpendicular to the the right or left
+						//pick the closer one
+						Quaternion look = Quaternion.LookRotation(deltaPosition, Vector3.up);
 						Quaternion left = look * Quaternion.Euler(0.0f, -90.0f, 0.0f);
 						Quaternion right = look * Quaternion.Euler(0.0f, 90.0f, 0.0f);
-						rotAngle = Mathf.Min(_flightSpeed * _rotationSpeedScale, 90.0f);
-						//pick the closer one
 						if (Quaternion.Angle(transform.rotation, left) < Quaternion.Angle(transform.rotation, right)) {
 							rotAngle = -rotAngle;
 							look = left;
@@ -186,13 +181,19 @@ namespace Sojourn.ARDefense.Components {
 						break;
 					case eBasicFighterPatternPhase.Dive:
 						lookRotation = Quaternion.LookRotation(GetTargetPos(false), this.transform.up);
+						rotAngle = 0.0f;
 						//`Mat magic nuber! Just needs to be pretty close
 						//once we are facing the base, start shooting
-						if (Quaternion.Angle(this.transform.rotation, lookRotation) < 2.0f) {
+						if (Quaternion.Angle(this.transform.rotation, lookRotation) < _shootRange) {
 							TryShootMain();
 						}
 						break;
 					case eBasicFighterPatternPhase.Disengage:
+						//pick the closer one
+						if (Quaternion.Angle(transform.rotation, _escapeRotation) < 0.0f) {
+							rotAngle = -rotAngle;
+						} else {
+						}
 						lookRotation = _escapeRotation;
 						break;
 				}
@@ -209,7 +210,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void TryShootMain() {
-			Debug.Log("TryShoot");
+			// Debug.Log("TryShoot");
 			foreach (Cannon c in _fighter.MainCannons) {
 				if (c.IsReadyToFire) {
 					// Debug.Log("Fire");

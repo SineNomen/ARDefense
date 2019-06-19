@@ -97,7 +97,7 @@ namespace Sojourn.ARDefense.Components {
 
 		private void CreateTestLevel() {
 			Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
-			Ground.Radius = 60.0f;
+			Ground.Radius = 30.0f;
 		}
 
 		public IPromise CreateBasicLevel() {
@@ -106,9 +106,9 @@ namespace Sojourn.ARDefense.Components {
 				Debug.LogErrorFormat("Plane Selected: {0}", plane);
 				GroundPlane = plane;
 				Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
-				Ground.Radius = Mathf.Sqrt(plane.extents.magnitude) * _gameManager.Origin.transform.localScale.x;
+				Ground.Radius = Mathf.Sqrt(plane.extents.magnitude) * _gameManager.OriginScale;
 				Debug.LogFormat("Creating Ground, Radius: {0}, Plane Size: {1}, Plane Extents: {2}", Ground.Radius, plane.size, plane.extents);
-				// Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * _gameManager.Origin.transform.localScale.x;
+				// Ground.Radius = Mathf.Min(plane.size.x, plane.size.y) * _gameManager.OriginScale;
 				Pose pose = new Pose(plane.center, Quaternion.identity);
 				ARReferencePoint anchor = _gameManager.PointManager.AttachReferencePoint(plane, pose);
 				Ground.transform.SetPose(pose);

@@ -12,6 +12,7 @@ namespace Sojourn.ARDefense.Interfaces {
 		ARReferencePointManager PointManager { get; }
 		ARPlaneManager PlaneManager { get; }
 		ARSessionOrigin Origin { get; }
+		float OriginScale { get; }
 		Transform WorldParent { get; }
 
 		float CameraHeight { get; }

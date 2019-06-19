@@ -72,7 +72,7 @@ namespace Sojourn.ARDefense.Components {
 				yield break;
 			}
 
-			Debug.Log("Fire");
+			// Debug.Log("Fire");
 			IsFiring = true;
 			for (int i = 0; i < Weapon.ProjectilesPerShot; i++) {
 				Vector3 offset = Vector3.zero;

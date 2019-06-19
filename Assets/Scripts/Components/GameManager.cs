@@ -32,6 +32,7 @@ namespace Sojourn.ARDefense.Components {
 		public ARReferencePointManager PointManager { get => _pointManager; }
 		public ARPlaneManager PlaneManager { get => _planeManager; }
 		public ARSessionOrigin Origin { get => _origin; }
+		public float OriginScale { get => _origin.transform.localScale.x; }
 		public Transform WorldParent { get => null; }
 		public float CameraHeight { get => DeviceCamera.transform.position.y; }
 
