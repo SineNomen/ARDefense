@@ -182,7 +182,6 @@ namespace Sojourn.ARDefense.Components {
 					case eBasicFighterPatternPhase.Dive:
 						lookRotation = Quaternion.LookRotation(GetTargetPos(false), this.transform.up);
 						rotAngle = 0.0f;
-						//`Mat magic nuber! Just needs to be pretty close
 						//once we are facing the base, start shooting
 						if (Quaternion.Angle(this.transform.rotation, lookRotation) < _shootRange) {
 							TryShootMain();
@@ -190,9 +189,12 @@ namespace Sojourn.ARDefense.Components {
 						break;
 					case eBasicFighterPatternPhase.Disengage:
 						//pick the closer one
-						if (Quaternion.Angle(transform.rotation, _escapeRotation) < 0.0f) {
+						Vector3 axis;
+						float angle;
+						_escapeRotation.ToAngleAxis(out angle, out axis);
+						angle = Vector3.Dot(transform.forward, axis);
+						if (Vector3.Dot(transform.forward, axis) > 0.0f) {
 							rotAngle = -rotAngle;
-						} else {
 						}
 						lookRotation = _escapeRotation;
 						break;
