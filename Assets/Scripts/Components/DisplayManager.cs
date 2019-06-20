@@ -121,6 +121,7 @@ namespace Sojourn.ARDefense.Components {
 				list.Add(display.HideAndDestroy());
 			}
 			_displayStack.Clear();
+			_prefabMap.Clear();
 			return new Promise().All(list);
 		}
 
