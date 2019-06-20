@@ -130,7 +130,7 @@ MonoBehaviour:
   _team: 0
   _teamDamage: 0
   _killOnHitGround: 1
-  _maxHealth: 15
+  _maxHealth: 1
   _collisionDamageGiven: 15
 --- !u!114 &-4421710591026154917
 MonoBehaviour:
