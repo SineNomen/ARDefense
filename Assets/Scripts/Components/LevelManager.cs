@@ -205,7 +205,9 @@ namespace Sojourn.ARDefense.Components {
 			foreach (GameObject obj in _enemyList) {
 				Destroy(obj);
 			}
-			Destroy(PlayerBase.gameObject);
+			if (PlayerBase != null) {
+				Destroy(PlayerBase.gameObject);
+			}
 			Destroy(Ground.gameObject);
 			_enemyList.Clear();
 		}

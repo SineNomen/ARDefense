@@ -117,7 +117,8 @@ namespace Sojourn.ARDefense.Components {
 			List<IPromise> list = new List<IPromise>();
 			foreach (IDisplay display in _displayStack) {
 				display.OnHide();
-				list.Add(display.Hide());
+				display.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				list.Add(display.HideAndDestroy());
 			}
 			_displayStack.Clear();
 			return new Promise().All(list);

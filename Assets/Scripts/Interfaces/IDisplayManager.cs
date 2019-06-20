@@ -14,6 +14,7 @@ namespace Sojourn.ARDefense.Interfaces {
 
 		IPromise Show();
 		IPromise Hide();
+		IPromise HideAndDestroy();
 	}
 
 	public interface IDisplayManager {

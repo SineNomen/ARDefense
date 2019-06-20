@@ -3,6 +3,7 @@ using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using AOFL.Promises.V1.Interfaces;
 using System.Collections.Generic;
+using System;
 
 namespace Sojourn.ARDefense.Components {
 	public class IFFTracker : MonoBehaviour {
@@ -55,12 +56,20 @@ namespace Sojourn.ARDefense.Components {
 					TrackObject(obj, eIFFCategory.Enemy);
 				}
 			}
+			_levelManager.OnLevelEnded += OnLevelEnded;
 		}
 
 		private void OnHide() {
 			//delete everything
+			UntrackAll();
+			_levelManager.OnLevelEnded -= OnLevelEnded;
+		}
+
+		private void UntrackAll() {
 			foreach (IFFIndicator indicator in _objectMap.Values) {
-				Destroy(indicator.gameObject);
+				if (indicator != null) {
+					Destroy(indicator.gameObject);
+				}
 			}
 			_objectMap.Clear();
 		}
@@ -79,6 +88,10 @@ namespace Sojourn.ARDefense.Components {
 			}
 		}
 
+		private void OnLevelEnded() {
+			UntrackAll();
+		}
+
 		private void Update() {
 			foreach (GameObject obj in _levelManager.EnemyList) {
 				if (!_objectMap.ContainsKey(obj)) {
@@ -86,11 +99,6 @@ namespace Sojourn.ARDefense.Components {
 				}
 				IFFIndicator iff = _objectMap[obj];
 				UpdateObject(obj, iff);
-			}
-			foreach (KeyValuePair<GameObject, IFFIndicator> pair in _objectMap) {
-				if (pair.Key != null && pair.Value != null) {
-					UpdateObject(pair.Key, pair.Value);
-				}
 			}
 		}
 

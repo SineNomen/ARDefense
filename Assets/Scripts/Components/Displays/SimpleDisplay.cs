@@ -30,5 +30,9 @@ namespace Sojourn.ARDefense.Components {
 
 		public IPromise Show() { return Group.Show(0.25f); }
 		public IPromise Hide() { return Group.Hide(0.25f); }
+		public IPromise HideAndDestroy() {
+			return Group.Hide(0.25f)
+			.Then(() => { Destroy(this.gameObject); });
+		}
 	}
 }
