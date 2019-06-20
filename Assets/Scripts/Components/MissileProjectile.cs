@@ -117,7 +117,7 @@ namespace Sojourn.ARDefense.Components {
 						//make sure we hit the target
 						float speed = (distanceToTarget < _lockDistance ? _turnSpeed : _turnSpeed * 3.0f);
 						// Debug.LogErrorFormat("Distance: {0}, lock: {1}", distanceToTarget, _lockDistance);
-						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, lookRotation, speed * Time.deltaTime);
+						this.transform.rotation = Quaternion.Slerp(this.transform.rotation, lookRotation, speed * Time.deltaTime);
 						_body.velocity = transform.forward * Weapon.Speed;
 						break;
 				}

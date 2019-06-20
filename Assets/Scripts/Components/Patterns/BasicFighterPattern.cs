@@ -144,7 +144,7 @@ namespace Sojourn.ARDefense.Components {
 					Quaternion q = Quaternion.LookRotation(pos, this.transform.up);
 					//need to figure out a point on the sphere of orbit
 					_escapeRotation = q;
-					Debug.LogErrorFormat("Disengage, distance: {0}, angle: {1}, height variance: {2}", distanceToTarget, Quaternion.Angle(this.transform.rotation, _escapeRotation), _orbitHeightVariance);
+					// Debug.LogErrorFormat("Disengage, distance: {0}, angle: {1}, height variance: {2}", distanceToTarget, Quaternion.Angle(this.transform.rotation, _escapeRotation), _orbitHeightVariance);
 					break;
 			}
 		}
@@ -177,7 +177,7 @@ namespace Sojourn.ARDefense.Components {
 						} else {
 							look = right;
 						}
-						this.transform.rotation = Quaternion.Lerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
+						this.transform.rotation = Quaternion.Slerp(this.transform.rotation, look, _turnSpeed * Time.deltaTime);
 						break;
 					case eBasicFighterPatternPhase.Dive:
 						lookRotation = Quaternion.LookRotation(GetTargetPos(false), this.transform.up);
