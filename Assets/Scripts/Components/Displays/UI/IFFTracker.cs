@@ -46,7 +46,9 @@ namespace Sojourn.ARDefense.Components {
 			if (_gameManager == null) { return; }
 			// Debug.LogFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _levelManager.PlayerBase);
 			if (_levelManager.PlayerBase != null) {
-				TrackObject(_levelManager.PlayerBase.gameObject, eIFFCategory.Friend);
+				if (!_objectMap.ContainsKey(_levelManager.PlayerBase.gameObject)) {
+					TrackObject(_levelManager.PlayerBase.gameObject, eIFFCategory.Friend);
+				}
 			}
 			foreach (GameObject obj in _levelManager.EnemyList) {
 				if (!_objectMap.ContainsKey(obj)) {
@@ -78,6 +80,13 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void Update() {
+			foreach (GameObject obj in _levelManager.EnemyList) {
+				if (!_objectMap.ContainsKey(obj)) {
+					TrackObject(obj, eIFFCategory.Enemy);
+				}
+				IFFIndicator iff = _objectMap[obj];
+				UpdateObject(obj, iff);
+			}
 			foreach (KeyValuePair<GameObject, IFFIndicator> pair in _objectMap) {
 				if (pair.Key != null && pair.Value != null) {
 					UpdateObject(pair.Key, pair.Value);

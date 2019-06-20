@@ -176,8 +176,6 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		public void OnPlayerKilled() {
-			_playerHUD.Hide();
-			_displayManager.PushDefault();
 			EndGame();
 		}
 
@@ -192,6 +190,8 @@ namespace Sojourn.ARDefense.Components {
 				body = string.Format("You base was destroyed.\n\nScore: {0}", _currentScore);
 			}
 
+			_playerHUD.Hide();
+			_displayManager.PushDefault();
 			_displayManager.ShowOKCancelModal("Game Over", body, "Main Menu", null)
 			.Then((eModalOption option) => {
 				_mainMenu.Show().Then(() => {
