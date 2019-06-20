@@ -99,6 +99,9 @@ namespace Sojourn.ARDefense.Components {
 					break;
 				case eBasicFighterPatternPhase.Dive:
 					float range = _disengageRange;
+#if UNITY_EDITOR
+					range /= 2.0f;
+#endif// UNITY_EDITOR
 					Debug.LogWarningFormat("Diving, distance: {0}, range: {1}", distanceToTarget, range);
 					if (distanceToTarget < range) {
 						newPhase = eBasicFighterPatternPhase.Disengage;
@@ -194,7 +197,6 @@ namespace Sojourn.ARDefense.Components {
 						Vector3 axis;
 						float angle;
 						_escapeRotation.ToAngleAxis(out angle, out axis);
-						angle = Vector3.Dot(transform.forward, axis);
 						if (Vector3.Dot(transform.forward, axis) > 0.0f) {
 							rotAngle = -rotAngle;
 						}
