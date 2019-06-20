@@ -76,21 +76,18 @@ namespace Sojourn.ARDefense.Components {
 			rect.localScale = Vector2.one;
 			//`Mat this assumes it is set to stretch to the corners
 			rect.sizeDelta = Vector2.zero;
-			//neep a set of promise
-			//`Mat Broadcast message
-			display.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
-			//`Mat Broadcast message
-			previous?.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
-			// previous?.OnPreHide();
 			display.Transform.gameObject.SetActive(true);
+			//`Mat Broadcast message
+			display.Transform.gameObject.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
+			Debug.LogFormat("Showing {0}, hiding {1}", display, previous);
 			return Utilities.PromiseGroupSafe(
 				display.Show(),
 				previous?.Hide()
 			)
 			.Then(() => {
 				//`Mat Broadcast message
-				previous.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
-				previous.Transform.gameObject.SetActive(false);
+				previous?.Transform.gameObject.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				previous?.Transform.gameObject.SetActive(false);
 			});
 		}
 
@@ -101,14 +98,14 @@ namespace Sojourn.ARDefense.Components {
 			}
 			IDisplay old = _displayStack.Pop();
 			//`Mat Broadcast message
-			CurrentDisplay.Transform.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
+			CurrentDisplay.Transform.gameObject.BroadcastMessage("OnPreShow", this, SendMessageOptions.RequireReceiver);
 			return Utilities.PromiseGroupSafe(
 				old.Hide(),
 				CurrentDisplay.Show()
 			)
 			.Then(() => {
 				//`Mat Broadcast message
-				old.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				old.Transform.gameObject.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
 			});
 		}
 
@@ -117,7 +114,7 @@ namespace Sojourn.ARDefense.Components {
 			List<IPromise> list = new List<IPromise>();
 			foreach (IDisplay display in _displayStack) {
 				display.OnHide();
-				display.Transform.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
+				display.Transform.gameObject.BroadcastMessage("OnHide", this, SendMessageOptions.RequireReceiver);
 				list.Add(display.HideAndDestroy());
 			}
 			_displayStack.Clear();

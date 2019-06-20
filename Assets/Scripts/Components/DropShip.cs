@@ -73,7 +73,7 @@ namespace Sojourn.ARDefense.Components {
 			if (_spawnOnGround) {
 				spawnPos.y = _levelManager.Ground.Center.y + 1.0f;//let them drop the ground
 			}
-			Debug.LogWarningFormat("Spawn at {0}, from {1}", spawnPos, this.transform.position);
+			// Debug.LogFormat("Spawn at {0}, from {1}", spawnPos, this.transform.position);
 			for (int i = 0; i < _count; i++) {
 				Instantiate(_prefab, spawnPos, this.transform.rotation, _gameManager.WorldParent);
 				yield return new WaitForSeconds(_delay);

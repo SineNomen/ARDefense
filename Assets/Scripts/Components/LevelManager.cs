@@ -103,7 +103,7 @@ namespace Sojourn.ARDefense.Components {
 		public IPromise CreateBasicLevel() {
 			return _planeSelector.SelectPlane()
 			.Then((ARPlane plane) => {
-				Debug.LogErrorFormat("Plane Selected: {0}", plane);
+				Debug.LogFormat("Plane Selected: {0}", plane);
 				GroundPlane = plane;
 				Ground = Instantiate(_groundPrefab, Vector3.zero, Quaternion.identity, _gameManager.WorldParent).GetComponent<Ground>();
 				Ground.Radius = Mathf.Sqrt(plane.extents.magnitude) * _gameManager.OriginScale;
@@ -133,7 +133,7 @@ namespace Sojourn.ARDefense.Components {
 
 		//use the object placer to let the user put it where they want
 		public IPromise<Base> ChoosePlaceBase() {
-			Debug.LogError("Place Base");
+			Debug.Log("Place Base");
 			return _objectPlacer.PlaceObject<Base>(_basePrefab, Ground);
 		}
 		private IEnumerator SpawnDropships(int count) {
@@ -171,7 +171,7 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnBaseKilled(Base b) {
-			Debug.LogError("OnBaseKilled");
+			Debug.Log("OnBaseKilled");
 			EndGame();
 		}
 

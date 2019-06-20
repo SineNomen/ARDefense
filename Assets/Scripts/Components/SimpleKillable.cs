@@ -30,12 +30,12 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnCollisionEnter(Collision collision) {
-			Debug.LogFormat("{0} Collided with {1}", this.gameObject, collision.gameObject);
+			// Debug.LogFormat("{0} Collided with {1}", this.gameObject, collision.gameObject);
 			OnHit(collision.gameObject);
 		}
 
 		private void OnTriggerEnter(Collider collider) {
-			Debug.LogFormat("{0} Hit {1}", this.gameObject, collider.gameObject);
+			// Debug.LogFormat("{0} Hit {1}", this.gameObject, collider.gameObject);
 			OnHit(collider.gameObject);
 		}
 

@@ -37,12 +37,6 @@ namespace Sojourn.ARDefense.Components {
 		public float CameraHeight { get => DeviceCamera.transform.position.y; }
 
 		private void Awake() {
-			Application.SetStackTraceLogType(LogType.Log, StackTraceLogType.ScriptOnly);
-			Application.SetStackTraceLogType(LogType.Warning, StackTraceLogType.ScriptOnly);
-			Application.SetStackTraceLogType(LogType.Error, StackTraceLogType.ScriptOnly);
-			Application.SetStackTraceLogType(LogType.Exception, StackTraceLogType.ScriptOnly);
-			Application.SetStackTraceLogType(LogType.Assert, StackTraceLogType.ScriptOnly);
-
 			Container.Register<IPersistentDataManager>(new PersistentDataManager()).AsSingleton();
 			Container.Register<IGameManager>(this).AsSingleton();
 		}

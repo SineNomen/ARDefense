@@ -2,6 +2,7 @@ using UnityEngine;
 using Sojourn.PicnicIOC;
 using Sojourn.ARDefense.Interfaces;
 using AOFL.Promises.V1.Interfaces;
+using System.Collections;
 using System.Collections.Generic;
 using System;
 
@@ -22,6 +23,7 @@ namespace Sojourn.ARDefense.Components {
 		[AutoInject]
 		private ILevelManager _levelManager = null;
 		private float _ringRadius = 0.0f;
+		private Coroutine _trackHandle;
 
 		private Dictionary<GameObject, IFFIndicator> _objectMap = new Dictionary<GameObject, IFFIndicator>();
 
@@ -33,7 +35,6 @@ namespace Sojourn.ARDefense.Components {
 			Container.AutoInject(this);
 			_levelManager.OnEnemyCreated += OnEnemyCreated;
 			_levelManager.OnEnemyKilled += OnEnemyKilled;
-			OnPreShow();
 		}
 
 		public IPromise TrackObject(GameObject go, eIFFCategory cat) {
@@ -44,25 +45,21 @@ namespace Sojourn.ARDefense.Components {
 		}
 
 		private void OnPreShow() {
-			if (_gameManager == null) { return; }
-			// Debug.LogFormat("IFFTracker.OnPreShow: {0}, Base: {1}", this.gameObject.name, _levelManager.PlayerBase);
-			if (_levelManager.PlayerBase != null) {
-				if (!_objectMap.ContainsKey(_levelManager.PlayerBase.gameObject)) {
-					TrackObject(_levelManager.PlayerBase.gameObject, eIFFCategory.Friend);
-				}
-			}
-			foreach (GameObject obj in _levelManager.EnemyList) {
-				if (!_objectMap.ContainsKey(obj)) {
-					TrackObject(obj, eIFFCategory.Enemy);
-				}
+			if (_gameManager == null) {
+				Start();
 			}
 			_levelManager.OnLevelEnded += OnLevelEnded;
+			_trackHandle = StartCoroutine(TrackObjects());
+			Debug.LogErrorFormat("+Show: {0}", gameObject.name);
 		}
 
 		private void OnHide() {
 			//delete everything
 			UntrackAll();
 			_levelManager.OnLevelEnded -= OnLevelEnded;
+			if (_trackHandle != null) {
+				StopCoroutine(_trackHandle);
+			}
 		}
 
 		private void UntrackAll() {
@@ -92,14 +89,27 @@ namespace Sojourn.ARDefense.Components {
 			UntrackAll();
 		}
 
-		private void Update() {
-			foreach (GameObject obj in _levelManager.EnemyList) {
-				if (!_objectMap.ContainsKey(obj)) {
-					TrackObject(obj, eIFFCategory.Enemy);
+		private IEnumerator TrackObjects() {
+			int count = 0;
+			while (true) {
+				yield return new WaitForEndOfFrame();
+				foreach (GameObject obj in _levelManager.EnemyList) {
+					TryTrackObject(obj, eIFFCategory.Enemy);
 				}
-				IFFIndicator iff = _objectMap[obj];
-				UpdateObject(obj, iff);
+				if (_levelManager.PlayerBase != null) {
+					TryTrackObject(_levelManager.PlayerBase.gameObject, eIFFCategory.Friend);
+				}
+				count++;
 			}
+		}
+
+		private void TryTrackObject(GameObject obj, eIFFCategory cat) {
+			if (obj == null) { return; }
+			if (!_objectMap.ContainsKey(obj)) {
+				TrackObject(obj, cat);
+			}
+			IFFIndicator iff = _objectMap[obj];
+			UpdateObject(obj, iff);
 		}
 
 		//generator is alwyas in the deadzone for some reason

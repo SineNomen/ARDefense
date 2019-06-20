@@ -57,7 +57,7 @@ namespace Sojourn.ARDefense.Components {
 					obj.BroadcastMessage("OnTargeted", SendMessageOptions.DontRequireReceiver);
 					if (_trackedObject == null && IsEnemy(obj)) {
 						_trackedObject = obj;
-						Debug.LogWarningFormat("Tracked: {0}", _trackedObject);
+						Debug.LogFormat("Tracked: {0}", _trackedObject);
 						_highlightGroup.Show(0.1f);
 						_trackTime = Time.time + _trackingTime;
 						PlaySound(_trackedClip);
@@ -77,7 +77,7 @@ namespace Sojourn.ARDefense.Components {
 						LockedObject = _trackedObject;
 						_highlightGroup.Hide(0.1f);
 						_lockGroup.Show(0.1f);
-						Debug.LogErrorFormat("Locked: {0}", LockedObject);
+						Debug.LogFormat("Locked: {0}", LockedObject);
 						PlaySound(_lockedClip);
 					}
 				}

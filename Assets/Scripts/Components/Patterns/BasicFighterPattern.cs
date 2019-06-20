@@ -98,7 +98,9 @@ namespace Sojourn.ARDefense.Components {
 					}
 					break;
 				case eBasicFighterPatternPhase.Dive:
-					if (distanceToTarget < (_disengageRange * _gameManager.OriginScale)) {
+					float range = _disengageRange;
+					Debug.LogWarningFormat("Diving, distance: {0}, range: {1}", distanceToTarget, range);
+					if (distanceToTarget < range) {
 						newPhase = eBasicFighterPatternPhase.Disengage;
 					}
 					break;
@@ -144,7 +146,7 @@ namespace Sojourn.ARDefense.Components {
 					Quaternion q = Quaternion.LookRotation(pos, this.transform.up);
 					//need to figure out a point on the sphere of orbit
 					_escapeRotation = q;
-					// Debug.LogErrorFormat("Disengage, distance: {0}, angle: {1}, height variance: {2}", distanceToTarget, Quaternion.Angle(this.transform.rotation, _escapeRotation), _orbitHeightVariance);
+					Debug.LogErrorFormat("Disengage, distance: {0}, angle: {1}, height variance: {2}", distanceToTarget, Quaternion.Angle(this.transform.rotation, _escapeRotation), _orbitHeightVariance);
 					break;
 			}
 		}
