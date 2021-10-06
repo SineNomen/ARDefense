@@ -12,19 +12,19 @@ Point the camera at the ground and move around slowly until the game recognizes 
 Then, move the reticule around to "grow" the ground plane, when the reticule is green, press the confirm button
 to start the game. For best results, pay outdoors with as large an area as is comfortable to move about.
 
-Your tower will be placed in the center of the screen. Enemy Droships will appear on the edges of the ground and spawn
-enemy vehicles to attack you tower. Use the weapons you have to defend your tower from the invaders.
+Your tower will be placed in the center of the screen. Enemy Dropships will appear on the edges of the ground and spawn
+enemy vehicles to attack your tower. Use the weapons you have to defend your tower from the invaders.
 
 Currently, Only Android is supported.
 
 
 ## Code Notes
-Dependency Injection is used throughout, see the Interfaces folder Injectable objects, notable examples listed below
+Dependency Injection is used throughout, see the Interfaces folder for Injectable objects, notable examples listed below
 
-Interfaces are used whenever possible. Non-specific implementations are prefixed with Simple___
+Interfaces are used whenever possible. Non-specific implementations are prefixed with "Simple"
 All the Manager obejcts are injected using the IoC Container.
 The enemy movement behaviors can be found in the Patterns folder.
-The Modules folder contains Components meant to be drag and drop. They mostly respond to Broadcast on significant events (see below.)
+The Modules folder contains Components meant to be "drag and drop". They mostly respond to Broadcast on significant events (see below.)
 
 ### GameManager
 Handles most of the game start up and general flow. Contains references to the major AR Components like ARSessionOrigin.
